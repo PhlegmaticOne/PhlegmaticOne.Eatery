@@ -5,7 +5,7 @@
 public class Tomato : Ingredient, IEquatable<Tomato>
 {
     /// <summary>
-    /// Initialzies new cucumber instance
+    /// Initialzies new tomato instance
     /// </summary>
     public Tomato() { }
     /// <summary>

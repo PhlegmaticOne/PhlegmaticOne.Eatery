@@ -6,11 +6,11 @@
     public class Olive : Ingredient, IEquatable<Olive>
     {
         /// <summary>
-        /// Initializes new cucumber instance
+        /// Initializes new olive instance
         /// </summary>
         public Olive() { }
         /// <summary>
-        /// Initialzies new cucumber instance
+        /// Initialzies new olive instance
         /// </summary>
         /// <param name="weight">Specified weight</param>
         /// <param name="value">Specified value</param>
