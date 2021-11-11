@@ -27,9 +27,9 @@ namespace PhlegmaticOne.Eatery.Lib.Storages.Tests
                                         });
                                         builder.WithKeepingIngredientsTypes<DefaultStorageIngredientsConfiguration>(conf =>
                                         {
-                                            conf.With<Cucumber>();
-                                            conf.With<Tomato>();
-                                            conf.With<Olive>();
+                                            conf.With<Cucumber>().WithMaximalValueOfIngredient(100);
+                                            conf.With<Tomato>().WithMaximalValueOfIngredient(100);
+                                            conf.With<Olive>().WithMaximalValueOfIngredient(100);
                                         });
                                         builder.InAmountOf(2);
                                     });
@@ -37,10 +37,12 @@ namespace PhlegmaticOne.Eatery.Lib.Storages.Tests
 
             Assert.IsNotNull(container);
 
-            var allCellars = container.OfStorageType<Cellar>();
-            Assert.IsTrue(container.Count == 2);
-            Assert.IsTrue(allCellars.Count() == 2);
-            Assert.IsTrue(allCellars.All(s => s is not null));
+            var cellar = container.OfStorageType<Cellar>().First();
+            var possibleTypesToKeep = cellar.GetIngredientsKeepingTypes();
+            Assert.IsTrue(possibleTypesToKeep.Count == 3);
+            Assert.AreEqual(100, possibleTypesToKeep[typeof(Cucumber)]);
+            Assert.AreEqual(100, possibleTypesToKeep[typeof(Tomato)]);
+            Assert.AreEqual(100, possibleTypesToKeep[typeof(Olive)]);
         }
     }
 }

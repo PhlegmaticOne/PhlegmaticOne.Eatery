@@ -2,7 +2,7 @@
 /// <summary>
 /// Represents base ingredient for all other ingredients
 /// </summary>
-public abstract class Ingredient
+public abstract class Ingredient : DomainProductToPrepare
 {
     /// <summary>
     /// Initialzies new ingredient instance

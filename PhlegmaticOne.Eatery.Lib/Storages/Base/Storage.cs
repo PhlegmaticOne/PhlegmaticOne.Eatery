@@ -1,4 +1,6 @@
-﻿namespace PhlegmaticOne.Eatery.Lib.Storages;
+﻿using System.Collections.ObjectModel;
+
+namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// <summary>
 /// Represents base storage for other storages
 /// </summary>
@@ -7,7 +9,7 @@ public abstract class Storage
     /// <summary>
     /// Initializes new storage instance
     /// </summary>
-    protected Storage() => (IngredientsKeepingTypes, Temperature) = (new List<Type>(), new StorageTemperature());
+    protected Storage() => (IngredientsKeepingTypes, Temperature) = (new Dictionary<Type, double>(), new StorageTemperature());
     /// <summary>
     /// Initializes new storage instance
     /// </summary>
@@ -28,9 +30,14 @@ public abstract class Storage
     /// </summary>
     public IStorageTemperature Temperature { get; internal set; }
     /// <summary>
-    /// Ingredients keeping types
+    /// Ingredients keeping types with its maximal values to keep
     /// </summary>
-    internal IEnumerable<Type> IngredientsKeepingTypes { get; init; }
+    internal IDictionary<Type, double> IngredientsKeepingTypes { get; init; }
+    /// <summary>
+    /// Gets ingredient keeping types and thei maximal values to keep
+    /// </summary>
+    /// <returns></returns>
+    public IReadOnlyDictionary<Type, double> GetIngredientsKeepingTypes() => new ReadOnlyDictionary<Type, double>(IngredientsKeepingTypes);
     /// <summary>
     /// Gets string representation of storage
     /// </summary>

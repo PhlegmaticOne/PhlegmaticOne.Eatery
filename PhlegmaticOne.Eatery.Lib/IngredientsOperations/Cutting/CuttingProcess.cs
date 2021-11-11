@@ -16,9 +16,7 @@ public class CuttingProcess : IngredientProcess, ICuttingProcess, IEquatable<Cut
     /// </summary>
     /// <param name="timeToFinish">Specified diration of process</param>
     /// <param name="price">Cost of process</param>
-    public CuttingProcess(TimeSpan timeToFinish, Money price) :
-                         base(timeToFinish, price)
-    { }
+    public CuttingProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
     /// <summary>
     /// Cuts an ingredient into ingredients with smaller values
     /// </summary>

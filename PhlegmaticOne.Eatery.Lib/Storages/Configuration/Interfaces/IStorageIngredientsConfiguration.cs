@@ -8,9 +8,13 @@ public interface IStorageIngredientsConfiguration
     /// Adds type of ingredienttto storing types of building storage
     /// </summary>
     /// <typeparam name="TIngredient">Ingredient type</typeparam>
-    void With<TIngredient>();
+    IStorageIngredientsConfiguration With<TIngredient>();
+    /// <summary>
+    /// Sets maximal value that can contain storage of building ingredient type 
+    /// </summary>
+    IStorageIngredientsConfiguration WithMaximalValueOfIngredient(int maximalValueOfIngredient);
     /// <summary>
     /// Gets configured ingredient types
     /// </summary>
-    IEnumerable<Type> Configure();
+    IDictionary<Type, double> Configure();
 }

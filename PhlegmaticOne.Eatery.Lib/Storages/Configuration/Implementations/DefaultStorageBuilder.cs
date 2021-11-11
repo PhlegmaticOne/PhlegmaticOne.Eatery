@@ -5,7 +5,7 @@
 /// <typeparam name="TStorage">Storage type</typeparam>
 public class DefaultStorageBuilder<TStorage> : IStorageBuilder<TStorage> where TStorage : Storage, new()
 {
-    private IEnumerable<Type>? _ingredientTypes;
+    private IDictionary<Type, double>? _ingredientTypes;
     private IStorageTemperature? _storageTemperature;
     private int _amount;
     private StorageLightning _storageLightning;
