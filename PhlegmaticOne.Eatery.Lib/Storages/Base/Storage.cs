@@ -1,15 +1,19 @@
-﻿using System.Collections.ObjectModel;
+﻿using PhlegmaticOne.Eatery.Lib.Helpers;
+using PhlegmaticOne.Eatery.Lib.Ingredients;
+using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// <summary>
 /// Represents base storage for other storages
 /// </summary>
-public abstract class Storage
+public abstract class Storage : IRetrievingCollection<Ingredient>
 {
+    private readonly RetrievingList<Ingredient> _ingredients;
     /// <summary>
     /// Initializes new storage instance
     /// </summary>
-    protected Storage() => (IngredientsKeepingTypes, Temperature) = (new Dictionary<Type, double>(), new StorageTemperature());
+    protected Storage() => (IngredientsKeepingTypes, Temperature, _ingredients) = (new Dictionary<Type, double>(), new StorageTemperature(), new());
     /// <summary>
     /// Initializes new storage instance
     /// </summary>
@@ -30,6 +34,14 @@ public abstract class Storage
     /// </summary>
     public IStorageTemperature Temperature { get; internal set; }
     /// <summary>
+    /// All ingredients in storage
+    /// </summary>
+    public int Count => _ingredients.Count;
+    /// <summary>
+    /// Is collection read only
+    /// </summary>
+    public bool IsReadOnly => false;
+    /// <summary>
     /// Ingredients keeping types with its maximal values to keep
     /// </summary>
     internal IDictionary<Type, double> IngredientsKeepingTypes { get; init; }
@@ -38,6 +50,24 @@ public abstract class Storage
     /// </summary>
     /// <returns></returns>
     public IReadOnlyDictionary<Type, double> GetIngredientsKeepingTypes() => new ReadOnlyDictionary<Type, double>(IngredientsKeepingTypes);
+    public Ingredient RetrieveFirstOrDefault(Func<Ingredient, bool> predicate) => _ingredients.RetrieveFirstOrDefault(predicate);
+
+    public IEnumerable<Ingredient> Retrieve(Func<Ingredient, bool> predicate) => _ingredients.Retrieve(predicate);
+
+    public IEnumerable<Ingredient> RetrieveAll() => _ingredients.RetrieveAll();
+
+    public void Add(Ingredient item) => _ingredients.Add(item);
+
+    public void Clear() => _ingredients.Clear();
+
+    public bool Contains(Ingredient item) => _ingredients.Contains(item);
+
+    public void CopyTo(Ingredient[] array, int arrayIndex) => _ingredients.CopyTo(array, arrayIndex);
+
+    public bool Remove(Ingredient item) => _ingredients.Remove(item);
+
+    public IEnumerator<Ingredient> GetEnumerator() => _ingredients.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => _ingredients.GetEnumerator();
     /// <summary>
     /// Gets string representation of storage
     /// </summary>
@@ -50,9 +80,9 @@ public abstract class Storage
         int result = int.MaxValue;
         foreach (var type in IngredientsKeepingTypes)
         {
-            result ^= type.GetHashCode(); 
+            result ^= type.GetHashCode();
         }
-        return result ^= (Lightning.GetHashCode() + Temperature.MaximalTemperature + 
+        return result ^= (Lightning.GetHashCode() + Temperature.MaximalTemperature +
                           Temperature.MinimalTemperature + Temperature.AverageTemperatureAnytime);
     }
     /// <summary>

@@ -4,12 +4,12 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents base operation over any ingredient
 /// </summary>
-public abstract class IngredientProcess
+public abstract class DomainProductProcess
 {
     /// <summary>
     /// Initialzies new ingredient process
     /// </summary>
-    protected IngredientProcess() => Price = new Money(0, "USD");
+    protected DomainProductProcess() => Price = new Money(0, "USD");
     /// <summary>
     /// Initializes new ingredient process
     /// </summary>
@@ -17,7 +17,7 @@ public abstract class IngredientProcess
     /// <param name="price">Price of process</param>
     /// <exception cref="ArgumentNullException">Money is null</exception>
     /// <exception cref="ArgumentException">Time is 0</exception>
-    protected IngredientProcess(TimeSpan timeToFinish, Money price)
+    protected DomainProductProcess(TimeSpan timeToFinish, Money price)
     {
         TimeToFinish = timeToFinish != TimeSpan.Zero ? timeToFinish :
             throw new ArgumentException("Process cannot last 0 time", nameof(timeToFinish));
@@ -34,7 +34,7 @@ public abstract class IngredientProcess
     /// <summary>
     /// Check equality of ingredient process with specified object
     /// </summary>
-    public override bool Equals(object? obj) => obj is IngredientProcess ingredientProcess &&
+    public override bool Equals(object? obj) => obj is DomainProductProcess ingredientProcess &&
                                                 TimeToFinish == ingredientProcess.TimeToFinish &&
                                                 Price == ingredientProcess.Price;
     /// <summary>

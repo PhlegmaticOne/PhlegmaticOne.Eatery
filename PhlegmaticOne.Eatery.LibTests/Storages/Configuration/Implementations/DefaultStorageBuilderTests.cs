@@ -35,6 +35,7 @@ namespace PhlegmaticOne.Eatery.Lib.Storages.Tests
                                     });
             var container = strorageBuilder.Build();
 
+
             Assert.IsNotNull(container);
 
             var cellar = container.OfStorageType<Cellar>().First();

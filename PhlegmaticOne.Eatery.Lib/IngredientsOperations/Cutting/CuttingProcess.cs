@@ -5,7 +5,7 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents cutting process for ingredients
 /// </summary>
-public class CuttingProcess : IngredientProcess, ICuttingProcess, IEquatable<CuttingProcess>
+public class CuttingProcess : DomainProductProcess, ICuttingProcess, IEquatable<CuttingProcess>
 {
     /// <summary>
     /// Initialzes new cutting process
@@ -27,7 +27,7 @@ public class CuttingProcess : IngredientProcess, ICuttingProcess, IEquatable<Cut
     /// <exception cref="ArgumentException">Value is greater than ingredient to cut value</exception>
     /// <exception cref="ArgumentNullException">Ingredient instance to cut is null</exception>
     public IEnumerable<TIngredient> CutTo<TIngredient>(TIngredient ingredient, double value)
-                                                       where TIngredient : Ingredient, new()
+                                                       where TIngredient : DomainProductToPrepare, new()
     {
         if (ingredient is null)
         {

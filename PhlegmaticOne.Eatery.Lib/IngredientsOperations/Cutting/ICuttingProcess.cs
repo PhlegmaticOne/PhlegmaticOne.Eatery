@@ -10,5 +10,5 @@ public interface ICuttingProcess
     /// Cuts ingredient of type TIngredient into smaller ingredients with values equal to specified value
     /// </summary>
     IEnumerable<TIngredient> CutTo<TIngredient>(TIngredient ingredient, double value)
-                                                where TIngredient : Ingredient, new();
+                                                where TIngredient : DomainProductToPrepare, new();
 }

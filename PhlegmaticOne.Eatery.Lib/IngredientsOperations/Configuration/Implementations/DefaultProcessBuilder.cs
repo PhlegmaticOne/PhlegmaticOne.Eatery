@@ -5,7 +5,7 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// Represents prepared default ingredient process builder
 /// </summary>
 /// <typeparam name="TProcess">Ingredient process type</typeparam>
-public class DefaultProcessBuilder<TProcess> : IProcessBuilder<TProcess> where TProcess : IngredientProcess, new()
+public class DefaultProcessBuilder<TProcess> : IProcessBuilder<TProcess> where TProcess : DomainProductProcess, new()
 {
     private Money?_money;
     private TimeSpan _timeToFinish;

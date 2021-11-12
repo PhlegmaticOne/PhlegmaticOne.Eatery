@@ -5,9 +5,9 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// Represents prepared default ingredient process container builder instance
 /// </summary>
 /// <typeparam name="TProcess">Ingredient process type</typeparam>
-public class DefaultProcessContainerBuilder<TProcess> : IProcessContainerBuilder<TProcess> where TProcess : IngredientProcess, new()
+public class DefaultProcessContainerBuilder<TProcess> : IProcessContainerBuilder<TProcess> where TProcess : DomainProductProcess, new()
 {
-    private readonly Dictionary<Type, IngredientProcess> _possibleTypesToProcess;
+    private readonly Dictionary<Type, DomainProductProcess> _possibleTypesToProcess;
     private readonly IProcessBuilder<TProcess> _processIntializer;
     /// <summary>
     /// Initializes new default ingredient process container builder instance
@@ -26,7 +26,7 @@ public class DefaultProcessContainerBuilder<TProcess> : IProcessContainerBuilder
     /// <param name="processBuilderAction">Initializing of new ingredient process of specified type</param>
     /// <returns>Current default ingredient process container builder instance</returns>
     public IProcessContainerBuilder<TProcess> RegisterAsPossibleToProcess<TIngredient>(
-        Action<IProcessBuilder<TProcess>> processBuilderAction) where TIngredient : Ingredient
+        Action<IProcessBuilder<TProcess>> processBuilderAction) where TIngredient : DomainProductToPrepare
     {
         processBuilderAction.Invoke(_processIntializer);
         _possibleTypesToProcess.Add(typeof(TIngredient), _processIntializer.Build());

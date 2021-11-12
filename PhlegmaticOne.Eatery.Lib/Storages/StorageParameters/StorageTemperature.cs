@@ -41,7 +41,7 @@ public class StorageTemperature : IStorageTemperature, IEquatable<StorageTempera
     /// Checks equality of storage temperature with other specified storage temperature
     /// </summary>
     public bool Equals(StorageTemperature? other) => (other is not null) &&
-                                                    MaximalTemperature == other.MinimalTemperature &&
+                                                    MaximalTemperature == other.MaximalTemperature &&
                                                     MinimalTemperature == other.MinimalTemperature &&
                                                     AverageTemperatureAnytime == other.AverageTemperatureAnytime;
     /// <summary>

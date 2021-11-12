@@ -5,7 +5,7 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// Represents contract for ingredient process builder
 /// </summary>
 /// <typeparam name="TProcess">Ingredient process type</typeparam>
-public interface IProcessBuilder<TProcess> where TProcess : IngredientProcess
+public interface IProcessBuilder<TProcess> where TProcess : DomainProductProcess
 {
     /// <summary>
     /// Sets cost to a building ingredient process

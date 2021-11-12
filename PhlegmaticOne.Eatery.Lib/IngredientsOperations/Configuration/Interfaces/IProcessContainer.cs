@@ -10,5 +10,5 @@ public interface IProcessContainer
     /// Gets process for ingredient type
     /// </summary>
     /// <typeparam name="TIngredient">Type of ingredient</typeparam>
-    IngredientProcess GetProcessOf<TIngredient>() where TIngredient : Ingredient;
+    DomainProductProcess GetProcessOf<TIngredient>() where TIngredient : DomainProductToPrepare;
 }

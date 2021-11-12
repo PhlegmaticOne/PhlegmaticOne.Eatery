@@ -56,7 +56,7 @@ public class DefaultStorageContainer : IStorageContainer, IEnumerable<Storage>
     /// <summary>
     /// Gets string representation of default storage container
     /// </summary>
-    public override string ToString() => string.Format("Registered storages: {0}", string.Join(',', _storages));
+    public override string ToString() => string.Format("Count: {0}", _storages.Count());
     /// <summary>
     /// Gets hash code of default storage container
     /// </summary>

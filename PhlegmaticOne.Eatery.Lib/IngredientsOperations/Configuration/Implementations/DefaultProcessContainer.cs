@@ -6,36 +6,36 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents prepared default process container for ingredient processes
 /// </summary>
-public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePair<Type, IngredientProcess>>
+public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePair<Type, DomainProductProcess>>
 {
     /// <summary>
     /// Possible ingredient types, instances of which can be operated by specified process
     /// </summary>
-    private readonly IDictionary<Type, IngredientProcess> _possibleTypesToProcess;
+    private readonly IDictionary<Type, DomainProductProcess> _possibleTypesToProcess;
     /// <summary>
     /// Initializes new default process container
     /// </summary>
     /// <param name="possibleTypesToProcess">Possible ingredient types, instances of which can be operated by specified process</param>
     /// <exception cref="ArgumentNullException">PossibleTypesToProcess is null</exception>
-    public DefaultProcessContainer(IDictionary<Type, IngredientProcess> possibleTypesToProcess) =>
+    public DefaultProcessContainer(IDictionary<Type, DomainProductProcess> possibleTypesToProcess) =>
         _possibleTypesToProcess = possibleTypesToProcess ?? throw new ArgumentNullException(nameof(possibleTypesToProcess));
     /// <summary>
     /// Returns default builder for default container of specifiedingredient process type
     /// </summary>
     /// <typeparam name="TProcess">Ingredient process type</typeparam>
     public static IProcessContainerBuilder<TProcess> GetDefaultContainerBuilder<TProcess>()
-                                                  where TProcess : IngredientProcess, new() =>
+                                                  where TProcess : DomainProductProcess, new() =>
                   new DefaultProcessContainerBuilder<TProcess>(new DefaultProcessBuilder<TProcess>());
     /// <summary>
     /// Gets enumerator of default container
     /// </summary>
-    public IEnumerator<KeyValuePair<Type, IngredientProcess>> GetEnumerator() => _possibleTypesToProcess.GetEnumerator();
+    public IEnumerator<KeyValuePair<Type, DomainProductProcess>> GetEnumerator() => _possibleTypesToProcess.GetEnumerator();
 
     /// <summary>
     /// Gets process for ingredient type
     /// </summary>
     /// <typeparam name="TIngredient">Type of ingredient</typeparam>
-    public IngredientProcess GetProcessOf<TIngredient>() where TIngredient : Ingredient
+    public DomainProductProcess GetProcessOf<TIngredient>() where TIngredient : DomainProductToPrepare
     {
         if (_possibleTypesToProcess.TryGetValue(typeof(TIngredient), out var process))
         {
@@ -49,7 +49,7 @@ public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePa
     /// <typeparam name="TIngredient">Ingredient type</typeparam>
     /// <param name="process">Instanceof process</param>
     /// <returns>False - ingredient type is already registered or instance of process is null</returns>
-    internal bool TryAdd<TIngredient>(IngredientProcess process) where TIngredient : Ingredient, new() =>
+    internal bool TryAdd<TIngredient>(DomainProductProcess process) where TIngredient : Ingredient, new() =>
         process is null || _possibleTypesToProcess.TryAdd(typeof(TIngredient), process);
     /// <summary>
     /// Tries to remove ingredient type and its process
@@ -64,7 +64,7 @@ public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePa
     /// <typeparam name="TProcess">Ingredient process type</typeparam>
     /// <param name="process">New process to set</param>
     internal bool TryUpdate<TIngredient, TProcess>(TProcess process)
-                  where TProcess : IngredientProcess, new()
+                  where TProcess : DomainProductProcess, new()
                   where TIngredient : Ingredient, new()
     {
         if (process is null) return false;
@@ -83,7 +83,7 @@ public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePa
     /// <summary>
     /// Gets string representation of default process container
     /// </summary>
-    public override string ToString() => string.Format("Registered ingredients: {0}", string.Join(',', _possibleTypesToProcess.Keys));
+    public override string ToString() => string.Format("Count: {0}", _possibleTypesToProcess.Count);
     /// <summary>
     /// Gets hash code of default process container
     /// </summary>
