@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.Eatery.Lib.Helpers;
+﻿using PhlegmaticOne.Eatery.Lib.Dishes;
+using PhlegmaticOne.Eatery.Lib.Helpers;
 using PhlegmaticOne.Eatery.Lib.Ingredients;
 
 namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
@@ -13,11 +14,10 @@ public abstract class IngredientProcess : DomainProductProcess
 
     protected IngredientProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price)
     {
-    
+
     }
-    internal Type CurrentIngredientType { get; set; }
-    public abstract IEnumerable<Ingredient> ProcessOver(Ingredient ingredient);
-    
+    internal Type? CurrentIngredientType { get; set; }
+    internal abstract void Update(Dish dish, Ingredient ingredient);
     /// <summary>
     /// Check equality of ingredient process with specified object
     /// </summary>

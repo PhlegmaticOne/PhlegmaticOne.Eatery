@@ -1,19 +1,17 @@
-﻿using PhlegmaticOne.Eatery.Lib.Helpers;
-using PhlegmaticOne.Eatery.Lib.Ingredients;
-using System.Collections;
+﻿using PhlegmaticOne.Eatery.Lib.Ingredients;
 using System.Collections.ObjectModel;
 
 namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// <summary>
 /// Represents base storage for other storages
 /// </summary>
-public abstract class Storage : IRetrievingCollection<Ingredient>
+public abstract class Storage
 {
-    private readonly RetrievingList<Ingredient> _ingredients;
+    private readonly Dictionary<Type, double> _keepingIngredients = new();
     /// <summary>
     /// Initializes new storage instance
     /// </summary>
-    protected Storage() => (IngredientsKeepingTypes, Temperature, _ingredients) = (new Dictionary<Type, double>(), new StorageTemperature(), new());
+    protected Storage() => (IngredientsKeepingTypes, Temperature) = (new Dictionary<Type, double>(), new StorageTemperature());
     /// <summary>
     /// Initializes new storage instance
     /// </summary>
@@ -36,38 +34,53 @@ public abstract class Storage : IRetrievingCollection<Ingredient>
     /// <summary>
     /// All ingredients in storage
     /// </summary>
-    public int Count => _ingredients.Count;
-    /// <summary>
-    /// Is collection read only
-    /// </summary>
-    public bool IsReadOnly => false;
+    public int Count => IngredientsKeepingTypes.Count;
+    private IDictionary<Type, double> _ingredientsKeepingTypes;
     /// <summary>
     /// Ingredients keeping types with its maximal values to keep
     /// </summary>
-    internal IDictionary<Type, double> IngredientsKeepingTypes { get; init; }
+    internal IDictionary<Type, double> IngredientsKeepingTypes
+    {
+        get => _ingredientsKeepingTypes;
+        init
+        {
+            foreach (var type in value.Keys)
+            {
+                _keepingIngredients.Add(type, 0);
+            }
+            _ingredientsKeepingTypes = value;
+        }
+    }
+    public bool TryAdd(Type ingredientType, double weight)
+    {
+        if (weight <= 0) return false;
+        if(_keepingIngredients.TryGetValue(ingredientType, out double existingWeight) == false) return false;
+        if (IngredientsKeepingTypes.TryGetValue(ingredientType, out double maximalWeight) == false) return false;
+        var newWeight = existingWeight + weight;
+        if (newWeight > maximalWeight) return false;
+
+        _keepingIngredients.Remove(ingredientType);
+        _keepingIngredients.Add(ingredientType, newWeight);
+
+        return true;
+    }
+    public Ingredient TryRetrieve(Type ingredientType, double weight)
+    {
+        if (weight <= 0) return default;
+        if (_keepingIngredients.TryGetValue(ingredientType, out double existingWeight))
+        {
+            if(weight > existingWeight) return null;
+            _keepingIngredients.Remove(ingredientType);
+            _keepingIngredients.Add(ingredientType, existingWeight - weight);
+            return Activator.CreateInstance(ingredientType, weight, weight) as Ingredient;
+        }
+        return default;
+    }
     /// <summary>
     /// Gets ingredient keeping types and thei maximal values to keep
     /// </summary>
     /// <returns></returns>
     public IReadOnlyDictionary<Type, double> GetIngredientsKeepingTypes() => new ReadOnlyDictionary<Type, double>(IngredientsKeepingTypes);
-    public Ingredient RetrieveFirstOrDefault(Func<Ingredient, bool> predicate) => _ingredients.RetrieveFirstOrDefault(predicate);
-
-    public IEnumerable<Ingredient> Retrieve(Func<Ingredient, bool> predicate) => _ingredients.Retrieve(predicate);
-
-    public IEnumerable<Ingredient> RetrieveAll() => _ingredients.RetrieveAll();
-
-    public void Add(Ingredient item) => _ingredients.Add(item);
-
-    public void Clear() => _ingredients.Clear();
-
-    public bool Contains(Ingredient item) => _ingredients.Contains(item);
-
-    public void CopyTo(Ingredient[] array, int arrayIndex) => _ingredients.CopyTo(array, arrayIndex);
-
-    public bool Remove(Ingredient item) => _ingredients.Remove(item);
-
-    public IEnumerator<Ingredient> GetEnumerator() => _ingredients.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => _ingredients.GetEnumerator();
     /// <summary>
     /// Gets string representation of storage
     /// </summary>

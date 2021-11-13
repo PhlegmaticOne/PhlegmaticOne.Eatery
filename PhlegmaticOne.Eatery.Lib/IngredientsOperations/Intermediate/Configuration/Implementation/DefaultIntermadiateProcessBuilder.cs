@@ -15,7 +15,7 @@ public class DefaultIntermadiateProcessBuilder<TProcess> : IIntermediateProcessB
     }
     public IIntermediateProcessBuilder<TProcess> WithCost(Money money)
     {
-        _money = money;
+        _money = Money.ConvertToUSD(money);
         return this;
     }
     public void WithTimeToFinish(TimeSpan timeToFinish)

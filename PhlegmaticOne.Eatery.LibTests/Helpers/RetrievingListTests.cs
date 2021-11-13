@@ -21,8 +21,10 @@ namespace PhlegmaticOne.Eatery.Lib.Helpers.Tests
         [TestMethod()]
         public void AddTest()
         {
-            var list = new RetrievingList<Cellar>();
-            list.Add(new Cellar(StorageLightning.Darkness, new StorageTemperature(-12, 122, 22)));
+            var list = new RetrievingList<Cellar>
+            {
+                new Cellar(StorageLightning.Darkness, new StorageTemperature(-12, 122, 22))
+            };
             Assert.AreEqual(1, list.Count);
         }
 

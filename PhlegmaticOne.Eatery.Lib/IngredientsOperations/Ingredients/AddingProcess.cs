@@ -1,11 +1,11 @@
-﻿using PhlegmaticOne.Eatery.Lib.Helpers;
+﻿using PhlegmaticOne.Eatery.Lib.Dishes;
+using PhlegmaticOne.Eatery.Lib.Helpers;
 using PhlegmaticOne.Eatery.Lib.Ingredients;
 
 namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 
 public class AddingProcess : IngredientProcess
 {
-    private DomainProductToPrepare _productToPrepare;
     public AddingProcess()
     {
     }
@@ -14,15 +14,9 @@ public class AddingProcess : IngredientProcess
     {
     }
 
-    public void Add(DomainProductToPrepare domainProductToPrepare)
+    internal override void Update(Dish dish, Ingredient ingredient)
     {
-        _productToPrepare = domainProductToPrepare;
+        dish.Price += Price * 1.1m;
+        dish.Weight += ingredient.Weight;
     }
-
-    public override IEnumerable<Ingredient> ProcessOver(Ingredient ingredient)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal DomainProductToPrepare GetResult() => _productToPrepare;
 }

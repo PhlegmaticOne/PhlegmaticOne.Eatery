@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 
-public class DomainProductProcess
+public abstract class DomainProductProcess
 {
     /// <summary>
     /// Initialzies new ingredient process
@@ -29,4 +29,5 @@ public class DomainProductProcess
     /// Cost of process
     /// </summary>
     public Money Price { get; internal set; }
+
 }

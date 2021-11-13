@@ -21,7 +21,7 @@ public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
         var ingredientTypes = new List<Type>();
         foreach (var process in _processesToPrepare)
         {
-            if(process is IngredientProcess ingredientProcess)
+            if (process is IngredientProcess ingredientProcess)
             {
                 ingredientTypes.Add(ingredientProcess.CurrentIngredientType);
             }

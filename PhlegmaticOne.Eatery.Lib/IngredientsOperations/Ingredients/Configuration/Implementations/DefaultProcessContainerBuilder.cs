@@ -1,6 +1,4 @@
-﻿using PhlegmaticOne.Eatery.Lib.Ingredients;
-
-namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
+﻿namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents prepared default ingredient process container builder instance
 /// </summary>

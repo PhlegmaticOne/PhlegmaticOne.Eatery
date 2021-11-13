@@ -17,7 +17,7 @@ public class DefaultProcessBuilder<TProcess> : IIngredientProcessBuilder<TProces
     }
     public IIngredientProcessBuilder<TProcess> WithCost(Money money)
     {
-        _money = money;
+        _money = Money.ConvertToUSD(money);
         return this;
     }
     public IIngredientProcessBuilder<TProcess> WithTimeToFinish(TimeSpan timeToFinish)

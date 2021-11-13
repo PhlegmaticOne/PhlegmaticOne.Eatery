@@ -12,7 +12,7 @@ public class DefaultIntermediateProcessContainer : IIntermediateProcessContainer
     public TProcess GetProcess<TProcess>(IEnumerable<Type> preferableTypesToProcess)
                                         where TProcess : IntermediateProcess, new()
     {
-        if(_intermediateProcesses.TryGetValue(typeof(TProcess), out var intermediateProcesses))
+        if (_intermediateProcesses.TryGetValue(typeof(TProcess), out var intermediateProcesses))
         {
             var maxFittedTypes = int.MaxValue;
             var fittedProcess = intermediateProcesses.Last();
@@ -32,9 +32,9 @@ public class DefaultIntermediateProcessContainer : IIntermediateProcessContainer
 
     public bool TryAdd<TProcess>(TProcess process) where TProcess : IntermediateProcess, new()
     {
-        if(_intermediateProcesses.TryGetValue(typeof(TProcess), out var intermediateProcess))
+        if (_intermediateProcesses.TryGetValue(typeof(TProcess), out var intermediateProcess))
         {
-            if(intermediateProcess.Contains(process) == false)
+            if (intermediateProcess.Contains(process) == false)
             {
                 intermediateProcess.Add(process);
                 return true;
@@ -53,7 +53,7 @@ public class DefaultIntermediateProcessContainer : IIntermediateProcessContainer
         if (_intermediateProcesses.TryGetValue(typeof(TProcess), out var intermediateProcess))
         {
             var fitted = intermediateProcess.FirstOrDefault(p => p.Price == process.Price && p.TimeToFinish == process.TimeToFinish);
-            if(fitted is not null)
+            if (fitted is not null)
             {
                 intermediateProcess.Remove(fitted);
                 intermediateProcess.Add(process);

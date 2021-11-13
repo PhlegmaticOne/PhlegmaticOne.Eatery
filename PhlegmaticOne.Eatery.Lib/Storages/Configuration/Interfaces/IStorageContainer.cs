@@ -9,7 +9,7 @@ public interface IStorageContainer
     /// </summary>
     /// <typeparam name="TStorage">Storage type</typeparam>
     /// <param name="predicate">Conditions of searching</param>
-    TStorage FirstOrDefaultStorage<TStorage>(Func<TStorage, bool> predicate) where TStorage: Storage, new();
+    TStorage FirstOrDefaultStorage<TStorage>(Func<TStorage, bool> predicate) where TStorage : Storage, new();
     /// <summary>
     /// Returns all storages of specified type
     /// </summary>

@@ -37,9 +37,9 @@ public class DefaultProcessContainer : IIngredientProcessContainer, IEnumerable<
     public bool TryAdd<TProcess, TIngredient>(TProcess process) where TIngredient : Ingredient, new()
                                                                   where TProcess : IngredientProcess, new()
     {
-        if(_possibleTypesToProcess.TryGetValue(process.GetType(), out var ingredientProcesses))
+        if (_possibleTypesToProcess.TryGetValue(process.GetType(), out var ingredientProcesses))
         {
-            if(ingredientProcesses.Contains(process) == false)
+            if (ingredientProcesses.Contains(process) == false)
             {
                 ingredientProcesses.Add(process);
                 return true;
@@ -54,10 +54,10 @@ public class DefaultProcessContainer : IIngredientProcessContainer, IEnumerable<
     public bool TryRemove<TProcess, TIngredient>() where TIngredient : Ingredient, new()
                                                      where TProcess : IngredientProcess, new()
     {
-        if(_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var ingredientProcesses))
+        if (_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var ingredientProcesses))
         {
             var fitted = ingredientProcesses.FirstOrDefault(p => p.CurrentIngredientType == typeof(TProcess));
-            if(fitted != null)
+            if (fitted != null)
             {
                 ingredientProcesses.Remove(fitted);
                 return true;
@@ -76,10 +76,10 @@ public class DefaultProcessContainer : IIngredientProcessContainer, IEnumerable<
                   where TIngredient : Ingredient, new()
     {
         if (process is null) return false;
-        if(_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var ingredientProcesses))
+        if (_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var ingredientProcesses))
         {
             var fitted = ingredientProcesses.FirstOrDefault(p => p.CurrentIngredientType == typeof(TIngredient));
-            if(fitted is not null)
+            if (fitted is not null)
             {
                 ingredientProcesses.Remove(fitted);
                 ingredientProcesses.Add(process);

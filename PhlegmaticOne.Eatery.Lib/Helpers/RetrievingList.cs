@@ -8,8 +8,8 @@ public class RetrievingList<T> : IRetrievingCollection<T>
     public RetrievingList() => _list = new List<T>();
     public RetrievingList(IEnumerable<T> entities)
     {
-        if(entities is null)
-        { 
+        if (entities is null)
+        {
             throw new ArgumentNullException(nameof(entities));
         }
         _list = entities.ToList();
@@ -18,7 +18,7 @@ public class RetrievingList<T> : IRetrievingCollection<T>
     public bool IsReadOnly => false;
     public void Add(T entity)
     {
-        if(entity is not null)
+        if (entity is not null)
         {
             _list.Add(entity);
         }
@@ -26,7 +26,7 @@ public class RetrievingList<T> : IRetrievingCollection<T>
     public T RetrieveFirstOrDefault(Func<T, bool> predicate)
     {
         var finded = _list.FirstOrDefault(predicate);
-        if(finded is not null)
+        if (finded is not null)
         {
             _list.Remove(finded);
             return finded;
