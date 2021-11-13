@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Dishes\Configurations\" />
     <Folder Include="Dishes\Implementations\" />
-    <Folder Include="EateryEquipment\Configuration\Implementations\" />
   </ItemGroup>
 
 </Project>

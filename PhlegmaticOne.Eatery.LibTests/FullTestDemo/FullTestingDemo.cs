@@ -1,14 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PhlegmaticOne.Eatery.Lib.EateryEquipment;
 using PhlegmaticOne.Eatery.Lib.Helpers;
 using PhlegmaticOne.Eatery.Lib.Ingredients;
 using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 using PhlegmaticOne.Eatery.Lib.Recipies;
 using PhlegmaticOne.Eatery.Lib.Storages;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PhlegmaticOne.Eatery.LibTests.FullTestDemo;
 [TestClass]
@@ -42,6 +40,12 @@ public class FullTestingDemo
                 builder.SetDefaultProcess(new Money(20, "RUB"), TimeSpan.FromMinutes(1));
             })
             .Build();
+
+        var productionCapacityContainer =
+                    DefaultProductionCapacityContainer.GetDefaultProductionCapacityContainerBuilder()
+                        .SetMaximalIngredientsToProcess<CuttingProcess>(3)
+                        .SetMaximalIngredientsToProcess<MixingProcess>(5)
+                    .Build();
 
         var strorageContainer = DefaultStorageContainer.GetDefaultStorageContainerBuilder()
             .RegisterStorage<Cellar, DefaultStorageBuilder<Cellar>>(builder =>
@@ -94,9 +98,10 @@ public class FullTestingDemo
             )
             .Create();
 
-        var recipeController = new RecipeController(recipe, strorageContainer);
-        var dish = recipeController.Prepare();
-        Assert.IsNotNull(dish);
-        Assert.AreEqual("VegetableSalad", dish.Name);
+        var recipeController = new RecipeController(recipe, strorageContainer, productionCapacityContainer);
+        var prepareResult = recipeController.Prepare();
+        Assert.IsNotNull(prepareResult);
+        Assert.IsTrue(prepareResult.PrepareResultType == PrepareResultType.NotEnoughProductionCapacity);
+        Assert.IsNull(prepareResult.Dish);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.Eatery.Lib.Dishes;
+using PhlegmaticOne.Eatery.Lib.EateryEquipment;
 using PhlegmaticOne.Eatery.Lib.Helpers;
 using PhlegmaticOne.Eatery.Lib.Ingredients;
 using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
@@ -10,13 +11,15 @@ public class RecipeController
 {
     private readonly Recipe _recipe;
     private readonly IStorageContainer _storageContainer;
+    private readonly IProductionCapacityContainer _productionCapacityContainer;
 
-    public RecipeController(Recipe recipe, IStorageContainer storageContainer)
+    public RecipeController(Recipe recipe, IStorageContainer storageContainer, IProductionCapacityContainer productionCapacityContainer)
     {
         _recipe = recipe ?? throw new ArgumentNullException(nameof(recipe));
         _storageContainer = storageContainer ?? throw new ArgumentNullException(nameof(storageContainer));
+        _productionCapacityContainer = productionCapacityContainer;
     }
-    public Dish Prepare()
+    public PrepareResult Prepare()
     {
         var dish = new Dish(new Money(0, "USD"), 0, _recipe.Name);
         var neededIngredientsInfo = _recipe.GetIngredientsTakesPartInPreparing();
@@ -26,6 +29,11 @@ public class RecipeController
         while (processesToPrepare.Any())
         {
             var process = processesToPrepare.Dequeue();
+            _productionCapacityContainer.DecreaseCapacity(process.GetType());
+            if (_productionCapacityContainer.GetCurrentCapacityOfProcess(process.GetType()) == 0)
+            {
+                return new PrepareResult(null, PrepareResultType.NotEnoughProductionCapacity);
+            }
             if (process is IngredientProcess ingredientProcess)
             {
                 if(ingredientProcess is AddingProcess addingProcess)
@@ -34,7 +42,7 @@ public class RecipeController
                 }
                 if(necessaryIngredient is null)
                 {
-                    throw new InvalidOperationException($"There are not enough of {ingredientProcess.CurrentIngredientType?.Name} in all storages");
+                    return new PrepareResult(null, PrepareResultType.NotEnoughIngredients);
                 }
                 ingredientProcess.Update(dish, necessaryIngredient);
             }
@@ -43,9 +51,9 @@ public class RecipeController
                 intermediateProcess.Update(dish);
             }
         }
-        return dish;
+        return new PrepareResult(dish, PrepareResultType.Success);
     }
-    private Ingredient GetIngredient(AddingProcess addingProcess, IEnumerable<Storage> storages,
+    private static Ingredient GetIngredient(AddingProcess addingProcess, IEnumerable<Storage> storages,
                                      IReadOnlyDictionary<Type, double> neededIngredientsInfo)
     {
         var processingIngredientType = addingProcess.CurrentIngredientType;
@@ -60,4 +68,21 @@ public class RecipeController
         }
         return null;
     }
+}
+
+public class PrepareResult
+{
+    public PrepareResult(Dish dish, PrepareResultType prepareResultType)
+    {
+        Dish = dish;
+        PrepareResultType = prepareResultType;
+    }
+    public Dish Dish { get; }
+    public PrepareResultType PrepareResultType { get; }
+}
+public enum PrepareResultType
+{
+    Success,
+    NotEnoughIngredients,
+    NotEnoughProductionCapacity,
 }
