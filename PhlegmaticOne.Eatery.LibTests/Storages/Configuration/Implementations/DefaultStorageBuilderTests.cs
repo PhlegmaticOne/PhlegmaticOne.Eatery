@@ -16,23 +16,23 @@ namespace PhlegmaticOne.Eatery.Lib.Storages.Tests
         public void BuildTest()
         {
             var strorageBuilder = DefaultStorageContainer.GetDefaultStorageContainerBuilder()
-                                    .RegisterStorage<Cellar, DefaultStorageBuilder<Cellar>>(builder =>
-                                    {
-                                        builder.WithLightning(StorageLightning.Darkness);
-                                        builder.WithTemperarure<DefaultStorageTemperatureConfiguration<StorageTemperature>>(conf =>
-                                        {
-                                            conf.WithMinimalTemperature(-20);
-                                            conf.WithMaximalTemperature(40);
-                                            conf.WithAverageTemperature(30);
-                                        });
-                                        builder.WithKeepingIngredientsTypes<DefaultStorageIngredientsConfiguration>(conf =>
-                                        {
-                                            conf.With<Cucumber>().WithMaximalValueOfIngredient(100);
-                                            conf.With<Tomato>().WithMaximalValueOfIngredient(100);
-                                            conf.With<Olive>().WithMaximalValueOfIngredient(100);
-                                        });
-                                        builder.InAmountOf(2);
-                                    });
+                .RegisterStorage<Cellar, DefaultStorageBuilder<Cellar>>(builder =>
+                {
+                    builder.WithLightning(StorageLightning.Darkness);
+                    builder.WithTemperarure<DefaultStorageTemperatureConfiguration<StorageTemperature>>(conf =>
+                    {
+                        conf.WithMinimalTemperature(-20);
+                        conf.WithMaximalTemperature(40);
+                        conf.WithAverageTemperature(30);
+                    });
+                    builder.WithKeepingIngredientsTypes<DefaultStorageIngredientsConfiguration>(conf =>
+                    {
+                        conf.With<Cucumber>().WithMaximalValueOfIngredient(100);
+                        conf.With<Tomato>().WithMaximalValueOfIngredient(100);
+                        conf.With<Olive>().WithMaximalValueOfIngredient(100);
+                    });
+                    builder.InAmountOf(2);
+                });
             var container = strorageBuilder.Build();
 
 

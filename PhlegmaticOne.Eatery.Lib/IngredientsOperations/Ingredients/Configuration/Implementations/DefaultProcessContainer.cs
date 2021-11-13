@@ -6,75 +6,97 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents prepared default process container for ingredient processes
 /// </summary>
-public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePair<Type, DomainProductProcess>>
+public class DefaultProcessContainer : IIngredientProcessContainer, IEnumerable<KeyValuePair<Type, IList<IngredientProcess>>>
 {
     /// <summary>
     /// Possible ingredient types, instances of which can be operated by specified process
     /// </summary>
-    private readonly IDictionary<Type, DomainProductProcess> _possibleTypesToProcess;
+    private readonly IDictionary<Type, IList<IngredientProcess>> _possibleTypesToProcess;
     /// <summary>
     /// Initializes new default process container
     /// </summary>
     /// <param name="possibleTypesToProcess">Possible ingredient types, instances of which can be operated by specified process</param>
     /// <exception cref="ArgumentNullException">PossibleTypesToProcess is null</exception>
-    public DefaultProcessContainer(IDictionary<Type, DomainProductProcess> possibleTypesToProcess) =>
+    public DefaultProcessContainer(IDictionary<Type, IList<IngredientProcess>> possibleTypesToProcess) =>
         _possibleTypesToProcess = possibleTypesToProcess ?? throw new ArgumentNullException(nameof(possibleTypesToProcess));
     /// <summary>
     /// Returns default builder for default container of specifiedingredient process type
     /// </summary>
     /// <typeparam name="TProcess">Ingredient process type</typeparam>
-    public static IProcessContainerBuilder<TProcess> GetDefaultContainerBuilder<TProcess>()
-                                                  where TProcess : DomainProductProcess, new() =>
-                  new DefaultProcessContainerBuilder<TProcess>(new DefaultProcessBuilder<TProcess>());
+    public static IIngredientProcessContainerBuilder GetDefaultContainerBuilder() => new DefaultProcessContainerBuilder();
     /// <summary>
     /// Gets enumerator of default container
     /// </summary>
-    public IEnumerator<KeyValuePair<Type, DomainProductProcess>> GetEnumerator() => _possibleTypesToProcess.GetEnumerator();
-
-    /// <summary>
-    /// Gets process for ingredient type
-    /// </summary>
-    /// <typeparam name="TIngredient">Type of ingredient</typeparam>
-    public DomainProductProcess GetProcessOf<TIngredient>() where TIngredient : DomainProductToPrepare
-    {
-        if (_possibleTypesToProcess.TryGetValue(typeof(TIngredient), out var process))
-        {
-            return process;
-        }
-        return null;
-    }
+    public IEnumerator<KeyValuePair<Type, IList<IngredientProcess>>> GetEnumerator() => _possibleTypesToProcess.GetEnumerator();
     /// <summary>
     /// Tries to add new ingredient process for specified ingredient type
     /// </summary>
     /// <typeparam name="TIngredient">Ingredient type</typeparam>
     /// <param name="process">Instanceof process</param>
     /// <returns>False - ingredient type is already registered or instance of process is null</returns>
-    internal bool TryAdd<TIngredient>(DomainProductProcess process) where TIngredient : Ingredient, new() =>
-        process is null || _possibleTypesToProcess.TryAdd(typeof(TIngredient), process);
+    public bool TryAdd<TProcess, TIngredient>(TProcess process) where TIngredient : Ingredient, new()
+                                                                  where TProcess : IngredientProcess, new()
+    {
+        if(_possibleTypesToProcess.TryGetValue(process.GetType(), out var ingredientProcesses))
+        {
+            if(ingredientProcesses.Contains(process) == false)
+            {
+                ingredientProcesses.Add(process);
+                return true;
+            }
+        }
+        return false;
+    }
     /// <summary>
     /// Tries to remove ingredient type and its process
     /// </summary>
     /// <typeparam name="TIngredient">Type of ingredient</typeparam>
-    internal bool TryRemove<TIngredient>() where TIngredient : Ingredient, new() =>
-        _possibleTypesToProcess.Remove(typeof(TIngredient));
+    public bool TryRemove<TProcess, TIngredient>() where TIngredient : Ingredient, new()
+                                                     where TProcess : IngredientProcess, new()
+    {
+        if(_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var ingredientProcesses))
+        {
+            var fitted = ingredientProcesses.FirstOrDefault(p => p.CurrentIngredientType == typeof(TProcess));
+            if(fitted != null)
+            {
+                ingredientProcesses.Remove(fitted);
+                return true;
+            }
+        }
+        return false;
+    }
     /// <summary>
     /// Tries to update process for ingredient type
     /// </summary>
     /// <typeparam name="TIngredient">Ingredient type</typeparam>
     /// <typeparam name="TProcess">Ingredient process type</typeparam>
     /// <param name="process">New process to set</param>
-    internal bool TryUpdate<TIngredient, TProcess>(TProcess process)
-                  where TProcess : DomainProductProcess, new()
+    public bool TryUpdate<TIngredient, TProcess>(TProcess process)
+                  where TProcess : IngredientProcess, new()
                   where TIngredient : Ingredient, new()
     {
         if (process is null) return false;
-        if (_possibleTypesToProcess.ContainsKey(typeof(TIngredient)))
+        if(_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var ingredientProcesses))
         {
-            _possibleTypesToProcess.Remove(typeof(TIngredient));
-            _possibleTypesToProcess.Add(typeof(TIngredient), process);
-            return true;
+            var fitted = ingredientProcesses.FirstOrDefault(p => p.CurrentIngredientType == typeof(TIngredient));
+            if(fitted is not null)
+            {
+                ingredientProcesses.Remove(fitted);
+                ingredientProcesses.Add(process);
+                return true;
+            }
         }
         return false;
+    }
+    public TProcess GetProcess<TProcess, TIngredient>()
+                         where TProcess : IngredientProcess, new()
+                         where TIngredient : Ingredient, new()
+    {
+        if (_possibleTypesToProcess.TryGetValue(typeof(TProcess), out var processes))
+        {
+            return processes.FirstOrDefault(p => p.CurrentIngredientType == typeof(TIngredient)) as TProcess;
+        }
+        return null;
     }
     /// <summary>
     /// Gets enumerator of default container
@@ -93,4 +115,6 @@ public class DefaultProcessContainer : IProcessContainer, IEnumerable<KeyValuePa
     /// </summary>
     public override bool Equals(object? obj) => obj is DefaultProcessContainer defaultProcessContainer &&
                                                 _possibleTypesToProcess.AllEquals(defaultProcessContainer._possibleTypesToProcess);
+
+
 }

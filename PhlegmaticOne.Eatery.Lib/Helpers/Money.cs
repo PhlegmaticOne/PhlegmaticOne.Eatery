@@ -2,7 +2,7 @@
 /// <summary>
 /// Represents money for setting price to domain instances
 /// </summary>
-public class Money
+public class Money : IEquatable<Money>
 {
     /// <summary>
     /// Intializes new money instance
@@ -29,5 +29,9 @@ public class Money
     /// Currency code
     /// </summary>
     public string CurrencyCode { get; }
+    public override string ToString() => string.Format("{0:f4} {1}", Amount, CurrencyCode);
+    public override bool Equals(object? obj) => Equals(obj as Money);
 
+    public bool Equals(Money other) => other is not null && Amount == other.Amount && CurrencyCode == other.CurrencyCode;
+    public override int GetHashCode() => CurrencyCode.GetHashCode() ^ (int)Amount;
 }

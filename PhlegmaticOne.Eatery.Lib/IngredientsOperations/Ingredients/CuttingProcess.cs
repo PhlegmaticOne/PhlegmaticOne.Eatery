@@ -5,7 +5,7 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents cutting process for ingredients
 /// </summary>
-public class CuttingProcess : DomainProductProcess, ICuttingProcess, IEquatable<CuttingProcess>
+public class CuttingProcess : IngredientProcess, IEquatable<CuttingProcess>
 {
     /// <summary>
     /// Initialzes new cutting process
@@ -73,4 +73,9 @@ public class CuttingProcess : DomainProductProcess, ICuttingProcess, IEquatable<
     /// Gets hash code of cutting process
     /// </summary>
     public override int GetHashCode() => base.GetHashCode();
+
+    public override IEnumerable<Ingredient> ProcessOver(Ingredient ingredient)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -1,8 +1,9 @@
 ﻿using PhlegmaticOne.Eatery.Lib.Helpers;
+using PhlegmaticOne.Eatery.Lib.Ingredients;
 
-namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations.Adding;
+namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 
-public class AddingProcess : DomainProductProcess, IAddingProcess
+public class AddingProcess : IngredientProcess
 {
     private DomainProductToPrepare _productToPrepare;
     public AddingProcess()
@@ -17,5 +18,11 @@ public class AddingProcess : DomainProductProcess, IAddingProcess
     {
         _productToPrepare = domainProductToPrepare;
     }
+
+    public override IEnumerable<Ingredient> ProcessOver(Ingredient ingredient)
+    {
+        throw new NotImplementedException();
+    }
+
     internal DomainProductToPrepare GetResult() => _productToPrepare;
 }

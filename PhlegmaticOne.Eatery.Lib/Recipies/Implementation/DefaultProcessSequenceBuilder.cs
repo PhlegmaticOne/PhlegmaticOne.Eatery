@@ -1,30 +1,38 @@
-﻿using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
+﻿using PhlegmaticOne.Eatery.Lib.Ingredients;
+using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 
 namespace PhlegmaticOne.Eatery.Lib.Recipies;
 
 public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
 {
-    private IProcessContainer _processContainer;
+    private IIngredientProcessContainer _ingredientProcessContainer;
+    private IIntermediateProcessContainer _intermediateProcessContainer;
     private readonly Queue<DomainProductProcess> _processesToPrepare;
     public DefaultProcessSequenceBuilder() => _processesToPrepare = new();
-
-    public IRecipeProcessSequenceBuilder InsertInSequence<TIngredient>()
-        where TIngredient : DomainProductToPrepare, new()
+    public void InsertInSequence<TProcess, TIngredient>()
+        where TProcess : IngredientProcess, new()
+        where TIngredient : Ingredient, new()
     {
-        var process = _processContainer.GetProcessOf<TIngredient>();
-        if(process is null)
+
+        _processesToPrepare.Enqueue(_ingredientProcessContainer.GetProcess<TProcess, TIngredient>());
+    }
+    public void InsertInSequence<TProcess>() where TProcess : IntermediateProcess, new()
+    {
+        var ingredientTypes = new List<Type>();
+        foreach (var process in _processesToPrepare)
         {
-            throw new ArgumentException("Process is not registered in process container");
+            if(process is IngredientProcess ingredientProcess)
+            {
+                ingredientTypes.Add(ingredientProcess.CurrentIngredientType);
+            }
         }
-        _processesToPrepare.Enqueue(process);
-        return this;
+        _processesToPrepare.Enqueue(_intermediateProcessContainer.GetProcess<TProcess>(ingredientTypes));
     }
-
-    public IRecipeProcessSequenceBuilder SetSource(IProcessContainer processContainer)
+    public void SetSources(IIngredientProcessContainer ingredientProcessContainer,
+                       IIntermediateProcessContainer intermideateProcessContainer)
     {
-        _processContainer = processContainer;
-        return this;
+        _ingredientProcessContainer = ingredientProcessContainer;
+        _intermediateProcessContainer = intermideateProcessContainer;
     }
-
     public Queue<DomainProductProcess> BuildRecipeSequence() => _processesToPrepare;
 }

@@ -3,6 +3,12 @@
 public class DefaultRecipeBuilder : IRecipeBuilder
 {
     private readonly Recipe _recipe = new();
+
+    public DefaultRecipeBuilder(string recipeName)
+    {
+        _recipe = new();
+        _recipe.Name = recipeName;
+    }
     public IRecipeBuilder Configure<TRecipeTypesConfiguration, TRecipeProcessSequenceBuilder>
         (Action<TRecipeTypesConfiguration> configureIngredientsAction,
          Action<TRecipeProcessSequenceBuilder> configureProcessSequenceAction)
