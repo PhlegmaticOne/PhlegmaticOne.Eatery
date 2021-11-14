@@ -12,7 +12,7 @@ public interface IStorageIngredientsConfiguration
     /// <summary>
     /// Sets maximal value that can contain storage of building ingredient type 
     /// </summary>
-    IStorageIngredientsConfiguration WithMaximalValueOfIngredient(int maximalValueOfIngredient);
+    IStorageIngredientsConfiguration WithMaximalWeightOfIngredient(int maximalWeightOfIngredient);
     /// <summary>
     /// Gets configured ingredient types
     /// </summary>

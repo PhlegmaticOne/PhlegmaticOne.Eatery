@@ -59,10 +59,10 @@ public class FullTestingDemo
                 });
                 builder.WithKeepingIngredientsTypes<DefaultStorageIngredientsConfiguration>(conf =>
                 {
-                    conf.With<Cucumber>().WithMaximalValueOfIngredient(1000);
-                    conf.With<Tomato>().WithMaximalValueOfIngredient(1000);
-                    conf.With<Olive>().WithMaximalValueOfIngredient(1000);
-                    conf.With<OliveOil>().WithMaximalValueOfIngredient(1000);
+                    conf.With<Cucumber>().WithMaximalWeightOfIngredient(1000);
+                    conf.With<Tomato>().WithMaximalWeightOfIngredient(1000);
+                    conf.With<Olive>().WithMaximalWeightOfIngredient(1000);
+                    conf.With<OliveOil>().WithMaximalWeightOfIngredient(1000);
                 });
                 builder.InAmountOf(2);
             })

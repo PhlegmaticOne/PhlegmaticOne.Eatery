@@ -22,9 +22,9 @@ public class DefaultStorageIngredientsConfiguration : IStorageIngredientsConfigu
     /// <summary>
     /// Sets maximal value that can contain storage of building ingredient type 
     /// </summary>
-    public IStorageIngredientsConfiguration WithMaximalValueOfIngredient(int maximalValueOfIngredient)
+    public IStorageIngredientsConfiguration WithMaximalWeightOfIngredient(int maximalWeightOfIngredient)
     {
-        _ingredientsTypes.Add(_currentTypeToConfigure, maximalValueOfIngredient);
+        _ingredientsTypes.Add(_currentTypeToConfigure, maximalWeightOfIngredient);
         return this;
     }
     /// <summary>

@@ -27,9 +27,9 @@ namespace PhlegmaticOne.Eatery.Lib.Storages.Tests
                     });
                     builder.WithKeepingIngredientsTypes<DefaultStorageIngredientsConfiguration>(conf =>
                     {
-                        conf.With<Cucumber>().WithMaximalValueOfIngredient(100);
-                        conf.With<Tomato>().WithMaximalValueOfIngredient(100);
-                        conf.With<Olive>().WithMaximalValueOfIngredient(100);
+                        conf.With<Cucumber>().WithMaximalWeightOfIngredient(100);
+                        conf.With<Tomato>().WithMaximalWeightOfIngredient(100);
+                        conf.With<Olive>().WithMaximalWeightOfIngredient(100);
                     });
                     builder.InAmountOf(2);
                 });

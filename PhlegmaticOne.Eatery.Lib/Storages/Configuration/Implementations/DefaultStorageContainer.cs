@@ -4,55 +4,25 @@ namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// <summary>
 /// Represents prepared default storage container
 /// </summary>
-public class DefaultStorageContainer : IStorageContainer, IEnumerable<Storage>
+public class DefaultStorageContainer : IStorageContainer
 {
-    private readonly IEnumerable<Storage> _storages;
+    private readonly ICollection<Storage> _storages;
+
+    public int Count => _storages.Count;
+    public bool IsReadOnly => false;
+
     /// <summary>
     /// Initializes new default storage container
     /// </summary>
     /// <param name="storages">Enumarable of storages</param>
     /// <exception cref="ArgumentNullException">Storages is null</exception>
-    public DefaultStorageContainer(IEnumerable<Storage> storages) => _storages = storages ?? throw new ArgumentNullException(nameof(storages));
-    /// <summary>
-    /// Gets amount of storages in default storage container
-    /// </summary>
-    public int Count => _storages.Count();
+    public DefaultStorageContainer(IEnumerable<Storage> storages) => _storages = storages.ToList() ?? throw new ArgumentNullException(nameof(storages));
     /// <summary>
     /// Gets default storage container builder for default container
     /// </summary>
     public static IStorageContainerBuilder GetDefaultStorageContainerBuilder() =>
                   new DefaultStorageContainerBuilder();
-    /// <summary>
-    /// Returns all storages from default storage container fitted to specified predicate
-    /// </summary>
-    /// <param name="predicate">Condition of searching</param>
-    public IEnumerable<Storage> AllStorages(Func<Storage, bool> predicate) => _storages.Where(predicate);
-    /// <summary>
-    /// Returns all registered storages in default storage container
-    /// </summary>
-    public IEnumerable<Storage> AllStorages() => _storages;
-    /// <summary>
-    /// Returns first fitted to specified predicate storage instance from default storage container
-    /// </summary>
-    /// <typeparam name="TStorage">Storage type</typeparam>
-    /// <param name="predicate">Conditions of searching</param>
-    public TStorage FirstOrDefaultStorage<TStorage>(Func<TStorage, bool> predicate) where TStorage : Storage, new() =>
-        _storages.OfType<TStorage>().FirstOrDefault(predicate);
 
-    /// <summary>
-    /// Returns all storages of specified type from from default storage container
-    /// </summary>
-    /// <typeparam name="TStorage">Storage type</typeparam>
-    public IEnumerable<TStorage> OfStorageType<TStorage>() where TStorage : Storage, new() =>
-        _storages.OfType<TStorage>();
-    /// <summary>
-    /// Gets enumerator of from default storage container
-    /// </summary>
-    public IEnumerator<Storage> GetEnumerator() => _storages.GetEnumerator();
-    /// <summary>
-    /// Gets enumerator of from default storage container
-    /// </summary>
-    IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_storages).GetEnumerator();
     /// <summary>
     /// Gets string representation of default storage container
     /// </summary>
@@ -66,6 +36,34 @@ public class DefaultStorageContainer : IStorageContainer, IEnumerable<Storage>
     /// </summary>
     public override bool Equals(object? obj) => obj is DefaultStorageContainer defaultStorageContainer &&
                                                 _storages.Except(defaultStorageContainer._storages).Any() == false;
-}
 
-////////////////TO       DO /////////////////// ////////ADD//REMOVE//Update
+    public TStorage FirstOrDefaultStorage<TStorage>(Func<TStorage, bool> predicate) where TStorage : Storage, new() =>
+        OfStorageType<TStorage>().FirstOrDefault(predicate);
+
+    public ICollection<TStorage> OfStorageType<TStorage>() where TStorage : Storage, new() =>
+        _storages.OfType<TStorage>().ToList();
+
+    public ICollection<Storage> AllStorages(Func<Storage, bool> predicate) => _storages.Where(predicate).ToList();
+
+    public ICollection<Storage> AllStorages() => _storages.ToList();
+
+    public void Add(Storage storage)
+    {
+        if(storage is not null)
+        {
+            _storages.Add(storage);
+        }
+    }
+
+    public void Clear() => _storages.Clear();
+
+    public bool Contains(Storage item) => _storages.Contains(item);
+
+    public void CopyTo(Storage[] array, int arrayIndex) => _storages.CopyTo(array, arrayIndex);
+
+    public bool Remove(Storage item) => _storages.Remove(item);
+
+    public IEnumerator<Storage> GetEnumerator() => _storages.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
