@@ -9,7 +9,7 @@ public class Recipe
                           (new Dictionary<Type, double>(), new());
     public Recipe(string name,
                   IDictionary<Type, double> ingredientsTakesPartInPreparing,
-                  Queue<DomainProductProcess> processesQueueToPrepareDish)
+                  Queue<IngredientsOperations.DomainProductProcess> processesQueueToPrepareDish)
     {
         Name = name;
         IngredientsTakesPartInPreparing = ingredientsTakesPartInPreparing ?? throw new ArgumentNullException(nameof(ingredientsTakesPartInPreparing));
@@ -18,10 +18,10 @@ public class Recipe
 
     public string Name { get; internal set; }
     internal IDictionary<Type, double> IngredientsTakesPartInPreparing { get; set; }
-    internal Queue<DomainProductProcess> ProcessesQueueToPrepareDish { get; set; }
+    internal Queue<IngredientsOperations.DomainProductProcess> ProcessesQueueToPrepareDish { get; set; }
     public IReadOnlyDictionary<Type, double> GetIngredientsTakesPartInPreparing() =>
         new ReadOnlyDictionary<Type, double>(IngredientsTakesPartInPreparing);
-    public Queue<DomainProductProcess> GetProcessesQueueToPrepareDish() => new(ProcessesQueueToPrepareDish);
+    public Queue<IngredientsOperations.DomainProductProcess> GetProcessesQueueToPrepareDish() => new(ProcessesQueueToPrepareDish);
     public static IRecipeBuilder GetDefaultRecipeBuilder(string recipeName) => new DefaultRecipeBuilder(recipeName);
     public override string ToString() => string.Format("{0}. Ingredients: {1}",
                                          GetType().Name, string.Join(',', IngredientsTakesPartInPreparing));

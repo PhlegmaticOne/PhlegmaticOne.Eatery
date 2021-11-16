@@ -8,14 +8,8 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// </summary>
 public abstract class IngredientProcess : DomainProductProcess
 {
-    protected IngredientProcess()
-    {
-    }
-
-    protected IngredientProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price)
-    {
-
-    }
+    protected IngredientProcess() { }
+    protected IngredientProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
     internal Type? CurrentIngredientType { get; set; }
     internal abstract void Update(Dish dish, Ingredient ingredient);
     /// <summary>

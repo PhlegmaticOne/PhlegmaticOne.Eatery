@@ -29,7 +29,7 @@ public class DefaultStorageContainerBuilder : IStorageContainerBuilder
     /// <summary>
     /// Builds new storage container from configuring data
     /// </summary>
-    public IStorageContainer Build() => new DefaultStorageContainer(_storages);
+    public StoragesContainerBase Build() => new DefaultStorageContainer(_storages);
     /// <summary>
     /// Gets string representation of default storage container builder 
     /// </summary>

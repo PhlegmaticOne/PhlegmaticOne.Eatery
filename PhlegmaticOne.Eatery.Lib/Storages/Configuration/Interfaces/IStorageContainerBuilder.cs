@@ -18,5 +18,5 @@ public interface IStorageContainerBuilder
     /// <summary>
     /// Builds new storage container from configuring data
     /// </summary>
-    IStorageContainer Build();
+    StoragesContainerBase Build();
 }

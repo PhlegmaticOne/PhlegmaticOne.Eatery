@@ -29,5 +29,4 @@ public abstract class DomainProductProcess
     /// Cost of process
     /// </summary>
     public Money Price { get; internal set; }
-
 }

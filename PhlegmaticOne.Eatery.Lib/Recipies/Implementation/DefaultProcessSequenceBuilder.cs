@@ -5,9 +5,9 @@ namespace PhlegmaticOne.Eatery.Lib.Recipies;
 
 public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
 {
-    private IIngredientProcessContainer _ingredientProcessContainer;
-    private IIntermediateProcessContainer _intermediateProcessContainer;
-    private readonly Queue<DomainProductProcess> _processesToPrepare;
+    private IngredientProcessContainerBase _ingredientProcessContainer;
+    private IntermediateProcessContainerBase _intermediateProcessContainer;
+    private readonly Queue<IngredientsOperations.DomainProductProcess> _processesToPrepare;
     public DefaultProcessSequenceBuilder() => _processesToPrepare = new();
     public void InsertInSequence<TProcess, TIngredient>()
         where TProcess : IngredientProcess, new()
@@ -28,11 +28,11 @@ public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
         }
         _processesToPrepare.Enqueue(_intermediateProcessContainer.GetProcess<TProcess>(ingredientTypes));
     }
-    public void SetSources(IIngredientProcessContainer ingredientProcessContainer,
-                       IIntermediateProcessContainer intermideateProcessContainer)
+    public void SetSources(IngredientProcessContainerBase ingredientProcessContainer,
+                       IntermediateProcessContainerBase intermideateProcessContainer)
     {
         _ingredientProcessContainer = ingredientProcessContainer;
         _intermediateProcessContainer = intermideateProcessContainer;
     }
-    public Queue<DomainProductProcess> BuildRecipeSequence() => _processesToPrepare;
+    public Queue<IngredientsOperations.DomainProductProcess> BuildRecipeSequence() => _processesToPrepare;
 }

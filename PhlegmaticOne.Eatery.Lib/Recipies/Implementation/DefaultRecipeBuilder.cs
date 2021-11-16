@@ -1,13 +1,24 @@
-﻿namespace PhlegmaticOne.Eatery.Lib.Recipies;
+﻿using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
+
+namespace PhlegmaticOne.Eatery.Lib.Recipies;
 
 public class DefaultRecipeBuilder : IRecipeBuilder
 {
     private readonly Recipe _recipe = new();
+    private readonly IngredientProcessContainerBase _ingredientProcessContainer;
+    private readonly IntermediateProcessContainerBase _intermediateProcessContainer;
 
     public DefaultRecipeBuilder(string recipeName)
     {
         _recipe = new();
         _recipe.Name = recipeName;
+    }
+    public DefaultRecipeBuilder(IngredientProcessContainerBase ingredientProcessContainer,
+                                IntermediateProcessContainerBase intermediateProcessContainer,
+                                string recipeName) : this(recipeName)
+    {
+        _ingredientProcessContainer = ingredientProcessContainer;
+        _intermediateProcessContainer = intermediateProcessContainer;
     }
     public IRecipeBuilder Configure<TRecipeTypesConfiguration, TRecipeProcessSequenceBuilder>
         (Action<TRecipeTypesConfiguration> configureIngredientsAction,
@@ -19,6 +30,7 @@ public class DefaultRecipeBuilder : IRecipeBuilder
         configureIngredientsAction.Invoke(configureIngredients);
         _recipe.IngredientsTakesPartInPreparing = configureIngredients.Configure();
         var configureProcesses = new TRecipeProcessSequenceBuilder();
+        configureProcesses.SetSources(_ingredientProcessContainer, _intermediateProcessContainer);
         configureProcessSequenceAction.Invoke(configureProcesses);
         _recipe.ProcessesQueueToPrepareDish = configureProcesses.BuildRecipeSequence();
         return this;

@@ -47,12 +47,20 @@ public class DefaultStorageBuilder<TStorage> : IStorageBuilder<TStorage> where T
     /// <summary>
     /// Builds enumerable of configured storages
     /// </summary>
-    public IEnumerable<TStorage> Build() => Enumerable.Repeat(new TStorage()
+    public IEnumerable<TStorage> Build()
     {
-        Lightning = _storageLightning,
-        Temperature = _storageTemperature,
-        IngredientsKeepingTypes = _ingredientTypes
-    }, _amount);
+        var result = new List<TStorage>();
+        for (int i = 0; i < _amount; i++)
+        {
+            result.Add(new TStorage()
+            {
+                Lightning = _storageLightning,
+                Temperature = _storageTemperature,
+                KeepingIngredientsTypesInformation = _ingredientTypes
+            });
+        }
+        return result;
+    }
     /// <summary>
     /// Gets string representation of default storage builder
     /// </summary>

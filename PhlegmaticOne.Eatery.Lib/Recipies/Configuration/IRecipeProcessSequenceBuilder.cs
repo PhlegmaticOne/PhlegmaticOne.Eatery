@@ -9,7 +9,7 @@ public interface IRecipeProcessSequenceBuilder
                                    where TIngredient : Ingredient, new()
                                    where TProcess : IngredientProcess, new();
     void InsertInSequence<TProcess>() where TProcess : IntermediateProcess, new();
-    void SetSources(IIngredientProcessContainer ingredientProcessContainer,
-                    IIntermediateProcessContainer intermideateProcessContainer);
-    Queue<DomainProductProcess> BuildRecipeSequence();
+    void SetSources(IngredientProcessContainerBase ingredientProcessContainer,
+                    IntermediateProcessContainerBase intermideateProcessContainer);
+    Queue<IngredientsOperations.DomainProductProcess> BuildRecipeSequence();
 }

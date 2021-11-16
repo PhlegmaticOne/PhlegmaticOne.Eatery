@@ -15,7 +15,7 @@ public class DefaultIntermediateProcessContainerBuilder : IIntermediateProcessCo
         _intermediateProcesses.Add(typeof(TProcess), builder.Build());
         return this;
     }
-    public IIntermediateProcessContainer Build()
+    public IntermediateProcessContainerBase Build()
     {
         var newProcesses = new Dictionary<Type, IList<IntermediateProcess>>();
         foreach (var process in _intermediateProcesses)

@@ -2,5 +2,7 @@
 
 public class Cook : Worker
 {
-
+    public Cook(string name) : base(name)
+    {
+    }
 }

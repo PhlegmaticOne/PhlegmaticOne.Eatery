@@ -12,5 +12,5 @@ public interface IIngredientProcessContainerBuilder
     /// Creates a container with registered ingredient types and their processes
     /// </summary>
     /// <returns></returns>
-    IIngredientProcessContainer Build();
+    IngredientProcessContainerBase Build();
 }

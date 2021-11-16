@@ -6,7 +6,7 @@
 public class DefaultProcessContainerBuilder : IIngredientProcessContainerBuilder
 {
     private readonly Dictionary<Type, IEnumerable<IngredientProcess>> _processes = new();
-    public IIngredientProcessContainer Build()
+    public IngredientProcessContainerBase Build()
     {
         var newProcesses = new Dictionary<Type, IList<IngredientProcess>>();
         foreach (var process in _processes)
