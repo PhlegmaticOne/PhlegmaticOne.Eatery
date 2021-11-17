@@ -7,18 +7,30 @@ namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// </summary>
 public abstract class Storage
 {
-    private IDictionary<Type, double> _ingredientsKeepingTypes;
+    [Newtonsoft.Json.JsonProperty]
+    public Dictionary<Type, double> _ingredientsKeepingTypes;
     protected Storage() => (KeepingIngredientsTypesInformation, Temperature) = (new Dictionary<Type, double>(), new StorageTemperature());
-    protected Storage(StorageLightning lightning, IStorageTemperature temperature) : this()
+    protected Storage(StorageLightning lightning, StorageTemperature temperature) : this()
     {
         Lightning = lightning;
         Temperature = temperature ?? throw new ArgumentNullException(nameof(temperature));
     }
+    internal Storage(StorageLightning lightning, StorageTemperature temperature,
+                     Dictionary<Type, double> keepingIngredientsInfo, Dictionary<Type, double> keepingIngredients)
+    {
+        Lightning = lightning;
+        Temperature = temperature;
+        _ingredientsKeepingTypes = keepingIngredientsInfo;
+        KeepingIngredients = keepingIngredients;
+    }
+    [Newtonsoft.Json.JsonProperty]
     public StorageLightning Lightning { get; internal set; }
-    public IStorageTemperature Temperature { get; internal set; }
+    [Newtonsoft.Json.JsonProperty]
+    public StorageTemperature Temperature { get; internal set; }
     public int KeepingIngredientTypesCount => KeepingIngredients.Count;
-    internal IDictionary<Type, double> KeepingIngredients = new Dictionary<Type, double>();
-    internal IDictionary<Type, double> KeepingIngredientsTypesInformation
+    [Newtonsoft.Json.JsonProperty]
+    public Dictionary<Type, double> KeepingIngredients = new Dictionary<Type, double>();
+    internal Dictionary<Type, double> KeepingIngredientsTypesInformation
     {
         get => _ingredientsKeepingTypes;
         init

@@ -14,6 +14,7 @@ public class StorageTemperature : IStorageTemperature, IEquatable<StorageTempera
     /// <param name="minimalTemperature">Specified minimal temperature</param>
     /// <param name="maximalTemperature">Specified maximal temperature</param>
     /// <param name="averageTemperatureAnytime">Specified average temperature</param>
+    [Newtonsoft.Json.JsonConstructor]
     public StorageTemperature(int minimalTemperature, int maximalTemperature,
                               int averageTemperatureAnytime = int.MinValue) =>
                               (MinimalTemperature, MaximalTemperature, AverageTemperatureAnytime) =
@@ -24,14 +25,17 @@ public class StorageTemperature : IStorageTemperature, IEquatable<StorageTempera
     /// <summary>
     /// Maximal temperature
     /// </summary>
+    [Newtonsoft.Json.JsonProperty]
     public int MaximalTemperature { get; set; }
     /// <summary>
     /// Minimal temperature
     /// </summary>
+    [Newtonsoft.Json.JsonProperty]
     public int MinimalTemperature { get; set; }
     /// <summary>
     /// Average temperature anytime
     /// </summary>
+    [Newtonsoft.Json.JsonProperty]
     public int AverageTemperatureAnytime { get; set; }
     /// <summary>
     /// Check equality of storage temperature with other specified object

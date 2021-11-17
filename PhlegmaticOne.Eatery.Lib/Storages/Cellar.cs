@@ -13,7 +13,12 @@ public class Cellar : Storage, IEquatable<Cellar>
     /// </summary>
     /// <param name="lightning">Specified lightning</param>
     /// <param name="storageTemperature">Specified temperature</param>
-    public Cellar(StorageLightning lightning, IStorageTemperature storageTemperature) : base(lightning, storageTemperature) { }
+    public Cellar(StorageLightning lightning, StorageTemperature storageTemperature) : base(lightning, storageTemperature) { }
+    [Newtonsoft.Json.JsonConstructor]
+    public Cellar(StorageLightning lightning, StorageTemperature temperature, Dictionary<Type, double> keepingIngredientsInfo, Dictionary<Type, double> keepingIngredients) : base(lightning, temperature, keepingIngredientsInfo, keepingIngredients)
+    {
+    }
+
     /// <summary>
     /// Check equality of cellar with other specified cellar
     /// </summary>

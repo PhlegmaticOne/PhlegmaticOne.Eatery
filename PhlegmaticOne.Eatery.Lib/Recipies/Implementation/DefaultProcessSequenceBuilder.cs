@@ -7,14 +7,18 @@ public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
 {
     private IngredientProcessContainerBase _ingredientProcessContainer;
     private IntermediateProcessContainerBase _intermediateProcessContainer;
-    private readonly Queue<IngredientsOperations.DomainProductProcess> _processesToPrepare;
+    private readonly Queue<DomainProductProcess> _processesToPrepare;
     public DefaultProcessSequenceBuilder() => _processesToPrepare = new();
     public void InsertInSequence<TProcess, TIngredient>()
         where TProcess : IngredientProcess, new()
         where TIngredient : Ingredient, new()
     {
-
-        _processesToPrepare.Enqueue(_ingredientProcessContainer.GetProcess<TProcess, TIngredient>());
+        var ingredientProcess = _ingredientProcessContainer.GetProcess<TProcess, TIngredient>();
+        if(ingredientProcess is null)
+        {
+            throw new InvalidOperationException($"{typeof(TProcess).Name} not configured with {typeof(TIngredient).Name}");
+        }
+        _processesToPrepare.Enqueue(ingredientProcess);
     }
     public void InsertInSequence<TProcess>() where TProcess : IntermediateProcess, new()
     {
@@ -29,10 +33,10 @@ public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
         _processesToPrepare.Enqueue(_intermediateProcessContainer.GetProcess<TProcess>(ingredientTypes));
     }
     public void SetSources(IngredientProcessContainerBase ingredientProcessContainer,
-                       IntermediateProcessContainerBase intermideateProcessContainer)
+                           IntermediateProcessContainerBase intermideateProcessContainer)
     {
         _ingredientProcessContainer = ingredientProcessContainer;
         _intermediateProcessContainer = intermideateProcessContainer;
     }
-    public Queue<IngredientsOperations.DomainProductProcess> BuildRecipeSequence() => _processesToPrepare;
+    public Queue<DomainProductProcess> BuildRecipeSequence() => _processesToPrepare;
 }

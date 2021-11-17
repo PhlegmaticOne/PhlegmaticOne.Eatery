@@ -4,6 +4,8 @@
 /// </summary>
 public class DefaultStorageContainer : StoragesContainerBase
 {
+    public DefaultStorageContainer() { }
+    [Newtonsoft.Json.JsonConstructor]
     public DefaultStorageContainer(IEnumerable<Storage> storages) : base(storages) { }
     /// <summary>
     /// Initializes new default storage container

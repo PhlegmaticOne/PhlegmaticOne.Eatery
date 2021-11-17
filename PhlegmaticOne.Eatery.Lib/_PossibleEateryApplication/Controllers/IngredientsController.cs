@@ -21,23 +21,8 @@ public class IngredientsController : EateryApplicationControllerBase
         {
             return GetDefaultAccessDeniedRespond<IReadOnlyDictionary<Type, double>>(getAllIngredientsRequest.Worker);
         }
-        var result = new Dictionary<Type, double>();
-        foreach (var storage in _storageContainer.AllStorages())
-        {
-            foreach (var ingredient in storage.KeepingIngredients)
-            {
-                if (result.TryGetValue(ingredient.Key, out double totalWeight))
-                {
-                    result[ingredient.Key] = totalWeight + ingredient.Value;
-                }
-                else
-                {
-                    result.Add(ingredient.Key, ingredient.Value);
-                }
-            }
-        }
-        return new DefaultApplicationRespond<IReadOnlyDictionary<Type, double>>(result, ApplicationRespondType.Success,
-                                                                                "All ingredients returned");
+        return new DefaultApplicationRespond<IReadOnlyDictionary<Type, double>>
+            (_storageContainer.GetAllExistingIngredients(), ApplicationRespondType.Success, "All ingredients returned");
     }
     [EateryWorker(typeof(Cook), typeof(Chief))]
     public IApplicationRespond<bool> AddIngredientsInStorage

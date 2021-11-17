@@ -6,8 +6,11 @@ namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// </summary>
 public abstract class StoragesContainerBase
 {
-    protected readonly ICollection<Storage> Storages;
+    protected StoragesContainerBase() { }
+    [Newtonsoft.Json.JsonProperty]
+    protected readonly List<Storage> Storages;
     public int Count => Storages.Count;
+    [Newtonsoft.Json.JsonConstructor]
     internal StoragesContainerBase(IEnumerable<Storage> storages) => 
         Storages = storages.ToList() ?? throw new ArgumentNullException(nameof(storages));
     public virtual IReadOnlyCollection<Storage> AllStorages() => new ReadOnlyCollection<Storage>(Storages.ToList());
@@ -25,6 +28,27 @@ public abstract class StoragesContainerBase
         Storages.Remove(storage);
         return preRemoveCount > Storages.Count;
     }
+    internal virtual IReadOnlyDictionary<Type, double> GetAllExistingIngredients()
+    {
+        var result = new Dictionary<Type, double>();
+        foreach (var storage in AllStorages())
+        {
+            foreach (var ingredient in storage.KeepingIngredients)
+            {
+                if (result.TryGetValue(ingredient.Key, out double totalWeight))
+                {
+                    result[ingredient.Key] = totalWeight + ingredient.Value;
+                }
+                else
+                {
+                    result.Add(ingredient.Key, ingredient.Value);
+                }
+            }
+        }
+        return new ReadOnlyDictionary<Type, double>(result);
+    }
+    internal virtual IEnumerable<Storage> GetStoragesContainingIngredientType(Type ingredientType) =>
+        Storages.Where(storage => storage.ContainsIngredient(ingredientType));
     /// <summary>
     /// Gets string representation of default storage container
     /// </summary>

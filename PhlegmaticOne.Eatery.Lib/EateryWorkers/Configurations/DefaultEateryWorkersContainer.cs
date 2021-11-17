@@ -2,6 +2,10 @@
 
 public class DefaultEateryWorkersContainer : EateryWorkersContainerBase
 {
+    public DefaultEateryWorkersContainer()
+    {
+
+    }
     internal DefaultEateryWorkersContainer(IEnumerable<Worker> workers) : base(workers)
     {
     }

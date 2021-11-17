@@ -9,14 +9,14 @@ public class AddingProcess : IngredientProcess
     public AddingProcess()
     {
     }
-
+    [Newtonsoft.Json.JsonConstructor]
     public AddingProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price)
     {
     }
 
     internal override void Update(Dish dish, Ingredient ingredient)
     {
-        dish.Price += Price * 1.1m;
+        dish.Price += Price * 1.1;
         dish.Weight += ingredient.Weight;
     }
 }

@@ -1,0 +1,67 @@
+{
+  "$type": "PhlegmaticOne.Eatery.Lib.Orders.DefaultOrderContainer, PhlegmaticOne.Eatery.Lib",
+  "_orders": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, System.Private.CoreLib],[PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+    "1": {
+      "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
+      "Id": 1,
+      "Dish": {
+        "$type": "PhlegmaticOne.Eatery.Lib.Dishes.Dish, PhlegmaticOne.Eatery.Lib",
+        "Price": {
+          "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+          "Amount": 10.0,
+          "CurrencyCode": "USD"
+        },
+        "Weight": 100.0,
+        "Name": "VegetableSalad"
+      },
+      "OrderDate": "2021-11-17T21:09:12.4764263+03:00"
+    },
+    "2": {
+      "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
+      "Id": 2,
+      "Dish": {
+        "$type": "PhlegmaticOne.Eatery.Lib.Dishes.Dish, PhlegmaticOne.Eatery.Lib",
+        "Price": {
+          "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+          "Amount": 10.0,
+          "CurrencyCode": "USD"
+        },
+        "Weight": 100.0,
+        "Name": "VegetableSalad"
+      },
+      "OrderDate": "2021-11-17T21:10:12.4764672+03:00"
+    },
+    "3": {
+      "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
+      "Id": 3,
+      "Dish": {
+        "$type": "PhlegmaticOne.Eatery.Lib.Dishes.Dish, PhlegmaticOne.Eatery.Lib",
+        "Price": {
+          "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+          "Amount": 10.0,
+          "CurrencyCode": "USD"
+        },
+        "Weight": 100.0,
+        "Name": "VegetableSalad"
+      },
+      "OrderDate": "2021-11-17T21:11:12.4764677+03:00"
+    },
+    "4": {
+      "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
+      "Id": 4,
+      "Dish": {
+        "$type": "PhlegmaticOne.Eatery.Lib.Dishes.Dish, PhlegmaticOne.Eatery.Lib",
+        "Price": {
+          "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+          "Amount": 10.0,
+          "CurrencyCode": "USD"
+        },
+        "Weight": 100.0,
+        "Name": "VegetableSalad"
+      },
+      "OrderDate": "2021-11-17T21:13:12.4764678+03:00"
+    }
+  },
+  "Count": 4
+}

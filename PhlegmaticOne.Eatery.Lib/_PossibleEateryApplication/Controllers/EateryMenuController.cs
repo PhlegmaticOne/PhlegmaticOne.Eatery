@@ -39,11 +39,11 @@ public class EateryMenuController : EateryApplicationControllerBase
         }
         return respond.Update(true, ApplicationRespondType.Success, "Recipe was removed");
     }
-    [EateryWorker(typeof(Chief), typeof(Cook), typeof(Manager))]
+    [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<IReadOnlyDictionary<string, Recipe>>
         GetAllRecipies(EmptyApplicationRequest getAllRecipiesRequest)
     {
-        if (IsInRole(getAllRecipiesRequest.Worker, nameof(RemoveRecipeFromMenu)) == false)
+        if (IsInRole(getAllRecipiesRequest.Worker, nameof(GetAllRecipies)) == false)
         {
             return GetDefaultAccessDeniedRespond<IReadOnlyDictionary<string, Recipe>>(getAllRecipiesRequest.Worker);
         }
@@ -52,18 +52,14 @@ public class EateryMenuController : EateryApplicationControllerBase
                                                                                   "Recipies was returned");
     }
     [EateryWorker(typeof(Chief), typeof(Cook), typeof(Manager))]
-    public IApplicationRespond<Recipe> GetRecipeByName(IApplicationRequest<string> getRecipeByNameRequest)
+    public IApplicationRespond<EateryMenuBase>
+        GetEateryMenu(EmptyApplicationRequest getAllRecipiesRequest)
     {
-        if (IsInRole(getRecipeByNameRequest.Worker, nameof(RemoveRecipeFromMenu)) == false)
+        if (IsInRole(getAllRecipiesRequest.Worker, nameof(GetAllRecipies)) == false)
         {
-            return GetDefaultAccessDeniedRespond<Recipe>(getRecipeByNameRequest.Worker);
+            return GetDefaultAccessDeniedRespond<EateryMenuBase>(getAllRecipiesRequest.Worker);
         }
-        var respond = new DefaultApplicationRespond<Recipe>();
-        if (_eateryMenu.TryGetRecipe(getRecipeByNameRequest.RequestData1, out Recipe recipe) == false)
-        {
-            return respond.Update(recipe, ApplicationRespondType.InternalError,
-                   $"Recipe {getRecipeByNameRequest.RequestData1} wasn't finded");
-        }
-        return respond.Update(recipe, ApplicationRespondType.Success, "Recipe returned");
+        return new DefaultApplicationRespond<EateryMenuBase>(_eateryMenu, ApplicationRespondType.Success,
+                                                                                  "Menu was returned");
     }
 }

@@ -15,6 +15,7 @@ public abstract class DomainProductProcess
     /// <param name="price">Price of process</param>
     /// <exception cref="ArgumentNullException">Money is null</exception>
     /// <exception cref="ArgumentException">Time is 0</exception>
+    [Newtonsoft.Json.JsonConstructor]
     protected DomainProductProcess(TimeSpan timeToFinish, Money price)
     {
         TimeToFinish = timeToFinish != TimeSpan.Zero ? timeToFinish :
@@ -24,9 +25,11 @@ public abstract class DomainProductProcess
     /// <summary>
     /// Diration of process
     /// </summary>
+    [Newtonsoft.Json.JsonProperty]
     public TimeSpan TimeToFinish { get; internal set; }
     /// <summary>
     /// Cost of process
     /// </summary>
+    [Newtonsoft.Json.JsonProperty]
     public Money Price { get; internal set; }
 }

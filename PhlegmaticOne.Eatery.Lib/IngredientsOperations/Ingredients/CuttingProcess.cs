@@ -17,6 +17,7 @@ public class CuttingProcess : IngredientProcess, IEquatable<CuttingProcess>
     /// </summary>
     /// <param name="timeToFinish">Specified diration of process</param>
     /// <param name="price">Cost of process</param>
+    [Newtonsoft.Json.JsonConstructor]
     public CuttingProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
     /// <summary>
     /// Checks equality of cutting process with other specified cutting process

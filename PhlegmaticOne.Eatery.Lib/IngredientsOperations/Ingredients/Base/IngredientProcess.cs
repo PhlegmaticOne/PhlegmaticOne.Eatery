@@ -9,7 +9,9 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 public abstract class IngredientProcess : DomainProductProcess
 {
     protected IngredientProcess() { }
+    [Newtonsoft.Json.JsonConstructor]
     protected IngredientProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
+    [Newtonsoft.Json.JsonProperty]
     internal Type? CurrentIngredientType { get; set; }
     internal abstract void Update(Dish dish, Ingredient ingredient);
     /// <summary>

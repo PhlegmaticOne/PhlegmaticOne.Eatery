@@ -8,7 +8,12 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// </summary>
 public class DefaultProcessContainer : IngredientProcessContainerBase
 {
-    internal DefaultProcessContainer(IDictionary<Type, IList<IngredientProcess>> possibleTypesToProcess) :
+    public DefaultProcessContainer()
+    {
+
+    }
+    [Newtonsoft.Json.JsonConstructor]
+    internal DefaultProcessContainer(Dictionary<Type, List<IngredientProcess>> possibleTypesToProcess) :
         base(possibleTypesToProcess) { }
     /// <summary>
     /// Returns default builder for default container of specifiedingredient process type

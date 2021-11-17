@@ -1,17 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-using PhlegmaticOne.Eatery.Lib.Dishes.Configurations;
+using PhlegmaticOne.Eatery.Lib.Dishes;
 using PhlegmaticOne.Eatery.Lib.EateryWorkers;
 using PhlegmaticOne.Eatery.Lib.Helpers;
 using PhlegmaticOne.Eatery.Lib.Ingredients;
 using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 using PhlegmaticOne.Eatery.Lib.Recipies;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication.Tests
 {
@@ -50,16 +45,17 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication.Tests
                 })
                 .Build();
 
+            EateryMenuBase eateryMenu = new EateryMenu();
             var recipeControllerType = typeof(RecipeController);
             _recipeController = recipeControllerType.Assembly.CreateInstance(
                                  recipeControllerType.FullName, true, BindingFlags.Instance | BindingFlags.NonPublic,
-                                 null, new object[] { ingredientProcessesContainer, intermediateProcessContainer }, null, null) as RecipeController;
+                                 null, new object[] { ingredientProcessesContainer, intermediateProcessContainer, eateryMenu }, null, null) as RecipeController;
 
             ///Конструктор internal, поэтому создать объект простым вызовом конструктора нельзя
             var type = typeof(EateryMenuController);
             _eateryMenuController = type.Assembly.CreateInstance(
                                  type.FullName, true, BindingFlags.Instance | BindingFlags.NonPublic,
-                                 null, new object[] { new EateryMenu() }, null, null) as EateryMenuController;
+                                 null, new object[] { eateryMenu }, null, null) as EateryMenuController;
         }
         [TestInitialize]
         public void Initialize()
@@ -112,16 +108,6 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication.Tests
             var getAllRecipiesRequest = EmptyApplicationRequest.Empty(worker);
             var getAllRecipiesRespond = _eateryMenuController.GetAllRecipies(getAllRecipiesRequest);
             Assert.AreEqual(1, getAllRecipiesRespond.RespondResult1.Count);
-        }
-
-        [TestMethod()]
-        public void GetRecipeByNameTest()
-        {
-            var worker = new Chief("s");
-            var getRecipeByNameRequest = new DefaultApplicationRequest<string>(worker, "VegetableSalad");
-            var getRecipeByNameRespond = _eateryMenuController.GetRecipeByName(getRecipeByNameRequest);
-            Assert.IsNotNull(getRecipeByNameRespond.RespondResult1);
-            Assert.AreEqual("VegetableSalad", getRecipeByNameRespond.RespondResult1.Name);
         }
     }
 }

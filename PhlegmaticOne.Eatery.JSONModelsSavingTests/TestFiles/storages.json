@@ -1,0 +1,34 @@
+{
+  "$type": "PhlegmaticOne.Eatery.Lib.Storages.DefaultStorageContainer, PhlegmaticOne.Eatery.Lib",
+  "Storages": {
+    "$type": "System.Collections.Generic.List`1[[PhlegmaticOne.Eatery.Lib.Storages.Storage, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+    "$values": [
+      {
+        "$type": "PhlegmaticOne.Eatery.Lib.Storages.Cellar, PhlegmaticOne.Eatery.Lib",
+        "_ingredientsKeepingTypes": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.Type, System.Private.CoreLib],[System.Double, System.Private.CoreLib]], System.Private.CoreLib",
+          "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 1000.0,
+          "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 1000.0,
+          "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 1000.0,
+          "PhlegmaticOne.Eatery.Lib.Ingredients.OliveOil, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 1000.0
+        },
+        "KeepingIngredients": {
+          "$type": "System.Collections.Generic.Dictionary`2[[System.Type, System.Private.CoreLib],[System.Double, System.Private.CoreLib]], System.Private.CoreLib",
+          "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 300.0,
+          "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 300.0,
+          "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 300.0,
+          "PhlegmaticOne.Eatery.Lib.Ingredients.OliveOil, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 300.0
+        },
+        "Lightning": 2,
+        "Temperature": {
+          "$type": "PhlegmaticOne.Eatery.Lib.Storages.StorageTemperature, PhlegmaticOne.Eatery.Lib",
+          "MaximalTemperature": 20,
+          "MinimalTemperature": -10,
+          "AverageTemperatureAnytime": 10
+        },
+        "KeepingIngredientTypesCount": 4
+      }
+    ]
+  },
+  "Count": 1
+}

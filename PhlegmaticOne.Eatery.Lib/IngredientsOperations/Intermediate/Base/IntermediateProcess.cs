@@ -6,7 +6,9 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 public abstract class IntermediateProcess : DomainProductProcess
 {
     protected IntermediateProcess() { }
+    [Newtonsoft.Json.JsonConstructor]
     protected IntermediateProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
-    internal IList<Type>? PreferableTypesToProcess { get; set; }
+    [Newtonsoft.Json.JsonProperty]
+    internal List<Type>? PreferableTypesToProcess { get; set; }
     internal abstract void Update(Dish dish);
 }

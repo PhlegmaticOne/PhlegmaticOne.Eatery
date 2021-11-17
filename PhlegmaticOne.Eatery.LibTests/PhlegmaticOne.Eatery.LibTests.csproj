@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PhlegmaticOne.Eatery.JSONModelsSaving\PhlegmaticOne.Eatery.JSONModelsSaving.csproj" />
     <ProjectReference Include="..\PhlegmaticOne.Eatery.Lib\PhlegmaticOne.Eatery.Lib.csproj" />
   </ItemGroup>
 

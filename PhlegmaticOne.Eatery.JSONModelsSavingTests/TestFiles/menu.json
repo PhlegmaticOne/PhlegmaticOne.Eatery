@@ -1,0 +1,108 @@
+{
+  "$type": "PhlegmaticOne.Eatery.Lib.Dishes.Configurations.EateryMenu, PhlegmaticOne.Eatery.Lib",
+  "Recipies": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[PhlegmaticOne.Eatery.Lib.Recipies.Recipe, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+    "VegetableSalad": {
+      "$type": "PhlegmaticOne.Eatery.Lib.Recipies.Recipe, PhlegmaticOne.Eatery.Lib",
+      "Name": "VegetableSalad",
+      "IngredientsTakesPartInPreparing": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.Type, System.Private.CoreLib],[System.Double, System.Private.CoreLib]], System.Private.CoreLib",
+        "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 100.0,
+        "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 100.0,
+        "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 30.0,
+        "PhlegmaticOne.Eatery.Lib.Ingredients.OliveOil, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 50.0
+      },
+      "ProcessesQueueToPrepareDish": {
+        "$type": "System.Collections.Generic.Queue`1[[PhlegmaticOne.Eatery.Lib.IngredientsOperations.DomainProductProcess, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+        "$values": [
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:00:10",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.26,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:02:00",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.13,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:00:20",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.26,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:02:00",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.13,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:00:30",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.26,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:02:00",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.13,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+            "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.OliveOil, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "TimeToFinish": "00:00:40",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.26,
+              "CurrencyCode": "USD"
+            }
+          },
+          {
+            "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.MixingProcess, PhlegmaticOne.Eatery.Lib",
+            "PreferableTypesToProcess": {
+              "$type": "System.Collections.Generic.List`1[[System.Type, System.Private.CoreLib]], System.Private.CoreLib",
+              "$values": [
+                "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+              ]
+            },
+            "TimeToFinish": "00:02:00",
+            "Price": {
+              "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+              "Amount": 0.13,
+              "CurrencyCode": "USD"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

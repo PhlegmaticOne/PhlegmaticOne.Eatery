@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-using PhlegmaticOne.Eatery.Lib.Dishes.Configurations;
+using PhlegmaticOne.Eatery.Lib.Dishes;
 using PhlegmaticOne.Eatery.Lib.EateryEquipment;
 using PhlegmaticOne.Eatery.Lib.EateryWorkers;
 using PhlegmaticOne.Eatery.Lib.Helpers;
@@ -15,7 +15,7 @@ using System.Linq;
 namespace PhlegmaticOne.Eatery.LibTests.MAIN_TESTS;
 
 [TestClass()]
-public class EateryApplicationControllerTests
+public class BeginApplicationFromZeroTests
 {
     private static IEateryApplicationControllersContainer _controllersContainer;
     [ClassInitialize]

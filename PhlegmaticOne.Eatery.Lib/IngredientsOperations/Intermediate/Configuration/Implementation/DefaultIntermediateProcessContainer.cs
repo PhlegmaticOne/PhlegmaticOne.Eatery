@@ -2,7 +2,12 @@
 
 public class DefaultIntermediateProcessContainer : IntermediateProcessContainerBase
 {
-    public DefaultIntermediateProcessContainer(IDictionary<Type, IList<IntermediateProcess>> intermediateProcesses) :
+    public DefaultIntermediateProcessContainer()
+    {
+
+    }
+    [Newtonsoft.Json.JsonConstructor]
+    public DefaultIntermediateProcessContainer(Dictionary<Type, List<IntermediateProcess>> intermediateProcesses) :
         base(intermediateProcesses) { }
     public static IIntermediateProcessContainerBuilder GetDefaultIntermediateProcessContainerBuilder() =>
         new DefaultIntermediateProcessContainerBuilder();

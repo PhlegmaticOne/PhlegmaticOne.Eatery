@@ -1,0 +1,86 @@
+{
+  "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.DefaultProcessContainer, PhlegmaticOne.Eatery.Lib",
+  "PossibleTypesToProcess": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.Type, System.Private.CoreLib],[System.Collections.Generic.List`1[[PhlegmaticOne.Eatery.Lib.IngredientsOperations.IngredientProcess, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib]], System.Private.CoreLib",
+    "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": {
+      "$type": "System.Collections.Generic.List`1[[PhlegmaticOne.Eatery.Lib.IngredientsOperations.IngredientProcess, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+      "$values": [
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:02:00",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.13,
+            "CurrencyCode": "USD"
+          }
+        },
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:02:00",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.13,
+            "CurrencyCode": "USD"
+          }
+        },
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:02:00",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.13,
+            "CurrencyCode": "USD"
+          }
+        }
+      ]
+    },
+    "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": {
+      "$type": "System.Collections.Generic.List`1[[PhlegmaticOne.Eatery.Lib.IngredientsOperations.IngredientProcess, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+      "$values": [
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Cucumber, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:00:10",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.26,
+            "CurrencyCode": "USD"
+          }
+        },
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Tomato, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:00:20",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.26,
+            "CurrencyCode": "USD"
+          }
+        },
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.Olive, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:00:30",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.26,
+            "CurrencyCode": "USD"
+          }
+        },
+        {
+          "$type": "PhlegmaticOne.Eatery.Lib.IngredientsOperations.AddingProcess, PhlegmaticOne.Eatery.Lib",
+          "CurrentIngredientType": "PhlegmaticOne.Eatery.Lib.Ingredients.OliveOil, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "TimeToFinish": "00:00:40",
+          "Price": {
+            "$type": "PhlegmaticOne.Eatery.Lib.Helpers.Money, PhlegmaticOne.Eatery.Lib",
+            "Amount": 0.26,
+            "CurrencyCode": "USD"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -2,8 +2,14 @@
 
 public abstract class IntermediateProcessContainerBase
 {
-    internal readonly IDictionary<Type, IList<IntermediateProcess>> IntermediateProcesses;
-    public IntermediateProcessContainerBase(IDictionary<Type, IList<IntermediateProcess>> intermediateProcesses)
+    public IntermediateProcessContainerBase()
+    {
+
+    }
+    [Newtonsoft.Json.JsonProperty]
+    internal readonly Dictionary<Type, List<IntermediateProcess>> IntermediateProcesses;
+    [Newtonsoft.Json.JsonConstructor]
+    public IntermediateProcessContainerBase(Dictionary<Type, List<IntermediateProcess>> intermediateProcesses)
     {
         IntermediateProcesses = intermediateProcesses;
     }

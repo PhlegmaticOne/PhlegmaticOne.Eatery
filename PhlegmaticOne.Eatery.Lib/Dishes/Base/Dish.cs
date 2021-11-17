@@ -4,14 +4,17 @@ namespace PhlegmaticOne.Eatery.Lib.Dishes;
 
 public class Dish
 {
+    [Newtonsoft.Json.JsonConstructor]
     public Dish(Money price, double weight, string name)
     {
         Price = price;
         Weight = weight;
         Name = name;
     }
-
-    public Money Price { get; set; }
-    public double Weight { get; set; }
-    public string Name { get; set; }
+    [Newtonsoft.Json.JsonProperty]
+    public Money Price { get; internal set; }
+    [Newtonsoft.Json.JsonProperty]
+    public double Weight { get; internal set; }
+    [Newtonsoft.Json.JsonProperty]
+    public string Name { get; internal set; }
 }

@@ -4,6 +4,7 @@
 /// </summary>
 public class Money : IEquatable<Money>
 {
+    public Money() { }
     /// <summary>
     /// Intializes new money instance
     /// </summary>
@@ -11,7 +12,8 @@ public class Money : IEquatable<Money>
     /// <param name="currencyCode">Currency code</param>
     /// <exception cref="ArgumentException">Amount less than 0</exception>
     /// <exception cref="ArgumentNullException">Currency code is null or white space</exception>
-    public Money(decimal amount, string currencyCode)
+    [Newtonsoft.Json.JsonConstructor]
+    public Money(double amount, string currencyCode)
     {
         if (string.IsNullOrWhiteSpace(currencyCode))
         {
@@ -21,13 +23,9 @@ public class Money : IEquatable<Money>
                  throw new ArgumentException("Money amount cannot be less than zero", nameof(amount));
         CurrencyCode = currencyCode;
     }
-    /// <summary>
-    /// Amount of money
-    /// </summary>
-    public decimal Amount { get; }
-    /// <summary>
-    /// Currency code
-    /// </summary>
+    [Newtonsoft.Json.JsonProperty]
+    public double Amount { get; }
+    [Newtonsoft.Json.JsonProperty]
     public string CurrencyCode { get; }
     public static Money operator +(Money a, Money b)
     {
@@ -50,11 +48,11 @@ public class Money : IEquatable<Money>
         }
         return new Money(difference, a.CurrencyCode);
     }
-    public static Money operator *(Money a, decimal n) => new(a.Amount * n, a.CurrencyCode);
+    public static Money operator *(Money a, double n) => new(a.Amount * n, a.CurrencyCode);
     public static Money ConvertToUSD(Money money) => money.CurrencyCode switch
     {
-        "RUB" => new Money(money.Amount * 0.013m, "USD"),
-        "BLR" => new Money(money.Amount * 0.37m, "USD"),
+        "RUB" => new Money(money.Amount * 0.013, "USD"),
+        "BLR" => new Money(money.Amount * 0.37, "USD"),
         _ => new Money(money.Amount, "USD"),
     };
     public override string ToString() => string.Format("{0:f4} {1}", Amount, CurrencyCode);

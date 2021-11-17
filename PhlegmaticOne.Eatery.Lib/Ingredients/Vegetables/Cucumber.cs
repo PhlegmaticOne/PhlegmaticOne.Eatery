@@ -13,6 +13,7 @@ public class Cucumber : Ingredient, IEquatable<Cucumber>
     /// </summary>
     /// <param name="weight">Specified weight</param>
     /// <param name="value">Specified value</param>
+    [Newtonsoft.Json.JsonConstructor]
     public Cucumber(double weight, double value) : base(weight, value) { }
     /// <summary>
     /// Checks equality of cucumber with other specified cucumber

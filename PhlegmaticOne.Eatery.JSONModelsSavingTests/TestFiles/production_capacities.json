@@ -1,0 +1,14 @@
+{
+  "$type": "PhlegmaticOne.Eatery.Lib.EateryEquipment.DefaultProductionCapacityContainer, PhlegmaticOne.Eatery.Lib",
+  "MaximalCapacities": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.Type, System.Private.CoreLib],[System.Int32, System.Private.CoreLib]], System.Private.CoreLib",
+    "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 30,
+    "PhlegmaticOne.Eatery.Lib.IngredientsOperations.MixingProcess, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 30
+  },
+  "CurrentCapacities": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.Type, System.Private.CoreLib],[System.Int32, System.Private.CoreLib]], System.Private.CoreLib",
+    "PhlegmaticOne.Eatery.Lib.IngredientsOperations.CuttingProcess, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 30,
+    "PhlegmaticOne.Eatery.Lib.IngredientsOperations.MixingProcess, PhlegmaticOne.Eatery.Lib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": 30
+  },
+  "Count": 2
+}

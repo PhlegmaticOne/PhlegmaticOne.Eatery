@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhlegmaticOne.Eatery.Lib", "PhlegmaticOne.Eatery.Lib\PhlegmaticOne.Eatery.Lib.csproj", "{FCE2E35A-5435-4EA7-956C-10163199BE49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhlegmaticOne.Eatery.LibTests", "PhlegmaticOne.Eatery.LibTests\PhlegmaticOne.Eatery.LibTests.csproj", "{6C753659-D9AF-4AD0-A1C3-FEB5A01F3D5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhlegmaticOne.Eatery.LibTests", "PhlegmaticOne.Eatery.LibTests\PhlegmaticOne.Eatery.LibTests.csproj", "{6C753659-D9AF-4AD0-A1C3-FEB5A01F3D5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhlegmaticOne.Eatery.JSONModelsSaving", "PhlegmaticOne.Eatery.JSONModelsSaving\PhlegmaticOne.Eatery.JSONModelsSaving.csproj", "{48AB53F4-4E3C-4F52-9AD7-82A315BE912C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhlegmaticOne.Eatery.JSONModelsSavingTests", "PhlegmaticOne.Eatery.JSONModelsSavingTests\PhlegmaticOne.Eatery.JSONModelsSavingTests.csproj", "{E5D48DE7-2550-42BD-A65F-2B1FC19F95CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{6C753659-D9AF-4AD0-A1C3-FEB5A01F3D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C753659-D9AF-4AD0-A1C3-FEB5A01F3D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C753659-D9AF-4AD0-A1C3-FEB5A01F3D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48AB53F4-4E3C-4F52-9AD7-82A315BE912C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48AB53F4-4E3C-4F52-9AD7-82A315BE912C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48AB53F4-4E3C-4F52-9AD7-82A315BE912C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48AB53F4-4E3C-4F52-9AD7-82A315BE912C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5D48DE7-2550-42BD-A65F-2B1FC19F95CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D48DE7-2550-42BD-A65F-2B1FC19F95CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D48DE7-2550-42BD-A65F-2B1FC19F95CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D48DE7-2550-42BD-A65F-2B1FC19F95CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

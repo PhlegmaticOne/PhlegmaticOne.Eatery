@@ -5,7 +5,7 @@ public class OliveOil : Ingredient, IEquatable<OliveOil>
     public OliveOil()
     {
     }
-
+    [Newtonsoft.Json.JsonConstructor]
     public OliveOil(double weight, double value) : base(weight, value)
     {
     }

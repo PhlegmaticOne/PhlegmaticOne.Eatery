@@ -8,16 +8,22 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// </summary>
 public abstract class IngredientProcessContainerBase
 {
+    public IngredientProcessContainerBase()
+    {
+
+    }
     /// <summary>
     /// Possible ingredient types, instances of which can be operated by specified process
     /// </summary>
-    internal readonly IDictionary<Type, IList<IngredientProcess>> PossibleTypesToProcess;
+    [Newtonsoft.Json.JsonProperty]
+    internal readonly Dictionary<Type, List<IngredientProcess>> PossibleTypesToProcess;
     /// <summary>
     /// Initializes new default process container
     /// </summary>
     /// <param name="possibleTypesToProcess">Possible ingredient types, instances of which can be operated by specified process</param>
     /// <exception cref="ArgumentNullException">PossibleTypesToProcess is null</exception>
-    protected IngredientProcessContainerBase(IDictionary<Type, IList<IngredientProcess>> possibleTypesToProcess) =>
+    [Newtonsoft.Json.JsonConstructor]
+    protected IngredientProcessContainerBase(Dictionary<Type, List<IngredientProcess>> possibleTypesToProcess) =>
         PossibleTypesToProcess = possibleTypesToProcess ?? throw new ArgumentNullException(nameof(possibleTypesToProcess));
     /// <summary>
     /// Tries to update process for ingredient type
@@ -52,8 +58,8 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
-    public IReadOnlyDictionary<Type, IList<IngredientProcess>> GetIngredientProcessesInformation() =>
-        new ReadOnlyDictionary<Type, IList<IngredientProcess>>(PossibleTypesToProcess);
+    public IReadOnlyDictionary<Type, List<IngredientProcess>> GetIngredientProcessesInformation() =>
+        new ReadOnlyDictionary<Type, List<IngredientProcess>>(PossibleTypesToProcess);
     /// <summary>
     /// Gets string representation of default process container
     /// </summary>

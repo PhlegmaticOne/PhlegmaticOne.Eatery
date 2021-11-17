@@ -1,9 +1,10 @@
 ﻿using PhlegmaticOne.Eatery.Lib.Recipies;
 
-namespace PhlegmaticOne.Eatery.Lib.Dishes.Configurations;
+namespace PhlegmaticOne.Eatery.Lib.Dishes;
 
 public class EateryMenu : EateryMenuBase
 {
     public EateryMenu() { }
-    public EateryMenu(IDictionary<string, Recipe> recipies) : base(recipies) { }
+    [Newtonsoft.Json.JsonConstructor]
+    public EateryMenu(Dictionary<string, Recipe> recipies) : base(recipies) { }
 }

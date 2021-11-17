@@ -2,21 +2,28 @@
 
 namespace PhlegmaticOne.Eatery.Lib.EateryEquipment;
 
-public abstract class ProductionCapacityContainerBase
+public abstract class ProductionCapacitiesContainerBase
 {
-    protected readonly IDictionary<Type, int> MaximalCapacities;
-    protected readonly IDictionary<Type, int> CurrentCapacities;
+    [Newtonsoft.Json.JsonProperty]
+    protected readonly Dictionary<Type, int> MaximalCapacities;
+    [Newtonsoft.Json.JsonProperty]
+    protected readonly Dictionary<Type, int> CurrentCapacities;
     public int Count => CurrentCapacities.Count;
-    internal ProductionCapacityContainerBase(IDictionary<Type, int> maximalCapacities,
-                                             IDictionary<Type, int> currentCapacities)
+    [Newtonsoft.Json.JsonConstructor]
+    internal ProductionCapacitiesContainerBase(Dictionary<Type, int> maximalCapacities,
+                                               Dictionary<Type, int> currentCapacities)
     {
         MaximalCapacities = maximalCapacities;
         CurrentCapacities = currentCapacities;
     }
-    internal ProductionCapacityContainerBase(IDictionary<Type, int> maximalCapacities)
+    internal ProductionCapacitiesContainerBase(Dictionary<Type, int> maximalCapacities)
     {
         MaximalCapacities = maximalCapacities;
         CurrentCapacities= new Dictionary<Type, int>(maximalCapacities);
+    }
+    internal ProductionCapacitiesContainerBase()
+    {
+
     }
     internal virtual int GetCurrentCapacityOfProcess(Type processType)
     {

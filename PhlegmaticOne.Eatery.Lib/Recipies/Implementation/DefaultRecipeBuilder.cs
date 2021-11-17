@@ -28,7 +28,7 @@ public class DefaultRecipeBuilder : IRecipeBuilder
     {
         var configureIngredients = new TRecipeTypesConfiguration();
         configureIngredientsAction.Invoke(configureIngredients);
-        _recipe.IngredientsTakesPartInPreparing = configureIngredients.Configure();
+        _recipe.IngredientsTakesPartInPreparing = configureIngredients.Configure() as Dictionary<Type, double>;
         var configureProcesses = new TRecipeProcessSequenceBuilder();
         configureProcesses.SetSources(_ingredientProcessContainer, _intermediateProcessContainer);
         configureProcessSequenceAction.Invoke(configureProcesses);

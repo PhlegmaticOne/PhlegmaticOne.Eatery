@@ -6,7 +6,7 @@
 public class DefaultStorageBuilder<TStorage> : IStorageBuilder<TStorage> where TStorage : Storage, new()
 {
     private IDictionary<Type, double>? _ingredientTypes;
-    private IStorageTemperature? _storageTemperature;
+    private StorageTemperature? _storageTemperature;
     private int _amount;
     private StorageLightning _storageLightning;
     /// <summary>
@@ -37,7 +37,7 @@ public class DefaultStorageBuilder<TStorage> : IStorageBuilder<TStorage> where T
     {
         var storageTemperatureConfiguration = new TStorageTemperatureConfiguration();
         temperatureConfiguration.Invoke(storageTemperatureConfiguration);
-        _storageTemperature = storageTemperatureConfiguration.Configure();
+        _storageTemperature = storageTemperatureConfiguration.Configure() as StorageTemperature;
     }
     /// <summary>
     /// Sets lightning type in storage
@@ -56,7 +56,7 @@ public class DefaultStorageBuilder<TStorage> : IStorageBuilder<TStorage> where T
             {
                 Lightning = _storageLightning,
                 Temperature = _storageTemperature,
-                KeepingIngredientsTypesInformation = _ingredientTypes
+                KeepingIngredientsTypesInformation = _ingredientTypes as Dictionary<Type, double>
             });
         }
         return result;

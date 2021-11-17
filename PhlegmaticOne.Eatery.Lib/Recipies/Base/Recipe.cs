@@ -1,27 +1,31 @@
-﻿using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
+﻿using Newtonsoft.Json;
+using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 using System.Collections.ObjectModel;
 
 namespace PhlegmaticOne.Eatery.Lib.Recipies;
 
 public class Recipe
 {
-    public Recipe() => (IngredientsTakesPartInPreparing, ProcessesQueueToPrepareDish) =
+    internal Recipe() => (IngredientsTakesPartInPreparing, ProcessesQueueToPrepareDish) =
                           (new Dictionary<Type, double>(), new());
-    public Recipe(string name,
-                  IDictionary<Type, double> ingredientsTakesPartInPreparing,
-                  Queue<IngredientsOperations.DomainProductProcess> processesQueueToPrepareDish)
+    [Newtonsoft.Json.JsonConstructor]
+    internal Recipe(string name,
+                    Dictionary<Type, double> ingredientsTakesPartInPreparing,
+                    Queue<DomainProductProcess> processesQueueToPrepareDish)
     {
         Name = name;
-        IngredientsTakesPartInPreparing = ingredientsTakesPartInPreparing ?? throw new ArgumentNullException(nameof(ingredientsTakesPartInPreparing));
+        IngredientsTakesPartInPreparing = ingredientsTakesPartInPreparing as Dictionary<Type, double> ?? throw new ArgumentNullException(nameof(ingredientsTakesPartInPreparing));
         ProcessesQueueToPrepareDish = processesQueueToPrepareDish ?? throw new ArgumentNullException(nameof(processesQueueToPrepareDish));
     }
-
-    public string Name { get; internal set; }
-    internal IDictionary<Type, double> IngredientsTakesPartInPreparing { get; set; }
-    internal Queue<IngredientsOperations.DomainProductProcess> ProcessesQueueToPrepareDish { get; set; }
+    [JsonProperty]
+    public string Name { get; set; }
+    [JsonProperty]
+    internal Dictionary<Type, double> IngredientsTakesPartInPreparing { get; set; }
+    [JsonProperty]
+    internal Queue<DomainProductProcess> ProcessesQueueToPrepareDish { get; set; }
     public IReadOnlyDictionary<Type, double> GetIngredientsTakesPartInPreparing() =>
         new ReadOnlyDictionary<Type, double>(IngredientsTakesPartInPreparing);
-    public Queue<IngredientsOperations.DomainProductProcess> GetProcessesQueueToPrepareDish() => new(ProcessesQueueToPrepareDish);
+    public Queue<DomainProductProcess> GetProcessesQueueToPrepareDish() => new(ProcessesQueueToPrepareDish);
     public static IRecipeBuilder GetDefaultRecipeBuilder(string recipeName) => new DefaultRecipeBuilder(recipeName);
     public override string ToString() => string.Format("{0}. Ingredients: {1}",
                                          GetType().Name, string.Join(',', IngredientsTakesPartInPreparing));

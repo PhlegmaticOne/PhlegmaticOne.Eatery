@@ -6,20 +6,20 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 
 public class ProductionCapacitiesController : EateryApplicationControllerBase
 {
-    private readonly ProductionCapacityContainerBase _productionCapacityContainer;
-    internal ProductionCapacitiesController(ProductionCapacityContainerBase productionCapacityContainer)
+    private readonly ProductionCapacitiesContainerBase _productionCapacityContainer;
+    internal ProductionCapacitiesController(ProductionCapacitiesContainerBase productionCapacityContainer)
     {
         _productionCapacityContainer = productionCapacityContainer;
     }
     [EateryWorker(typeof(Chief), typeof(Cook))]
-    public IApplicationRespond<ProductionCapacityContainerBase> GetProductionCapacityContainer
+    public IApplicationRespond<ProductionCapacitiesContainerBase> GetProductionCapacityContainer
            (EmptyApplicationRequest prepareByRecipeRequest)
     {
         if (IsInRole(prepareByRecipeRequest.Worker, nameof(GetProductionCapacityContainer)) == false)
         {
-            return GetDefaultAccessDeniedRespond<ProductionCapacityContainerBase>(prepareByRecipeRequest.Worker);
+            return GetDefaultAccessDeniedRespond<ProductionCapacitiesContainerBase>(prepareByRecipeRequest.Worker);
         }
-        return new DefaultApplicationRespond<ProductionCapacityContainerBase>(_productionCapacityContainer,
+        return new DefaultApplicationRespond<ProductionCapacitiesContainerBase>(_productionCapacityContainer,
                                                                               ApplicationRespondType.Success,
                                                                               "Capacities returned");
     }

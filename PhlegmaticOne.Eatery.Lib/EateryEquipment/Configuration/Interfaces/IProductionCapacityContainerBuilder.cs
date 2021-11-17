@@ -7,5 +7,5 @@ public interface IProductionCapacityContainerBuilder
     IProductionCapacityContainerBuilder SetMaximalIngredientsToProcess<TProcess>
                                         (int maximalProcessedIngredients)
                                         where TProcess : IngredientsOperations.DomainProductProcess, new();
-    ProductionCapacityContainerBase Build();
+    ProductionCapacitiesContainerBase Build();
 }

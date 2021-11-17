@@ -1,0 +1,26 @@
+{
+  "$type": "PhlegmaticOne.Eatery.Lib.EateryWorkers.DefaultEateryWorkersContainer, PhlegmaticOne.Eatery.Lib",
+  "_workers": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[PhlegmaticOne.Eatery.Lib.EateryWorkers.Worker, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
+    "Vasya": {
+      "$type": "PhlegmaticOne.Eatery.Lib.EateryWorkers.Cook, PhlegmaticOne.Eatery.Lib",
+      "Name": "Vasya"
+    },
+    "Vitya": {
+      "$type": "PhlegmaticOne.Eatery.Lib.EateryWorkers.Cook, PhlegmaticOne.Eatery.Lib",
+      "Name": "Vitya"
+    },
+    "Vitaliy": {
+      "$type": "PhlegmaticOne.Eatery.Lib.EateryWorkers.Manager, PhlegmaticOne.Eatery.Lib",
+      "Name": "Vitaliy"
+    },
+    "Vladimir": {
+      "$type": "PhlegmaticOne.Eatery.Lib.EateryWorkers.Manager, PhlegmaticOne.Eatery.Lib",
+      "Name": "Vladimir"
+    },
+    "Vladilen": {
+      "$type": "PhlegmaticOne.Eatery.Lib.EateryWorkers.Chief, PhlegmaticOne.Eatery.Lib",
+      "Name": "Vladilen"
+    }
+  }
+}

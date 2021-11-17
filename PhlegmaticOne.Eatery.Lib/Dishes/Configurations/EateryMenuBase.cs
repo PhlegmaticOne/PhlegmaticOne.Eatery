@@ -1,13 +1,16 @@
-﻿using PhlegmaticOne.Eatery.Lib.Recipies;
+﻿using Newtonsoft.Json;
+using PhlegmaticOne.Eatery.Lib.Recipies;
 using System.Collections.ObjectModel;
 
 namespace PhlegmaticOne.Eatery.Lib.Dishes;
 
 public abstract class EateryMenuBase
 {
-    internal readonly IDictionary<string, Recipe> Recipies;
+    [JsonProperty]
+    internal Dictionary<string, Recipe> Recipies;
     protected EateryMenuBase() => Recipies = new Dictionary<string, Recipe>();
-    protected EateryMenuBase(IDictionary<string, Recipe> recipies) => Recipies = recipies;
+    [JsonConstructor]
+    protected EateryMenuBase(Dictionary<string, Recipe> recipies) => Recipies = recipies;
     internal virtual bool TryConnectNameOfDishWithRecipe(string nameOfDish, Recipe recipe)
     {
         if (Recipies.ContainsKey(nameOfDish))

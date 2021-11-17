@@ -14,6 +14,7 @@
         /// </summary>
         /// <param name="weight">Specified weight</param>
         /// <param name="value">Specified value</param>
+        [Newtonsoft.Json.JsonConstructor]
         public Olive(double weight, double value) : base(weight, value) { }
         /// <summary>
         /// Checks equality of olive with other specified olive
