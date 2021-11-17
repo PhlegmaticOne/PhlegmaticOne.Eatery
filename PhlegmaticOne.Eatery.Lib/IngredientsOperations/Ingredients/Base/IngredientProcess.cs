@@ -13,7 +13,7 @@ public abstract class IngredientProcess : DomainProductProcess
     protected IngredientProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
     [Newtonsoft.Json.JsonProperty]
     internal Type? CurrentIngredientType { get; set; }
-    internal abstract void Update(Dish dish, Ingredient ingredient);
+    internal abstract void Update(DishBase dish, double weight);
     /// <summary>
     /// Check equality of ingredient process with specified object
     /// </summary>

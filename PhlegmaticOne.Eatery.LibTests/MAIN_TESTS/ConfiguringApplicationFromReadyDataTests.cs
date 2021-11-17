@@ -16,7 +16,8 @@ namespace PhlegmaticOne.Eatery.LibTests.MAIN_TESTS;
 public class ConfiguringApplicationFromReadyDataTests
 {
     private static IEateryApplicationControllersContainer _controllersContainer;
-    private const string DIRECTORY_WITH_CONFIGURING_FILES_PATH = @"C:\Users\lolol\source\repos\PhlegmaticOne.Eatery\PhlegmaticOne.Eatery.JSONModelsSavingTests\TestFiles\";
+    private const string DIRECTORY_WITH_CONFIGURING_FILES_PATH =
+        @"C:\Users\lolol\source\repos\PhlegmaticOne.Eatery\PhlegmaticOne.Eatery.JSONModelsSavingTests\TestFiles\";
     [ClassInitialize]
     public static async Task ClassInitialize(TestContext testContext)
     {

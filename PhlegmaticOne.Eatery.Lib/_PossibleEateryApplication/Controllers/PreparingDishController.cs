@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.Eatery.Lib.EateryEquipment;
+﻿using PhlegmaticOne.Eatery.Lib.Dishes;
+using PhlegmaticOne.Eatery.Lib.EateryEquipment;
 using PhlegmaticOne.Eatery.Lib.EateryWorkers;
 using PhlegmaticOne.Eatery.Lib.Helpers.Attributes;
 using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
@@ -55,9 +56,57 @@ public class PreparingDishController : EateryApplicationControllerBase
     }
 
     [EateryWorker(typeof(Chief), typeof(Cook))]
-    public IApplicationRespond<TryToPrepareDishRespondType> EndPreparing(IApplicationRequest<string> beginPrepareDishRequest)
+    public IApplicationRespond<DishBase> EndPreparing(IApplicationRequest<string, Type> endPreparingDishRequest)
     {
-        return null;
+        if (IsInRole(endPreparingDishRequest.Worker, nameof(BeginPreparing)) == false)
+        {
+            return GetDefaultAccessDeniedRespond<DishBase>(endPreparingDishRequest.Worker);
+        }
+        var recipe = _recipesInProcessOfPreparing.Peek();
+        var respond = new DefaultApplicationRespond<DishBase>();
+        if (recipe.Name != endPreparingDishRequest.RequestData1)
+        {
+            respond.Update(null, ApplicationRespondType.InternalError, "Dish is not already prepared or there are no such diches in preparing");
+        }
+        var dish = PrepareDish(endPreparingDishRequest.RequestData2, recipe);
+        ReleaseCapacities(recipe);
+        _ordersContainerBase.UpdateLastWith(dish);
+        _recipesInProcessOfPreparing.Dequeue();
+        return respond.Update(dish, ApplicationRespondType.Success, "Dish was prepared");
+    }
+
+    private DishBase PrepareDish(Type dishType, Recipe recipe)
+    {
+        DishBase dish = default;
+        if(dishType == typeof(Dish))
+        {
+            dish = new Dish(new Helpers.Money(0, "USD"), 0, recipe.Name);
+        }
+        else if(dishType == typeof(Drink))
+        {
+            dish = new Drink(new Helpers.Money(0, "USD"), 0, recipe.Name);
+        }
+        foreach (var process in recipe.ProcessesQueueToPrepareDish)
+        {
+            if(process is IngredientProcess ingredientProcess)
+            {
+                ingredientProcess.Update(dish, recipe.IngredientsTakesPartInPreparing[ingredientProcess.CurrentIngredientType]);
+            }
+            if(process is IntermediateProcess intermediateProcess)
+            {
+                intermediateProcess.Update(dish);
+            }
+        }
+        return dish;
+    }
+
+    private void ReleaseCapacities(Recipe recipe)
+    {
+        var releasingCapacities = recipe.ProcessesQueueToPrepareDish.GroupBy(k => k.GetType());
+        foreach (var neededCapacity in releasingCapacities)
+        {
+            _capacitiesContainer.IncreaseCapacity(neededCapacity.Key, neededCapacity.Count());
+        }
     }
 
     private void DecreaseProductionCapacitiesNeededForRecipe(IEnumerable<IGrouping<Type, DomainProductProcess>> neededCapacities)

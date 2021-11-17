@@ -47,4 +47,56 @@ public abstract class IntermediateProcessContainerBase
         }
         return false;
     }
+    public IntermediateProcess MinPriceProcess()
+    {
+        IntermediateProcess result = null;
+        foreach (var process in IntermediateProcesses.Values)
+        {
+            var temp = process.MaxBy(x => x.Price.Amount);
+            if (result is null || result.Price.Amount < temp.Price.Amount)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
+    public IntermediateProcess MaxPriceProcess()
+    {
+        IntermediateProcess result = null;
+        foreach (var process in IntermediateProcesses.Values)
+        {
+            var temp = process.MinBy(x => x.Price.Amount);
+            if (result is null || result.Price.Amount > temp.Price.Amount)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
+    public IntermediateProcess MinTimeProcess()
+    {
+        IntermediateProcess result = null;
+        foreach (var process in IntermediateProcesses.Values)
+        {
+            var temp = process.MinBy(x => x.TimeToFinish);
+            if (result is null || result.TimeToFinish > temp.TimeToFinish)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
+    public IntermediateProcess MaxTimeProcess()
+    {
+        IntermediateProcess result = null;
+        foreach (var process in IntermediateProcesses.Values)
+        {
+            var temp = process.MaxBy(x => x.TimeToFinish);
+            if (result is null || result.TimeToFinish < temp.TimeToFinish)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
 }

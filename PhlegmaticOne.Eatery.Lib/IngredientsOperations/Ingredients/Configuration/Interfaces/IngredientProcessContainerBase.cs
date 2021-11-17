@@ -58,6 +58,58 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
+    public IngredientProcess MinPriceProcess()
+    {
+        IngredientProcess result = null;
+        foreach (var process in PossibleTypesToProcess.Values)
+        {
+            var temp = process.MaxBy(x => x.Price.Amount);
+            if(result is null || result.Price.Amount < temp.Price.Amount)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
+    public IngredientProcess MaxPriceProcess()
+    {
+        IngredientProcess result = null;
+        foreach (var process in PossibleTypesToProcess.Values)
+        {
+            var temp = process.MinBy(x => x.Price.Amount);
+            if (result is null || result.Price.Amount > temp.Price.Amount)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
+    public IngredientProcess MinTimeProcess()
+    {
+        IngredientProcess result = null;
+        foreach (var process in PossibleTypesToProcess.Values)
+        {
+            var temp = process.MinBy(x => x.TimeToFinish);
+            if (result is null || result.TimeToFinish > temp.TimeToFinish)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
+    public IngredientProcess MaxTimeProcess()
+    {
+        IngredientProcess result = null;
+        foreach (var process in PossibleTypesToProcess.Values)
+        {
+            var temp = process.MaxBy(x => x.TimeToFinish);
+            if (result is null || result.TimeToFinish < temp.TimeToFinish)
+            {
+                result = temp;
+            }
+        }
+        return null;
+    }
     public IReadOnlyDictionary<Type, List<IngredientProcess>> GetIngredientProcessesInformation() =>
         new ReadOnlyDictionary<Type, List<IngredientProcess>>(PossibleTypesToProcess);
     /// <summary>

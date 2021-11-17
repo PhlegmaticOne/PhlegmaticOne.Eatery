@@ -14,9 +14,9 @@ public class AddingProcess : IngredientProcess
     {
     }
 
-    internal override void Update(Dish dish, Ingredient ingredient)
+    internal override void Update(DishBase dish, double weight)
     {
         dish.Price += Price * 1.1;
-        dish.Weight += ingredient.Weight;
+        dish.Weight += weight;
     }
 }

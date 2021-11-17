@@ -8,7 +8,6 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 public class IngredientsController : EateryApplicationControllerBase
 {
     private readonly StoragesContainerBase _storageContainer;
-
     internal IngredientsController(StoragesContainerBase storageContainer)
     {
         _storageContainer = storageContainer;

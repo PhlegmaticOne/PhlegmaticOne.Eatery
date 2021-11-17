@@ -4,14 +4,20 @@ namespace PhlegmaticOne.Eatery.Lib.Orders;
 
 public class Order
 {
-    public Order(int id, Dish dish, DateTime orderDate)
+    [Newtonsoft.Json.JsonConstructor]
+    public Order(int id, DishBase dish, DateTime orderDate, string dishName)
     {
         Id = id;
         Dish = dish;
         OrderDate = orderDate;
+        DishName = dishName;
     }
-
+    [Newtonsoft.Json.JsonProperty]
     public int Id { get; }
-    public Dish Dish { get; }
+    [Newtonsoft.Json.JsonProperty]
+    public DishBase Dish { get; internal set; }
+    [Newtonsoft.Json.JsonProperty]
     public DateTime OrderDate { get; }
+    [Newtonsoft.Json.JsonProperty]
+    public string DishName { get; }
 }

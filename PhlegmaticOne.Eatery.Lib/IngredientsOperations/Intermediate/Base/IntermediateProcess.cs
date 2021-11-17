@@ -10,5 +10,5 @@ public abstract class IntermediateProcess : DomainProductProcess
     protected IntermediateProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
     [Newtonsoft.Json.JsonProperty]
     internal List<Type>? PreferableTypesToProcess { get; set; }
-    internal abstract void Update(Dish dish);
+    internal abstract void Update(DishBase dish);
 }

@@ -32,9 +32,9 @@ public class CuttingProcess : IngredientProcess, IEquatable<CuttingProcess>
     /// </summary>
     public override int GetHashCode() => base.GetHashCode();
 
-    internal override void Update(Dish dish, Ingredient ingredient)
+    internal override void Update(DishBase dish, double weight)
     {
         dish.Price += Price;
-        dish.Weight -= ingredient.Weight * 0.02;
+        dish.Weight -= weight * 0.02;
     }
 }

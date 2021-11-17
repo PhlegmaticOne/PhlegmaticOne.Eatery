@@ -13,7 +13,7 @@ public class MixingProcess : IntermediateProcess
     {
     }
 
-    internal override void Update(Dish dish)
+    internal override void Update(DishBase dish)
     {
         dish.Weight *= 0.87;
         dish.Price += Price * 1.1;
