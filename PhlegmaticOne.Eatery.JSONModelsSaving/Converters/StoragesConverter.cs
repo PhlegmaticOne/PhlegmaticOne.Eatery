@@ -3,7 +3,9 @@ using Newtonsoft.Json.Linq;
 using PhlegmaticOne.Eatery.Lib.Storages;
 
 namespace PhlegmaticOne.Eatery.JSONModelsSaving;
-
+/// <summary>
+/// Json converter of storage abstract type to storages concrete types
+/// </summary>
 internal class StoragesConverter : Newtonsoft.Json.JsonConverter
 {
     public override bool CanConvert(Type objectType) => objectType == typeof(Storage);
@@ -19,8 +21,6 @@ internal class StoragesConverter : Newtonsoft.Json.JsonConverter
         return null;
     }
 
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-    {
-
-    }
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) { }
+    public override string ToString() => GetType().Name;
 }

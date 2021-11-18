@@ -1,26 +1,26 @@
 ﻿using PhlegmaticOne.Eatery.Lib.Ingredients;
 
 namespace PhlegmaticOne.Eatery.Lib.Recipies;
-
+/// <summary>
+/// Represents default recipe types configurator
+/// </summary>
 public class DefaultRecipeIngredientTypesConfiguration : IRecipeIngredientTypesConfiguration
 {
     private Type _configuringIngredientType;
     private readonly Dictionary<Type, double>? _recipeTypes = new();
-    //public IRecipeIngredientTypesConfiguration FromStorage<TStorage>(Func<TStorage, bool> predicate) where TStorage : Storage, new()
-    //{
-    //    var fittedStorages = _storageContainer.OfStorageType<TStorage>();
-    //    if(fittedStorages.Any() == false)
-    //    {
-    //        throw new ArgumentException("Storages are not registered in container");
-    //    }
-    //    _fittedStorages = fittedStorages;
-    //    return this;
-    //}
+    /// <summary>
+    /// Sets needed ingredient
+    /// </summary>
+    /// <typeparam name="TIngredient">Concrete ingredient type</typeparam>
     public IRecipeIngredientTypesConfiguration NeedIngredient<TIngredient>() where TIngredient : Ingredient, new()
     {
         _configuringIngredientType = typeof(TIngredient);
         return this;
     }
+    /// <summary>
+    /// Sets necessary weight of ingredient
+    /// </summary>
+    /// <param name="weight"></param>
     public void InWeightOf(double weight)
     {
         if (weight <= 0)
@@ -29,5 +29,9 @@ public class DefaultRecipeIngredientTypesConfiguration : IRecipeIngredientTypesC
         }
         _recipeTypes.Add(_configuringIngredientType, weight);
     }
+    /// <summary>
+    /// Creates dictionary with configured ingredient types and their necessary weights
+    /// </summary>
+    /// <returns></returns>
     public IDictionary<Type, double> Configure() => _recipeTypes;
 }

@@ -22,14 +22,14 @@ public class DefaultIngredientProcessesJsonWorkerTests
     [TestMethod]
     public async Task ASaveIngredeientProcessesTest()
     {
-        var ingredientProcessesContainer = DefaultProcessContainer.GetDefaultContainerBuilder()
-            .ConfigureProcess<CuttingProcess, DefaultProcessBuilder<CuttingProcess>>(builder =>
+        var ingredientProcessesContainer = DefaultIngredientProcessContainer.GetDefaultContainerBuilder()
+            .ConfigureProcess<CuttingProcess, DefaultIngredientProcessBuilder<CuttingProcess>>(builder =>
             {
                 builder.CanProcess<Cucumber>().WithCost(new Money(10, "RUB")).WithTimeToFinish(TimeSpan.FromMinutes(2));
                 builder.CanProcess<Tomato>().WithCost(new Money(10, "RUB")).WithTimeToFinish(TimeSpan.FromMinutes(2));
                 builder.CanProcess<Olive>().WithCost(new Money(10, "RUB")).WithTimeToFinish(TimeSpan.FromMinutes(2));
             })
-            .ConfigureProcess<AddingProcess, DefaultProcessBuilder<AddingProcess>>(builder =>
+            .ConfigureProcess<AddingProcess, DefaultIngredientProcessBuilder<AddingProcess>>(builder =>
             {
                 builder.CanProcess<Cucumber>().WithCost(new Money(20, "RUB")).WithTimeToFinish(TimeSpan.FromSeconds(10));
                 builder.CanProcess<Tomato>().WithCost(new Money(20, "RUB")).WithTimeToFinish(TimeSpan.FromSeconds(20));
@@ -44,7 +44,7 @@ public class DefaultIngredientProcessesJsonWorkerTests
     [TestMethod()]
     public async Task BLoadIngredeientProcessesTest()
     {
-        var ingredientProcesses = await _ingredientProcessesJsonWorkerTests.LoadAsync<DefaultProcessContainer>();
-        Assert.IsInstanceOfType(ingredientProcesses, typeof(DefaultProcessContainer));
+        var ingredientProcesses = await _ingredientProcessesJsonWorkerTests.LoadAsync<DefaultIngredientProcessContainer>();
+        Assert.IsInstanceOfType(ingredientProcesses, typeof(DefaultIngredientProcessContainer));
     }
 }

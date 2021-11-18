@@ -7,26 +7,24 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// </summary>
 public abstract class IngredientProcess : DomainProductProcess
 {
+    /// <summary>
+    /// Initializes new IngredientProcess instance
+    /// </summary>
     protected IngredientProcess() { }
+    /// <summary>
+    /// Initializes new IngredientProcess instance
+    /// </summary>
+    /// <param name="timeToFinish">Time to finish process</param>
+    /// <param name="price">Price of process</param>
     [Newtonsoft.Json.JsonConstructor]
     protected IngredientProcess(TimeSpan timeToFinish, Money price) : base(timeToFinish, price) { }
+    /// <summary>
+    /// Current ingredient type
+    /// </summary>
     [Newtonsoft.Json.JsonProperty]
     internal Type? CurrentIngredientType { get; set; }
+    /// <summary>
+    /// Updates preparing dish
+    /// </summary>
     internal abstract void Update(DishBase dish, double weight);
-    /// <summary>
-    /// Check equality of ingredient process with specified object
-    /// </summary>
-    public override bool Equals(object? obj) => obj is DomainProductProcess ingredientProcess &&
-                                                TimeToFinish == ingredientProcess.TimeToFinish &&
-                                                Price == ingredientProcess.Price;
-    /// <summary>
-    /// Gets hash code of ingredient process
-    /// </summary>
-    override public int GetHashCode() => TimeToFinish.Milliseconds ^ (int)Price.Amount ^ Price.CurrencyCode.GetHashCode();
-    /// <summary>
-    /// Gets string representation of ingredient process
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString() => string.Format("Process is {0}. Price: {1}. Time to finish: {2}",
-                                                        GetType().Name, Price, TimeToFinish.ToString());
 }

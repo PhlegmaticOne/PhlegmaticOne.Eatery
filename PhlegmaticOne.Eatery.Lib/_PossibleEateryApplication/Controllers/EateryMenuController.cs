@@ -4,17 +4,26 @@ using PhlegmaticOne.Eatery.Lib.Helpers.Attributes;
 using PhlegmaticOne.Eatery.Lib.Recipies;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-
+/// <summary>
+/// Represents controller which is responsible for operating with eatery menu
+/// </summary>
 public class EateryMenuController : EateryApplicationControllerBase
 {
     private readonly EateryMenuBase _eateryMenu;
-
+    /// <summary>
+    /// initializes new EateryMenuController instance
+    /// </summary>
+    public EateryMenuController() { }
+    /// <summary>
+    /// initializes new EateryMenuController instance
+    /// </summary>
+    /// <param name="eateryMenu">Specified eatery menu</param>
     internal EateryMenuController(EateryMenuBase eateryMenu) => _eateryMenu = eateryMenu;
-
-    public EateryMenuController()
-    {
-    }
-
+    /// <summary>
+    /// Adds new recipe in menu
+    /// </summary>
+    /// <param name="addRecipeRequest">Request with recipe to add</param>
+    /// <returns>True - recipe was added</returns>
     [EateryWorker(typeof(Chief))]
     public IApplicationRespond<bool> AddRecipeInMenu(IApplicationRequest<Recipe> addRecipeRequest)
     {
@@ -30,6 +39,11 @@ public class EateryMenuController : EateryApplicationControllerBase
         }
         return respond.Update(true, ApplicationRespondType.Success, "Recipe was added");
     }
+    /// <summary>
+    /// Removes recipe from menu
+    /// </summary>
+    /// <param name="removeRecipeRequest">Request with recipe name to remove</param>
+    /// <returns>True - recipe was removed</returns>
     [EateryWorker(typeof(Chief))]
     public IApplicationRespond<bool> RemoveRecipeFromMenu(IApplicationRequest<string> removeRecipeRequest)
     {
@@ -45,6 +59,11 @@ public class EateryMenuController : EateryApplicationControllerBase
         }
         return respond.Update(true, ApplicationRespondType.Success, "Recipe was removed");
     }
+    /// <summary>
+    /// Gets all recipies in menu 
+    /// </summary>
+    /// <param name="getAllRecipiesRequest">Empty request</param>
+    /// <returns>Read-only dictionary: keys - recipe names, values - recipies</returns>
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<IReadOnlyDictionary<string, Recipe>>
         GetAllRecipies(EmptyApplicationRequest getAllRecipiesRequest)
@@ -57,6 +76,11 @@ public class EateryMenuController : EateryApplicationControllerBase
                                                                                   ApplicationRespondType.Success,
                                                                                   "Recipies was returned");
     }
+    /// <summary>
+    /// Gets whole eatery menu
+    /// </summary>
+    /// <param name="getAllRecipiesRequest">Empty request</param>
+    /// <returns>Eatery menu</returns>
     [EateryWorker(typeof(Chief), typeof(Cook), typeof(Manager))]
     public IApplicationRespond<EateryMenuBase>
         GetEateryMenu(EmptyApplicationRequest getAllRecipiesRequest)

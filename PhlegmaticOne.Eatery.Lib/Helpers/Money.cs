@@ -4,6 +4,9 @@
 /// </summary>
 public class Money : IEquatable<Money>
 {
+    /// <summary>
+    /// Initializes new Money instance
+    /// </summary>
     public Money() { }
     /// <summary>
     /// Intializes new money instance
@@ -23,10 +26,20 @@ public class Money : IEquatable<Money>
                  throw new ArgumentException("Money amount cannot be less than zero", nameof(amount));
         CurrencyCode = currencyCode;
     }
+    /// <summary>
+    /// Amount of money
+    /// </summary>
     [Newtonsoft.Json.JsonProperty]
     public double Amount { get; }
+    /// <summary>
+    /// Currency code of money
+    /// </summary>
     [Newtonsoft.Json.JsonProperty]
     public string CurrencyCode { get; }
+    /// <summary>
+    /// Overloading sum for money
+    /// </summary>
+    /// <exception cref="ArgumentException">Currency codes of money are diferrent</exception>
     public static Money operator +(Money a, Money b)
     {
         if (a.CurrencyCode != b.CurrencyCode)
@@ -35,6 +48,10 @@ public class Money : IEquatable<Money>
         }
         return new Money(a.Amount + b.Amount, a.CurrencyCode);
     }
+    /// <summary>
+    /// Overloading difference for money
+    /// </summary>
+    /// <exception cref="ArgumentException">Currency codes of money are diferrent</exception>
     public static Money operator -(Money a, Money b)
     {
         if (a.CurrencyCode != b.CurrencyCode)
@@ -48,6 +65,9 @@ public class Money : IEquatable<Money>
         }
         return new Money(difference, a.CurrencyCode);
     }
+    /// <summary>
+    /// Overloading multiplication for money and number
+    /// </summary>
     public static Money operator *(Money a, double n) => new(a.Amount * n, a.CurrencyCode);
     public static Money ConvertToUSD(Money money) => money.CurrencyCode switch
     {
@@ -57,7 +77,6 @@ public class Money : IEquatable<Money>
     };
     public override string ToString() => string.Format("{0:f4} {1}", Amount, CurrencyCode);
     public override bool Equals(object? obj) => Equals(obj as Money);
-
     public bool Equals(Money? other) => other is not null && Amount == other.Amount && CurrencyCode == other.CurrencyCode;
     public override int GetHashCode() => CurrencyCode.GetHashCode() ^ (int)Amount;
 }

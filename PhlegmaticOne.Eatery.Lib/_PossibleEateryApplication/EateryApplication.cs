@@ -6,7 +6,9 @@ using PhlegmaticOne.Eatery.Lib.Orders;
 using PhlegmaticOne.Eatery.Lib.Storages;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-
+/// <summary>
+/// Represents eatery application class which is composite of all application containers
+/// </summary>
 public class EateryApplication
 {
     internal StoragesContainerBase StorageContainer;
@@ -16,7 +18,21 @@ public class EateryApplication
     internal EateryMenuBase EateryMenu;
     internal EateryWorkersContainerBase EateryWorkersContainer;
     internal OrdersContainerBase OrdersContainer;
-
+    /// <summary>
+    /// Initializes new EateryApplication instance
+    /// </summary>
+    private EateryApplication() { }
+    /// <summary>
+    /// Initializes new EateryApplication instance
+    /// </summary>
+    /// <param name="storageContainer">Specified StoragesContainerBase</param>
+    /// <param name="ingredientProcessContainer">Specified IngredientProcessContainerBase</param>
+    /// <param name="intermediateProcessContainer">Specified IntermediateProcessContainerBase</param>
+    /// <param name="productionCapacityContainer">Specified ProductionCapacitiesContainerBase</param>
+    /// <param name="eateryMenu">Specified EateryMenuBase</param>
+    /// <param name="eateryWorkersContainer">Specified EateryWorkersContainerBase</param>
+    /// <param name="ordersContainer">Specified OrdersContainerBase</param>
+    /// <exception cref="ArgumentNullException">Any container is null</exception>
     internal EateryApplication(StoragesContainerBase storageContainer,
                                IngredientProcessContainerBase ingredientProcessContainer,
                                IntermediateProcessContainerBase intermediateProcessContainer,
@@ -33,8 +49,10 @@ public class EateryApplication
         EateryWorkersContainer = eateryWorkersContainer;
         OrdersContainer = ordersContainer;
     }
-    private EateryApplication() { }
-
+    /// <summary>
+    /// Creates EateryApplication instance from specified eatery application builder
+    /// </summary>
+    /// <param name="applicationBuilderAction">Action initializing eatery application builder</param>
     public static EateryApplication Create<TApplicationBuilder>(Action<TApplicationBuilder> applicationBuilderAction)
                                     where TApplicationBuilder : IEateryApplicationBuilder, new()
     {
@@ -42,22 +60,17 @@ public class EateryApplication
         applicationBuilderAction(builer);
         return builer.Build();
     }
-    private async Task<EateryApplication> InitAsync(IEateryApplicationAsyncInitializer eateryAsyncInitializer)
-    {
-        StorageContainer = await eateryAsyncInitializer.LoadStoragesAsync();
-        IngredientProcessContainer = await eateryAsyncInitializer.LoadIngredientProcessesAsync();
-        IntermediateProcessContainer = await eateryAsyncInitializer.LoadIntermediateProcessesAsync();
-        ProductionCapacityContainer = await eateryAsyncInitializer.LoadProductionCapacitiesAsync();
-        EateryMenu = await eateryAsyncInitializer.LoadEateryMenuAsync();
-        EateryWorkersContainer = await eateryAsyncInitializer.LoadWorkersAsync();
-        OrdersContainer = await eateryAsyncInitializer.LoadOrdersAsync();
-        return this;
-    }
+    /// <summary>
+    /// Creates EateryApplication instance from specified eatery application async initializer
+    /// </summary>
     public static Task<EateryApplication> CreateAsync(IEateryApplicationAsyncInitializer eateryAsyncInitializer)
     {
         var instance = new EateryApplication();
         return instance.InitAsync(eateryAsyncInitializer);
     }
+    /// <summary>
+    /// Configures all necessary application controllers and return container with them
+    /// </summary>
     public IEateryApplicationControllersContainer Run() => new DefaultEateryApplicationControllersContainer(
         new List<EateryApplicationControllerBase>()
         {
@@ -74,6 +87,9 @@ public class EateryApplication
             new StoragesController(StorageContainer),
             new WorkersController(EateryWorkersContainer),
         });
+    /// <summary>
+    /// Gets specified container by its type
+    /// </summary>
     internal object? GetContainer<TContainer>() => typeof(TContainer).Name switch
     {
         "StoragesContainerBase" => StorageContainer,
@@ -85,4 +101,16 @@ public class EateryApplication
         "OrdersContainer" => OrdersContainer,
         _ => null
     };
+    private async Task<EateryApplication> InitAsync(IEateryApplicationAsyncInitializer eateryAsyncInitializer)
+    {
+        StorageContainer = await eateryAsyncInitializer.LoadStoragesAsync();
+        IngredientProcessContainer = await eateryAsyncInitializer.LoadIngredientProcessesAsync();
+        IntermediateProcessContainer = await eateryAsyncInitializer.LoadIntermediateProcessesAsync();
+        ProductionCapacityContainer = await eateryAsyncInitializer.LoadProductionCapacitiesAsync();
+        EateryMenu = await eateryAsyncInitializer.LoadEateryMenuAsync();
+        EateryWorkersContainer = await eateryAsyncInitializer.LoadWorkersAsync();
+        OrdersContainer = await eateryAsyncInitializer.LoadOrdersAsync();
+        return this;
+    }
+    public override string ToString() => "Eatery application is running";
 }

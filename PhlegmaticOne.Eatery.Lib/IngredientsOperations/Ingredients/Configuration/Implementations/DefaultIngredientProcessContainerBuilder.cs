@@ -3,9 +3,12 @@
 /// Represents prepared default ingredient process container builder instance
 /// </summary>
 /// <typeparam name="TProcess">Ingredient process type</typeparam>
-public class DefaultProcessContainerBuilder : IIngredientProcessContainerBuilder
+public class DefaultIngredientProcessContainerBuilder : IIngredientProcessContainerBuilder
 {
     private readonly Dictionary<Type, IEnumerable<IngredientProcess>> _processes = new();
+    /// <summary>
+    /// Creates a container with registered ingredient types and their processes
+    /// </summary>
     public IngredientProcessContainerBase Build()
     {
         var newProcesses = new Dictionary<Type, List<IngredientProcess>>();
@@ -13,9 +16,13 @@ public class DefaultProcessContainerBuilder : IIngredientProcessContainerBuilder
         {
             newProcesses.Add(process.Key, process.Value.ToList());
         }
-        return new DefaultProcessContainer(newProcesses);
+        return new DefaultIngredientProcessContainer(newProcesses);
     }
-
+    /// <summary>
+    /// Configures new ingredient process
+    /// </summary>
+    /// <param name="initializer">Initializing process builder action</param>
+    /// <returns></returns>
     public IIngredientProcessContainerBuilder ConfigureProcess<TProcess, TProcessBuilder>(Action<TProcessBuilder> initializerProcessAction)
                                                     where TProcess : IngredientProcess, new()
                                                     where TProcessBuilder : IIngredientProcessBuilder<TProcess>, new()

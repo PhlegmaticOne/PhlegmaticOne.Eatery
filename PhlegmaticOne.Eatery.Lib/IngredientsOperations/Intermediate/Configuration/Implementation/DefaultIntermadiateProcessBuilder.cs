@@ -1,7 +1,10 @@
 ﻿using PhlegmaticOne.Eatery.Lib.Helpers;
 
 namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
-
+/// <summary>
+/// Represent default intermadiate process builder
+/// </summary>
+/// <typeparam name="TProcess"></typeparam>
 public class DefaultIntermadiateProcessBuilder<TProcess> : IIntermediateProcessBuilder<TProcess>
                                                            where TProcess : IntermediateProcess, new()
 {
@@ -38,4 +41,5 @@ public class DefaultIntermadiateProcessBuilder<TProcess> : IIntermediateProcessB
 
     }
     public IList<TProcess> Build() => _processesList;
+    public override string ToString() => GetType().Name;
 }

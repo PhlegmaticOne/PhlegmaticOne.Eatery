@@ -8,6 +8,9 @@ namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <typeparam name="TProcess">Ingredient process type</typeparam>
 public interface IIngredientProcessBuilder<TProcess> where TProcess : IngredientProcess, new()
 {
+    /// <summary>
+    /// Sets ingredient type which can be processed by configuring process
+    /// </summary>
     IIngredientProcessBuilder<TProcess> CanProcess<TIngredient>() where TIngredient : Ingredient, new();
     /// <summary>
     /// Sets cost to a building ingredient process
@@ -21,5 +24,9 @@ public interface IIngredientProcessBuilder<TProcess> where TProcess : Ingredient
     /// <param name="timeToFinish">Specified duration</param>
     /// <returns>Current instance of process builder</returns>
     IIngredientProcessBuilder<TProcess> WithTimeToFinish(TimeSpan timeToFinish);
+    /// <summary>
+    /// Bilds collection of configured ingredient processes
+    /// </summary>
+    /// <returns></returns>
     IList<TProcess> Build();
 }

@@ -6,7 +6,9 @@ using PhlegmaticOne.Eatery.Lib.Orders;
 using PhlegmaticOne.Eatery.Lib.Storages;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-
+/// <summary>
+/// Represents default eatery application builder
+/// </summary>
 public class DefaultEateryApplicationBuilder : IEateryApplicationBuilder
 {
     private StoragesContainerBase _storageContainer;
@@ -39,4 +41,5 @@ public class DefaultEateryApplicationBuilder : IEateryApplicationBuilder
 
     public void UseStorageContainer(StoragesContainerBase storageContainer) =>
         _storageContainer = storageContainer;
+    public override string ToString() => GetType().Name;
 }

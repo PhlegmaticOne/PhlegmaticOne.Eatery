@@ -14,7 +14,7 @@ public abstract class IntermediateProcessContainerBase
         IntermediateProcesses = intermediateProcesses;
     }
     internal virtual TProcess GetProcess<TProcess>(IEnumerable<Type> preferableTypesToProcess)
-                                                  where TProcess : IntermediateProcess, new()
+                                                   where TProcess : IntermediateProcess, new()
     {
         if (IntermediateProcesses.TryGetValue(typeof(TProcess), out var intermediateProcesses))
         {

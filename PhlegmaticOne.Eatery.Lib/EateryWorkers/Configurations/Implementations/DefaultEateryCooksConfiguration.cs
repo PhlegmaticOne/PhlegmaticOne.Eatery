@@ -1,8 +1,13 @@
 ﻿namespace PhlegmaticOne.Eatery.Lib.EateryWorkers;
-
+/// <summary>
+/// Represents default eatery cooks configuration
+/// </summary>
 public class DefaultEateryCooksConfiguration : IEateryCooksConfiguration
 {
     private readonly List<Worker> _eateryWorkers = new();
+    /// <summary>
+    /// Adds new cook in configuring container
+    /// </summary>
     public IEateryCooksConfiguration AddCook(Cook cook)
     {
         if (cook is not null)
@@ -11,6 +16,9 @@ public class DefaultEateryCooksConfiguration : IEateryCooksConfiguration
         }
         return this;
     }
+    /// <summary>
+    /// Adds first manager in configuring container
+    /// </summary>
 
     public IEateryManagersConfiguration AddManager(Manager manager)
     {
@@ -20,4 +28,5 @@ public class DefaultEateryCooksConfiguration : IEateryCooksConfiguration
         }
         return new DefaultEateryManagersConfiguration(_eateryWorkers);
     }
+    public override string ToString() => GetType().Name;
 }

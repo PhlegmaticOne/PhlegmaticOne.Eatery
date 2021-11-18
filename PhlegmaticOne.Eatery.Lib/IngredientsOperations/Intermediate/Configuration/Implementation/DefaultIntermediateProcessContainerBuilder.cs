@@ -1,10 +1,10 @@
 ﻿namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
-
+/// <summary>
+/// Represents default intermediate process container builder
+/// </summary>
 public class DefaultIntermediateProcessContainerBuilder : IIntermediateProcessContainerBuilder
 {
     private readonly Dictionary<Type, IEnumerable<IntermediateProcess>> _intermediateProcesses = new();
-
-
     public IIntermediateProcessContainerBuilder ConfigureProcess<TProcess, TProcessBuilder>
                                                 (Action<TProcessBuilder> initializer)
                                                 where TProcess : IntermediateProcess, new()
@@ -24,4 +24,5 @@ public class DefaultIntermediateProcessContainerBuilder : IIntermediateProcessCo
         }
         return new DefaultIntermediateProcessContainer(newProcesses);
     }
+    public override string ToString() => GetType().Name;
 }

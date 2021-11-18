@@ -4,6 +4,9 @@
 /// </summary>
 public class DefaultStorageContainerBuilder : IStorageContainerBuilder
 {
+    /// <summary>
+    /// Configuring storages
+    /// </summary>
     private readonly List<Storage> _storages;
     /// <summary>
     /// Initializes new default storage container builder

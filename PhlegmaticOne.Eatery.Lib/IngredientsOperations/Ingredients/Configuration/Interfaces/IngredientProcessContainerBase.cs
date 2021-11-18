@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 
 namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
-/// Represents contract for ingredient process container
+/// Represents base container for othes ingredient processes containers
 /// </summary>
 public abstract class IngredientProcessContainerBase
 {
-    public IngredientProcessContainerBase()
-    {
-
-    }
+    /// <summary>
+    /// Initializes new IngredientProcessContainerBase instance
+    /// </summary>
+    public IngredientProcessContainerBase() { }
     /// <summary>
     /// Possible ingredient types, instances of which can be operated by specified process
     /// </summary>
@@ -48,6 +48,9 @@ public abstract class IngredientProcessContainerBase
         }
         return false;
     }
+    /// <summary>
+    /// Gets ingredient process of specified type related to specified ingredient
+    /// </summary>
     internal virtual TProcess GetProcess<TProcess, TIngredient>()
                               where TProcess : IngredientProcess, new()
                               where TIngredient : Ingredient, new()
@@ -58,6 +61,9 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
+    /// <summary>
+    /// Gets min price ingredient process from all processes in container
+    /// </summary>
     public IngredientProcess MinPriceProcess()
     {
         IngredientProcess result = null;
@@ -71,6 +77,9 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
+    /// <summary>
+    /// Gets max price ingredient process from all processes in container
+    /// </summary>
     public IngredientProcess MaxPriceProcess()
     {
         IngredientProcess result = null;
@@ -84,6 +93,9 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
+    /// <summary>
+    /// Gets min time ingredient process from all processes in container
+    /// </summary>
     public IngredientProcess MinTimeProcess()
     {
         IngredientProcess result = null;
@@ -97,6 +109,9 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
+    /// <summary>
+    /// Gets max time ingredient process from all processes in container
+    /// </summary>
     public IngredientProcess MaxTimeProcess()
     {
         IngredientProcess result = null;
@@ -110,12 +125,16 @@ public abstract class IngredientProcessContainerBase
         }
         return null;
     }
+    /// <summary>
+    /// Gets ingredient processes and their all information for every ingredient
+    /// </summary>
+    /// <returns></returns>
     public IReadOnlyDictionary<Type, List<IngredientProcess>> GetIngredientProcessesInformation() =>
         new ReadOnlyDictionary<Type, List<IngredientProcess>>(PossibleTypesToProcess);
     /// <summary>
     /// Gets string representation of default process container
     /// </summary>
-    public override string ToString() => string.Format("Count: {0}", PossibleTypesToProcess.Count);
+    public override string ToString() => string.Format("{0}. Count: {1}", GetType().Name, PossibleTypesToProcess.Count);
     /// <summary>
     /// Gets hash code of default process container
     /// </summary>
@@ -123,6 +142,6 @@ public abstract class IngredientProcessContainerBase
     /// <summary>
     /// Checks equality of default process container with other specified object 
     /// </summary>
-    public override bool Equals(object? obj) => obj is DefaultProcessContainer defaultProcessContainer &&
+    public override bool Equals(object? obj) => obj is DefaultIngredientProcessContainer defaultProcessContainer &&
                                                 PossibleTypesToProcess.AllEquals(defaultProcessContainer.PossibleTypesToProcess);
 }

@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 
-public class LogInApplicationRequest : IApplicationRequest<string>
+public class LogInApplicationRequest : IApplicationRequest<string>, IEquatable<LogInApplicationRequest>
 {
     private LogInApplicationRequest(string workerNameToLogIn)
     {
@@ -14,6 +14,19 @@ public class LogInApplicationRequest : IApplicationRequest<string>
     }
     public Worker Worker { get; }
     public string RequestData1 { get; }
+    /// <summary>
+    /// Initializes new LogInApplicationRequest with specified worker name
+    /// </summary>
     public static LogInApplicationRequest Default(string workerNameToLogIn) =>
         new LogInApplicationRequest(workerNameToLogIn);
+
+    public bool Equals(LogInApplicationRequest? other) => other is not null &&
+                                                          other.RequestData1.Equals(RequestData1) &&
+                                                          other.Worker.Equals(Worker);
+
+    public override bool Equals(object obj) => Equals(obj as LogInApplicationRequest);
+
+    public override int GetHashCode() => RequestData1.GetHashCode() ^ Worker.GetHashCode();
+
+    public override string? ToString() => string.Format("{0}: {1}", GetType().Name, RequestData1);
 }

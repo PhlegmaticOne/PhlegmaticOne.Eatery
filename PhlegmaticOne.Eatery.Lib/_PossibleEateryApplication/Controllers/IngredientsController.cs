@@ -4,19 +4,26 @@ using PhlegmaticOne.Eatery.Lib.Ingredients;
 using PhlegmaticOne.Eatery.Lib.Storages;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-
+/// <summary>
+/// Represents controller which is responsible for operating with ingredients
+/// </summary>
 public class IngredientsController : EateryApplicationControllerBase
 {
     private readonly StoragesContainerBase _storageContainer;
-    internal IngredientsController(StoragesContainerBase storageContainer)
-    {
-        _storageContainer = storageContainer;
-    }
-
-    public IngredientsController()
-    {
-    }
-
+    /// <summary>
+    /// Initializes new IngredientsController instance
+    /// </summary>
+    public IngredientsController() { }
+    /// <summary>
+    /// Initializes new IngredientsController instance
+    /// </summary>
+    /// <param name="storageContainer">Specified storage container</param>
+    internal IngredientsController(StoragesContainerBase storageContainer) => _storageContainer = storageContainer;
+    /// <summary>
+    /// Gets all existing ingredients
+    /// </summary>
+    /// <param name="getAllIngredientsRequest">Empty request</param>
+    /// <returns>Read-only dictionary: keys - ingredient types, values - their total weight from all storages where they contains</returns>
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<IReadOnlyDictionary<Type, double>> GetAllExistingIngredients
                               (EmptyApplicationRequest getAllIngredientsRequest)
@@ -28,6 +35,11 @@ public class IngredientsController : EateryApplicationControllerBase
         return new DefaultApplicationRespond<IReadOnlyDictionary<Type, double>>
             (_storageContainer.GetAllExistingIngredients(), ApplicationRespondType.Success, "All ingredients returned");
     }
+    /// <summary>
+    /// Adds collection of ingredients in specified by predicate storage
+    /// </summary>
+    /// <param name="addingIngredientsRequest">Request with predicate to find storage and collection of ingreedients to add</param>
+    /// <returns>True - ingredients were added</returns>
     [EateryWorker(typeof(Cook), typeof(Chief))]
     public IApplicationRespond<bool> AddIngredientsInStorage
            (IApplicationRequest<Func<Storage, bool>, IEnumerable<Ingredient>> addingIngredientsRequest)
@@ -59,7 +71,4 @@ public class IngredientsController : EateryApplicationControllerBase
         return respond.Update(true, ApplicationRespondType.Success,
                              $"{addedIngredients} of {addingIngredientsRequest.RequestData2.Count()} ingredients was added");
     }
-
-    internal IEnumerable<Storage> GetStoragesContainingIngredientType(Type ingredientType) =>
-        _storageContainer.AllStorages().Where(s => s.ContainsIngredient(ingredientType));
 }

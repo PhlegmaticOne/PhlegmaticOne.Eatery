@@ -8,14 +8,25 @@ using PhlegmaticOne.Eatery.Lib.Recipies;
 using PhlegmaticOne.Eatery.Lib.Storages;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-
+/// <summary>
+/// Represents controller which is responsible for operating with dishes
+/// </summary>
 public class PreparingDishController : EateryApplicationControllerBase
 {
     private readonly PriorityQueue<Recipe, int> _recipesInProcessOfPreparing;
     private readonly StoragesContainerBase _storagesContainer;
     private readonly ProductionCapacitiesContainerBase _capacitiesContainer;
     private readonly OrdersContainerBase _ordersContainerBase;
-
+    /// <summary>
+    /// Initializes new PreparingDishController instance
+    /// </summary>
+    public PreparingDishController() { }
+    /// <summary>
+    /// Initializes new PreparingDishController instance
+    /// </summary>
+    /// <param name="storagesContainer">Specified storages container</param>
+    /// <param name="capacitiesContainer">Specified production capacities container</param>
+    /// <param name="ordersContainerBase">Specified orders container</param>
     internal PreparingDishController(StoragesContainerBase storagesContainer,
                                      ProductionCapacitiesContainerBase capacitiesContainer,
                                      OrdersContainerBase ordersContainerBase)
@@ -25,11 +36,11 @@ public class PreparingDishController : EateryApplicationControllerBase
         _capacitiesContainer = capacitiesContainer;
         _ordersContainerBase = ordersContainerBase;
     }
-
-    public PreparingDishController()
-    {
-    }
-
+    /// <summary>
+    /// Begins preparingof dish in order or says that it cannot be prepared
+    /// </summary>
+    /// <param name="beginPrepareDishRequest">Request with order and recipe to prepare</param>
+    /// <returns>Respond with type showing if dish can be prepared and dish name</returns>
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<TryToPrepareDishRespondType, string> BeginPreparing(IApplicationRequest<Order, Recipe> beginPrepareDishRequest)
     {
@@ -60,7 +71,11 @@ public class PreparingDishController : EateryApplicationControllerBase
         return new DefaultApplicationRespond<TryToPrepareDishRespondType, string>(
             TryToPrepareDishRespondType.PreparingBegan, recipe.Name, ApplicationRespondType.Success, $"You can prepare a dish");
     }
-
+    /// <summary>
+    /// Ends preparing of dish
+    /// </summary>
+    /// <param name="endPreparingDishRequest">Request with dish name that should be ended in preparing</param>
+    /// <returns>Prepared dish or error that says that dish is not already ended in preparing</returns>
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<DishBase> EndPreparing(IApplicationRequest<string> endPreparingDishRequest)
     {

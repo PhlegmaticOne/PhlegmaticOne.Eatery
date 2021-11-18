@@ -6,17 +6,24 @@ using PhlegmaticOne.Eatery.Lib.Orders;
 using PhlegmaticOne.Eatery.Lib.Recipies;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
-
+/// <summary>
+/// Represents controller which is responsible for operating with recipies
+/// </summary>
 public class RecipeController : EateryApplicationControllerBase
 {
     private readonly IngredientProcessContainerBase _ingredientProcessContainer;
     private readonly IntermediateProcessContainerBase _intermediateProcessContainer;
     private readonly EateryMenuBase _eateryMenuBase;
-
-    public RecipeController()
-    {
-    }
-
+    /// <summary>
+    /// Initializes new RecipeController instance
+    /// </summary>
+    public RecipeController() { }
+    /// <summary>
+    /// Initializes new RecipeController instance
+    /// </summary>
+    /// <param name="ingredientProcessContainer">Specified ingredient process container</param>
+    /// <param name="intermediateProcessContainer">Specified intermediate process container</param>
+    /// <param name="eateryMenuBase">Specified eatery menu</param>
     internal RecipeController(IngredientProcessContainerBase ingredientProcessContainer,
                               IntermediateProcessContainerBase intermediateProcessContainer,
                               EateryMenuBase eateryMenuBase)
@@ -25,7 +32,11 @@ public class RecipeController : EateryApplicationControllerBase
         _intermediateProcessContainer = intermediateProcessContainer;
         _eateryMenuBase = eateryMenuBase;
     }
-
+    /// <summary>
+    /// Gets default recipe builder for creating new recipe
+    /// </summary>
+    /// <param name="getRecipeBuilderRequest">Request with new recipe name</param>
+    /// <returns>Respond with DefaultRecipeBuilder</returns>
     [EateryWorker(typeof(Chief))]
     public IApplicationRespond<IRecipeBuilder> GetRecipeBuilder(IApplicationRequest<string> getRecipeBuilderRequest)
     {
@@ -40,6 +51,11 @@ public class RecipeController : EateryApplicationControllerBase
                                         ApplicationRespondType.Success,
                                         $"Builder for {getRecipeBuilderRequest.RequestData1} returned");
     }
+    /// <summary>
+    /// Gets recipe for dish in order
+    /// </summary>
+    /// <param name="getRecipeByNameRequest">Request with order</param>
+    /// <returns>Respond with recipe for dosh in order</returns>
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<Order, Recipe> GetRecipeForDishInOrder(IApplicationRequest<Order> getRecipeByNameRequest)
     {
@@ -55,5 +71,4 @@ public class RecipeController : EateryApplicationControllerBase
         }
         return respond.Update(getRecipeByNameRequest.RequestData1, recipe, ApplicationRespondType.Success, "Recipe returned");
     }
-
 }

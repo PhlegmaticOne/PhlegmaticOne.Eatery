@@ -4,6 +4,11 @@
 /// </summary>
 public interface IIngredientProcessContainerBuilder
 {
+    /// <summary>
+    /// Configures new ingredient process
+    /// </summary>
+    /// <param name="initializer">Initializing process builder action</param>
+    /// <returns></returns>
     IIngredientProcessContainerBuilder ConfigureProcess<TProcess, TProcessBuilder>
                              (Action<TProcessBuilder> initializer)
                              where TProcess : IngredientProcess, new()
@@ -11,6 +16,5 @@ public interface IIngredientProcessContainerBuilder
     /// <summary>
     /// Creates a container with registered ingredient types and their processes
     /// </summary>
-    /// <returns></returns>
     IngredientProcessContainerBase Build();
 }

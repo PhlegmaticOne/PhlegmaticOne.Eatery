@@ -19,14 +19,14 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication.Tests
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            var ingredientProcessesContainer = DefaultProcessContainer.GetDefaultContainerBuilder()
-            .ConfigureProcess<CuttingProcess, DefaultProcessBuilder<CuttingProcess>>(builder =>
+            var ingredientProcessesContainer = DefaultIngredientProcessContainer.GetDefaultContainerBuilder()
+            .ConfigureProcess<CuttingProcess, DefaultIngredientProcessBuilder<CuttingProcess>>(builder =>
             {
                 builder.CanProcess<Cucumber>().WithCost(new Money(10, "RUB")).WithTimeToFinish(TimeSpan.FromMinutes(2));
                 builder.CanProcess<Tomato>().WithCost(new Money(10, "RUB")).WithTimeToFinish(TimeSpan.FromMinutes(2));
                 builder.CanProcess<Olive>().WithCost(new Money(10, "RUB")).WithTimeToFinish(TimeSpan.FromMinutes(2));
             })
-            .ConfigureProcess<AddingProcess, DefaultProcessBuilder<AddingProcess>>(builder =>
+            .ConfigureProcess<AddingProcess, DefaultIngredientProcessBuilder<AddingProcess>>(builder =>
             {
                 builder.CanProcess<Cucumber>().WithCost(new Money(20, "RUB")).WithTimeToFinish(TimeSpan.FromSeconds(10));
                 builder.CanProcess<Tomato>().WithCost(new Money(20, "RUB")).WithTimeToFinish(TimeSpan.FromSeconds(20));

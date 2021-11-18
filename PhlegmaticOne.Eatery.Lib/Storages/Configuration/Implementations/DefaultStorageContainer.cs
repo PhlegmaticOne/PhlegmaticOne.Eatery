@@ -4,7 +4,14 @@
 /// </summary>
 public class DefaultStorageContainer : StoragesContainerBase
 {
+    /// <summary>
+    /// Initializes DefaultStorageContainer
+    /// </summary>
     public DefaultStorageContainer() { }
+    /// <summary>
+    /// Initializes DefaultStorageContainer
+    /// </summary>
+    /// <param name="storages">Specified storages</param>
     [Newtonsoft.Json.JsonConstructor]
     public DefaultStorageContainer(IEnumerable<Storage> storages) : base(storages) { }
     /// <summary>
@@ -15,6 +22,5 @@ public class DefaultStorageContainer : StoragesContainerBase
     /// <summary>
     /// Gets default storage container builder for default container
     /// </summary>
-    public static IStorageContainerBuilder GetDefaultStorageContainerBuilder() =>
-                  new DefaultStorageContainerBuilder();
+    public static IStorageContainerBuilder GetDefaultStorageContainerBuilder() => new DefaultStorageContainerBuilder();
 }

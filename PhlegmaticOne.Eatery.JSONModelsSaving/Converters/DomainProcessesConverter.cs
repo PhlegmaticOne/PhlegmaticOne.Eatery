@@ -3,13 +3,14 @@ using Newtonsoft.Json.Linq;
 using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 
 namespace PhlegmaticOne.Eatery.JSONModelsSaving;
-
+/// <summary>
+/// Json converter of process abstract types to processes concrete types
+/// </summary>
 internal class DomainProcessesConverter : Newtonsoft.Json.JsonConverter
 {
     public override bool CanConvert(Type objectType) => objectType == typeof(DomainProductProcess) ||
                                                         objectType == typeof(IngredientProcess) ||
                                                         objectType == typeof(IntermediateProcess);
-
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         var jsonReader = JObject.Load(reader);
@@ -28,9 +29,6 @@ internal class DomainProcessesConverter : Newtonsoft.Json.JsonConverter
         }
         return null;
     }
-
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-    {
-
-    }
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) { }
+    public override string ToString() => GetType().Name;
 }

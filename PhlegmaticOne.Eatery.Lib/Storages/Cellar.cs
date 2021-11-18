@@ -14,11 +14,17 @@ public class Cellar : Storage, IEquatable<Cellar>
     /// <param name="lightning">Specified lightning</param>
     /// <param name="storageTemperature">Specified temperature</param>
     public Cellar(StorageLightning lightning, StorageTemperature storageTemperature) : base(lightning, storageTemperature) { }
+    /// <summary>
+    /// Constructor for initializing cellar from json file
+    /// </summary>
+    /// <param name="lightning">Specified lightning</param>
+    /// <param name="temperature">Specified temperature</param>
+    /// <param name="keepingIngredientsInfo">Ingredients and their max weights to keep</param>
+    /// <param name="keepingIngredients">Keeping ingredients on deserialization moment</param>
     [Newtonsoft.Json.JsonConstructor]
-    public Cellar(StorageLightning lightning, StorageTemperature temperature, Dictionary<Type, double> keepingIngredientsInfo, Dictionary<Type, double> keepingIngredients) : base(lightning, temperature, keepingIngredientsInfo, keepingIngredients)
-    {
-    }
-
+    internal Cellar(StorageLightning lightning, StorageTemperature temperature,
+                  Dictionary<Type, double> keepingIngredientsInfo, Dictionary<Type, double> keepingIngredients) :
+                  base(lightning, temperature, keepingIngredientsInfo, keepingIngredients) { }
     /// <summary>
     /// Check equality of cellar with other specified cellar
     /// </summary>
