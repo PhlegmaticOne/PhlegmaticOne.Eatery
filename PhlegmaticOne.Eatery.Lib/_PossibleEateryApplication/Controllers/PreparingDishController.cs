@@ -54,6 +54,7 @@ public class PreparingDishController : EateryApplicationControllerBase
         }
         RetrieveRecipeIngredientsFromStorages(neededIngredients);
         DecreaseProductionCapacitiesNeededForRecipe(neededCapacities);
+        recipe.DishType = beginPrepareDishRequest.RequestData1.DishType;
         _recipesInProcessOfPreparing.Enqueue(recipe, recipe.ProcessesQueueToPrepareDish.Sum(p => p.TimeToFinish.Seconds));
         _ordersContainerBase.Add(beginPrepareDishRequest.RequestData1);
         return new DefaultApplicationRespond<TryToPrepareDishRespondType, string>(
@@ -61,7 +62,7 @@ public class PreparingDishController : EateryApplicationControllerBase
     }
 
     [EateryWorker(typeof(Chief), typeof(Cook))]
-    public IApplicationRespond<DishBase> EndPreparing(IApplicationRequest<string, Type> endPreparingDishRequest)
+    public IApplicationRespond<DishBase> EndPreparing(IApplicationRequest<string> endPreparingDishRequest)
     {
         if (IsInRole(endPreparingDishRequest.Worker, nameof(BeginPreparing)) == false)
         {
@@ -73,7 +74,7 @@ public class PreparingDishController : EateryApplicationControllerBase
         {
             respond.Update(null, ApplicationRespondType.InternalError, "Dish is not already prepared or there are no such diches in preparing");
         }
-        var dish = PrepareDish(endPreparingDishRequest.RequestData2, recipe);
+        var dish = PrepareDish(recipe.DishType, recipe);
         ReleaseCapacities(recipe);
         _ordersContainerBase.UpdateLastWith(dish);
         _recipesInProcessOfPreparing.Dequeue();

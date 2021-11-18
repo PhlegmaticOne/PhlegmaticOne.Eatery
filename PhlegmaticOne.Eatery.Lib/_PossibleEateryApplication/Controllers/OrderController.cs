@@ -24,7 +24,7 @@ public class OrderController : EateryApplicationControllerBase
     }
 
     [EateryWorker(typeof(Manager))]
-    public IApplicationRespond<Order> CreateNewOrder(IApplicationRequest<string> createNewOrderRequest)
+    public IApplicationRespond<Order> CreateNewOrder(IApplicationRequest<string, Type> createNewOrderRequest)
     {
         if (IsInRole(createNewOrderRequest.Worker, nameof(CreateNewOrder)) == false)
         {
@@ -36,7 +36,10 @@ public class OrderController : EateryApplicationControllerBase
             return respond.Update(null, ApplicationRespondType.InternalError,
                    $"Recipe for {createNewOrderRequest.RequestData1} dish wasn't finded");
         }
-        var order = new Order(++_orderId, null, DateTime.Now, createNewOrderRequest.RequestData1);
+        var order = new Order(++_orderId, null, DateTime.Now, createNewOrderRequest.RequestData1)
+        {
+            DishType = createNewOrderRequest.RequestData2
+        };
         return respond.Update(order, ApplicationRespondType.Success, "Order was maded");
     }
 

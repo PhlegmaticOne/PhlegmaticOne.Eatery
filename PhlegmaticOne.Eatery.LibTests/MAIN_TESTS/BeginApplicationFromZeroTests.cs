@@ -130,7 +130,7 @@ public class BeginApplicationFromZeroTests
 
         var ordersController = _controllersContainer.GetApplicationController<OrderController>();
         var manager = workerController.LogIn(LogInApplicationRequest.Default("Vladimir")).RespondResult1;
-        var createNewOrderRequest = new DefaultApplicationRequest<string>(manager, "VegetableSalad");
+        var createNewOrderRequest = new DefaultApplicationRequest<string, Type>(manager, "VegetableSalad", typeof(Dish));
         var createNewOrderRespond = ordersController.CreateNewOrder(createNewOrderRequest);
 
         var ordersQueueController = _controllersContainer.GetApplicationController<OrderQueueController>();
@@ -145,7 +145,7 @@ public class BeginApplicationFromZeroTests
         var preparingController = _controllersContainer.GetApplicationController<PreparingDishController>();
         var beginPreparingRequest = new DefaultApplicationRequest<Order, Recipe>(cook, getRecipeForDishOrderRespond.RespondResult1, getRecipeForDishOrderRespond.RespondResult2);
         var beginPrepareRespond = preparingController.BeginPreparing(beginPreparingRequest);
-        var endPreparingRequest = new DefaultApplicationRequest<string, Type>(cook, beginPrepareRespond.RespondResult2, typeof(Dish));
+        var endPreparingRequest = new DefaultApplicationRequest<string>(cook, beginPrepareRespond.RespondResult2);
         var endPreparingRespond = preparingController.EndPreparing(endPreparingRequest);
 
         var preparedDish = endPreparingRespond.RespondResult1;

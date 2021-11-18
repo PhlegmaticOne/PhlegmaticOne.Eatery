@@ -20,4 +20,6 @@ public class Order
     public DateTime OrderDate { get; }
     [Newtonsoft.Json.JsonProperty]
     public string DishName { get; }
+    [Newtonsoft.Json.JsonIgnore]
+    internal Type DishType { get; set; }
 }

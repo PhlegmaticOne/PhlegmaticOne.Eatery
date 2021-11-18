@@ -23,6 +23,8 @@ public class Recipe
     internal Dictionary<Type, double> IngredientsTakesPartInPreparing { get; set; }
     [JsonProperty]
     internal Queue<DomainProductProcess> ProcessesQueueToPrepareDish { get; set; }
+    [Newtonsoft.Json.JsonIgnore]
+    internal Type DishType { get; set; }
     public IReadOnlyDictionary<Type, double> GetIngredientsTakesPartInPreparing() =>
         new ReadOnlyDictionary<Type, double>(IngredientsTakesPartInPreparing);
     public Queue<DomainProductProcess> GetProcessesQueueToPrepareDish() => new(ProcessesQueueToPrepareDish);
