@@ -19,7 +19,7 @@ public abstract class ProductionCapacitiesContainerBase
     internal ProductionCapacitiesContainerBase(Dictionary<Type, int> maximalCapacities)
     {
         MaximalCapacities = maximalCapacities;
-        CurrentCapacities= new Dictionary<Type, int>(maximalCapacities);
+        CurrentCapacities = new Dictionary<Type, int>(maximalCapacities);
     }
     internal ProductionCapacitiesContainerBase()
     {
@@ -27,7 +27,7 @@ public abstract class ProductionCapacitiesContainerBase
     }
     internal virtual int GetCurrentCapacityOfProcess(Type processType)
     {
-        if(CurrentCapacities.TryGetValue(processType, out var capacity))
+        if (CurrentCapacities.TryGetValue(processType, out var capacity))
         {
             return capacity;
         }
@@ -35,7 +35,7 @@ public abstract class ProductionCapacitiesContainerBase
     }
     internal virtual int GetMaximalCapacityOfProcess(Type processType)
     {
-        if(CurrentCapacities.TryGetValue(processType, out int maxCapacity))
+        if (CurrentCapacities.TryGetValue(processType, out int maxCapacity))
         {
             return maxCapacity;
         }

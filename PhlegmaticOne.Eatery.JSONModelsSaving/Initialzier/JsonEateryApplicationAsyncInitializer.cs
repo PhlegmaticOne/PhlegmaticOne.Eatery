@@ -11,7 +11,7 @@ namespace PhlegmaticOne.Eatery.JSONModelsSaving;
 public class JsonEateryApplicationAsyncInitializer : IEateryApplicationAsyncInitializer
 {
     private readonly IDictionary<Type, string> _pathesToJsonFilesWithData;
-    public JsonEateryApplicationAsyncInitializer(IDictionary<Type, string> pathesToJsonFilesWithData) => 
+    public JsonEateryApplicationAsyncInitializer(IDictionary<Type, string> pathesToJsonFilesWithData) =>
         _pathesToJsonFilesWithData = pathesToJsonFilesWithData ?? throw new ArgumentNullException(nameof(pathesToJsonFilesWithData));
     public async Task<EateryMenuBase> LoadEateryMenuAsync() =>
         await new DefaultEateryMenuJsonWorker(_pathesToJsonFilesWithData[typeof(EateryMenuBase)])

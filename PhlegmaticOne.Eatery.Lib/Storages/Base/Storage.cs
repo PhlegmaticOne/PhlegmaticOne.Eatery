@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.Eatery.Lib.Ingredients;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace PhlegmaticOne.Eatery.Lib.Storages;
 /// <summary>

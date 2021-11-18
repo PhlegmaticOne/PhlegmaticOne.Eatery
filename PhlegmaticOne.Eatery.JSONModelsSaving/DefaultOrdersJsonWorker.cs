@@ -9,5 +9,5 @@ public class DefaultOrdersJsonWorker : CustomJsonWorkerBase<OrdersContainerBase>
     {
     }
 
-    protected override JsonConverter[] HelpingConverters => new JsonConverter[] { };
+    protected override JsonConverter[] HelpingConverters => new JsonConverter[] { new DishesConverter() };
 }

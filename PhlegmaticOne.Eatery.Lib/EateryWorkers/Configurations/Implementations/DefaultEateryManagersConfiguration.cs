@@ -10,7 +10,7 @@ public class DefaultEateryManagersConfiguration : IEateryManagersConfiguration
     }
     public IEateryChiefConfiguration AddChief(Chief chief)
     {
-        if(chief is not null)
+        if (chief is not null)
         {
             _eateryWorkers.Add(chief);
         }
@@ -19,7 +19,7 @@ public class DefaultEateryManagersConfiguration : IEateryManagersConfiguration
 
     public IEateryManagersConfiguration AddManager(Manager manager)
     {
-        if(manager is not null)
+        if (manager is not null)
         {
             _eateryWorkers.Add(manager);
         }

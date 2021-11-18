@@ -10,9 +10,9 @@ public class StoragesController : EateryApplicationControllerBase
     internal StoragesController(StoragesContainerBase storageContainer) =>
         _storageContainer = storageContainer ?? throw new ArgumentNullException(nameof(storageContainer));
     [EateryWorker(typeof(Chief), typeof(Cook))]
-    public IApplicationRespond<StoragesContainerBase> GetAllStorages (EmptyApplicationRequest getAllStoragesRequest)
+    public IApplicationRespond<StoragesContainerBase> GetAllStorages(EmptyApplicationRequest getAllStoragesRequest)
     {
-        if(IsInRole(getAllStoragesRequest.Worker, nameof(GetAllStorages)) == false)
+        if (IsInRole(getAllStoragesRequest.Worker, nameof(GetAllStorages)) == false)
         {
             return GetDefaultAccessDeniedRespond<StoragesContainerBase>(getAllStoragesRequest.Worker);
         }
@@ -31,7 +31,7 @@ public class StoragesController : EateryApplicationControllerBase
                                                                         ApplicationRespondType.Success,
                                                                         $"Builder for {typeof(TStorage).Name} returned");
     }
-    [EateryWorker(typeof (Manager))]
+    [EateryWorker(typeof(Manager))]
     public IApplicationRespond<bool> AddNewStorages<TStorage>(IApplicationRequest<IEnumerable<TStorage>> storagesAddRequest)
                                                   where TStorage : Storage, new()
     {

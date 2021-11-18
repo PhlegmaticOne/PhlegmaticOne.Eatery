@@ -64,7 +64,7 @@ public abstract class IngredientProcessContainerBase
         foreach (var process in PossibleTypesToProcess.Values)
         {
             var temp = process.MaxBy(x => x.Price.Amount);
-            if(result is null || result.Price.Amount < temp.Price.Amount)
+            if (result is null || result.Price.Amount < temp.Price.Amount)
             {
                 result = temp;
             }

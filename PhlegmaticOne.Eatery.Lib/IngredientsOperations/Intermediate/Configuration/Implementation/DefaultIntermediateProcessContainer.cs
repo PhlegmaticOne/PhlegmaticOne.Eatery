@@ -8,7 +8,8 @@ public class DefaultIntermediateProcessContainer : IntermediateProcessContainerB
     }
     [Newtonsoft.Json.JsonConstructor]
     public DefaultIntermediateProcessContainer(Dictionary<Type, List<IntermediateProcess>> intermediateProcesses) :
-        base(intermediateProcesses) { }
+        base(intermediateProcesses)
+    { }
     public static IIntermediateProcessContainerBuilder GetDefaultIntermediateProcessContainerBuilder() =>
         new DefaultIntermediateProcessContainerBuilder();
 }

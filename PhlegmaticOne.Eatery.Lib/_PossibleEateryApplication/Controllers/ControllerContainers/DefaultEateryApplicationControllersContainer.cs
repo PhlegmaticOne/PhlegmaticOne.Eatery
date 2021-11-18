@@ -9,7 +9,7 @@ public class DefaultEateryApplicationControllersContainer : IEateryApplicationCo
     }
     public TController GetApplicationController<TController>() where TController : EateryApplicationControllerBase, new()
     {
-        if(_controllers.TryGetValue(typeof(TController), out var controller))
+        if (_controllers.TryGetValue(typeof(TController), out var controller))
         {
             return controller as TController;
         }

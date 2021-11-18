@@ -5,7 +5,7 @@ public class DefaultEateryCooksConfiguration : IEateryCooksConfiguration
     private readonly List<Worker> _eateryWorkers = new();
     public IEateryCooksConfiguration AddCook(Cook cook)
     {
-        if(cook is not null)
+        if (cook is not null)
         {
             _eateryWorkers.Add(cook);
         }
@@ -14,7 +14,7 @@ public class DefaultEateryCooksConfiguration : IEateryCooksConfiguration
 
     public IEateryManagersConfiguration AddManager(Manager manager)
     {
-        if(manager is not null)
+        if (manager is not null)
         {
             _eateryWorkers.Add(manager);
         }

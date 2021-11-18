@@ -14,7 +14,7 @@ public class WorkersController : EateryApplicationControllerBase
         var worker = _eateryWorkersContainer.GetWorker(logInRequest.RequestData1);
         var isLoggedIn = worker is not null;
         return isLoggedIn ? new DefaultApplicationRespond<Worker, LogInRespondType>
-                            (worker, LogInRespondType.LoggedIn, ApplicationRespondType.Success, $"{worker?.Name} logged in") : 
+                            (worker, LogInRespondType.LoggedIn, ApplicationRespondType.Success, $"{worker?.Name} logged in") :
                             new DefaultApplicationRespond<Worker, LogInRespondType>
                             (worker, LogInRespondType.UnknownWorker, ApplicationRespondType.AccessDenied, $"{logInRequest} is unknown");
     }

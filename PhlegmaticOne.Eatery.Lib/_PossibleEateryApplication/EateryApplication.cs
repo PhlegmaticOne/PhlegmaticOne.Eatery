@@ -67,9 +67,20 @@ public class EateryApplication
             new StoragesController(StorageContainer),
             new IngredientsController(StorageContainer),
             new EateryMenuController(EateryMenu),
-            new OrderController(EateryMenu),
+            new OrderController(EateryMenu, OrdersContainer),
             new OrderQueueController(EateryMenu),
             new PreparingDishController(StorageContainer, ProductionCapacityContainer, OrdersContainer)
         });
     }
+    internal object? GetContainer<TContainer>() => typeof(TContainer).Name switch
+    {
+        "StoragesContainerBase" => StorageContainer,
+        "IngredientProcessContainerBase" => IngredientProcessContainer,
+        "IntermediateProcessContainerBase" => IntermediateProcessContainer,
+        "ProductionCapacitiesContainerBase" => ProductionCapacityContainer,
+        "EateryMenuBase" => EateryMenu,
+        "EateryWorkersContainer" => EateryWorkersContainer,
+        "OrdersContainer" => OrdersContainer,
+        _ => null
+    };
 }

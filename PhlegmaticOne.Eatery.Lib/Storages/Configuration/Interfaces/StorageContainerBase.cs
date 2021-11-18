@@ -11,13 +11,13 @@ public abstract class StoragesContainerBase
     protected readonly List<Storage> Storages;
     public int Count => Storages.Count;
     [Newtonsoft.Json.JsonConstructor]
-    internal StoragesContainerBase(IEnumerable<Storage> storages) => 
+    internal StoragesContainerBase(IEnumerable<Storage> storages) =>
         Storages = storages.ToList() ?? throw new ArgumentNullException(nameof(storages));
     public virtual IReadOnlyCollection<Storage> AllStorages() => new ReadOnlyCollection<Storage>(Storages.ToList());
     public virtual Storage FirstOrDefaultStorage(Func<Storage, bool> predicate) => Storages.FirstOrDefault(predicate);
     internal virtual void Add(Storage storage)
     {
-        if(storage is not null)
+        if (storage is not null)
         {
             Storages.Add(storage);
         }

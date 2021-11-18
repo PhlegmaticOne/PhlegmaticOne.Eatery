@@ -1,5 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PhlegmaticOne.Eatery.Lib.Ingredients;
 using PhlegmaticOne.Eatery.Lib.Storages;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PhlegmaticOne.Eatery.JSONModelsSaving.Tests;
@@ -19,28 +23,28 @@ public class DefaultStoragesJsonWorkerTests
     public async Task ASaveStoragesTest()
     {
         //Было сделано для тестов. В приложении public конструктор не доступен
-        //var storages = new List<Storage>()
-        //{
-        //    new Cellar(StorageLightning.Darkness, new StorageTemperature(-10, 20, 10), 
-        //    new Dictionary<Type, double>()
-        //    {
-        //        { typeof(Cucumber), 1000 },
-        //        { typeof(Tomato), 1000 },
-        //        { typeof(Olive), 1000 },
-        //        { typeof(OliveOil), 1000 },
-        //    },
-        //    new Dictionary<Type, double>()
-        //    {
-        //        { typeof(Cucumber), 300 },
-        //        { typeof(Tomato), 300 },
-        //        { typeof(Olive), 300 },
-        //        { typeof(OliveOil), 300 },
-        //    })
-        //};
+        var storages = new List<Storage>()
+        {
+            new Cellar(StorageLightning.Darkness, new StorageTemperature(-10, 20, 10),
+            new Dictionary<Type, double>()
+            {
+                { typeof(Cucumber), 1000 },
+                { typeof(Tomato), 1000 },
+                { typeof(Olive), 1000 },
+                { typeof(OliveOil), 1000 },
+            },
+            new Dictionary<Type, double>()
+            {
+                { typeof(Cucumber), 300 },
+                { typeof(Tomato), 300 },
+                { typeof(Olive), 300 },
+                { typeof(OliveOil), 300 },
+            })
+        };
 
-        //var storagesContainer = new DefaultStorageContainer(storages);
-        //await _storagesJsonWorker.SaveAsync(storagesContainer);
-        //Assert.IsTrue(File.Exists(DIRECTORY_WITH_TESTED_FILES_PATH + WORKERS_FILE_NAME));
+        var storagesContainer = new DefaultStorageContainer(storages);
+        await _storagesJsonWorker.SaveAsync(storagesContainer);
+        Assert.IsTrue(File.Exists(DIRECTORY_WITH_TESTED_FILES_PATH + WORKERS_FILE_NAME));
     }
     [TestMethod()]
     public async Task BLoadStoragesTest()

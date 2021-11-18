@@ -28,7 +28,7 @@ public class PreparingDishController : EateryApplicationControllerBase
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<TryToPrepareDishRespondType, string> BeginPreparing(IApplicationRequest<Order, Recipe> beginPrepareDishRequest)
     {
-        if(IsInRole(beginPrepareDishRequest.Worker, nameof(BeginPreparing)) == false)
+        if (IsInRole(beginPrepareDishRequest.Worker, nameof(BeginPreparing)) == false)
         {
             return GetDefaultAccessDeniedRespond<TryToPrepareDishRespondType, string>(beginPrepareDishRequest.Worker);
         }
@@ -36,13 +36,13 @@ public class PreparingDishController : EateryApplicationControllerBase
         var neededIngredients = recipe.IngredientsTakesPartInPreparing;
         var neededCapacities = recipe.ProcessesQueueToPrepareDish.GroupBy(k => k.GetType());
         (var preIngredientCheckingType, var errorMessage1) = CheckForIngredients(neededIngredients);
-        if(preIngredientCheckingType != TryToPrepareDishRespondType.PreparingBegan)
+        if (preIngredientCheckingType != TryToPrepareDishRespondType.PreparingBegan)
         {
             return new DefaultApplicationRespond<TryToPrepareDishRespondType, string>
                 (preIngredientCheckingType, "", ApplicationRespondType.InternalError, errorMessage1);
         }
         (var preCapacitiesCheckingType, var errorMessage2) = CheckForIngredients(neededIngredients);
-        if(preCapacitiesCheckingType != TryToPrepareDishRespondType.PreparingBegan)
+        if (preCapacitiesCheckingType != TryToPrepareDishRespondType.PreparingBegan)
         {
             return new DefaultApplicationRespond<TryToPrepareDishRespondType, string>
                 (preCapacitiesCheckingType, "", ApplicationRespondType.InternalError, errorMessage2);
@@ -78,21 +78,21 @@ public class PreparingDishController : EateryApplicationControllerBase
     private DishBase PrepareDish(Type dishType, Recipe recipe)
     {
         DishBase dish = default;
-        if(dishType == typeof(Dish))
+        if (dishType == typeof(Dish))
         {
             dish = new Dish(new Helpers.Money(0, "USD"), 0, recipe.Name);
         }
-        else if(dishType == typeof(Drink))
+        else if (dishType == typeof(Drink))
         {
             dish = new Drink(new Helpers.Money(0, "USD"), 0, recipe.Name);
         }
         foreach (var process in recipe.ProcessesQueueToPrepareDish)
         {
-            if(process is IngredientProcess ingredientProcess)
+            if (process is IngredientProcess ingredientProcess)
             {
                 ingredientProcess.Update(dish, recipe.IngredientsTakesPartInPreparing[ingredientProcess.CurrentIngredientType]);
             }
-            if(process is IntermediateProcess intermediateProcess)
+            if (process is IntermediateProcess intermediateProcess)
             {
                 intermediateProcess.Update(dish);
             }
@@ -162,7 +162,7 @@ public class PreparingDishController : EateryApplicationControllerBase
     }
     private (TryToPrepareDishRespondType, string) CheckForCapacities
             (IEnumerable<IGrouping<Type, DomainProductProcess>> neededCapacities)
-    {        
+    {
         var existingCapacities = _capacitiesContainer.GetCurrentCapacities();
         var possibleCapacities = _capacitiesContainer.GetPossibleCapacities();
         foreach (var neededCapacity in neededCapacities)

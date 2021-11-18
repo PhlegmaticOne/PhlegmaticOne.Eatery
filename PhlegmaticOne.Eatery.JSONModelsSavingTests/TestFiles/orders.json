@@ -15,7 +15,8 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-17T21:09:12.4764263+03:00"
+      "OrderDate": "2021-11-18T13:26:40.8775187+03:00",
+      "DishName": "VegetableSalad"
     },
     "2": {
       "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
@@ -30,7 +31,8 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-17T21:10:12.4764672+03:00"
+      "OrderDate": "2021-11-18T13:27:40.8775936+03:00",
+      "DishName": "VegetableSalad"
     },
     "3": {
       "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
@@ -45,7 +47,8 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-17T21:11:12.4764677+03:00"
+      "OrderDate": "2021-11-18T13:28:40.8775945+03:00",
+      "DishName": "VegetableSalad"
     },
     "4": {
       "$type": "PhlegmaticOne.Eatery.Lib.Orders.Order, PhlegmaticOne.Eatery.Lib",
@@ -60,7 +63,8 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-17T21:13:12.4764678+03:00"
+      "OrderDate": "2021-11-18T13:30:40.8775947+03:00",
+      "DishName": "VegetableSalad"
     }
   },
   "Count": 4

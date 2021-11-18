@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhlegmaticOne.Eatery.Lib.EateryWorkers;
 using PhlegmaticOne.Eatery.Lib.Recipies;
-using System;
 using System.Reflection;
 
 namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication.Tests;
@@ -16,7 +15,7 @@ public class RecipeControllerTests
         var type = typeof(RecipeController);
         var recipeController = type.Assembly.CreateInstance(
                              type.FullName, true, BindingFlags.Instance | BindingFlags.NonPublic,
-                             null, new object[] {null , null, null}, null, null) as RecipeController;
+                             null, new object[] { null, null, null }, null, null) as RecipeController;
         var worker = new Chief("S");
         var getRecipeBuilderRequest = new DefaultApplicationRequest<string>(worker, "VegetableSalad");
         var getRecipeBuilderRespond = recipeController.GetRecipeBuilder(getRecipeBuilderRequest);

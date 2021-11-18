@@ -1,6 +1,4 @@
-﻿using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
-
-namespace PhlegmaticOne.Eatery.Lib.EateryEquipment;
+﻿namespace PhlegmaticOne.Eatery.Lib.EateryEquipment;
 
 public interface IProductionCapacityContainerBuilder
 {

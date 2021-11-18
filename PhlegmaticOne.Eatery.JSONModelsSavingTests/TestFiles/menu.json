@@ -1,5 +1,5 @@
 {
-  "$type": "PhlegmaticOne.Eatery.Lib.Dishes.Configurations.EateryMenu, PhlegmaticOne.Eatery.Lib",
+  "$type": "PhlegmaticOne.Eatery.Lib.Dishes.EateryMenu, PhlegmaticOne.Eatery.Lib",
   "Recipies": {
     "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[PhlegmaticOne.Eatery.Lib.Recipies.Recipe, PhlegmaticOne.Eatery.Lib]], System.Private.CoreLib",
     "VegetableSalad": {

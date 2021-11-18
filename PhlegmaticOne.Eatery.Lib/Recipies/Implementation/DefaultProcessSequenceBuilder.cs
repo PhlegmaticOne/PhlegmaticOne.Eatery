@@ -14,7 +14,7 @@ public class DefaultProcessSequenceBuilder : IRecipeProcessSequenceBuilder
         where TIngredient : Ingredient, new()
     {
         var ingredientProcess = _ingredientProcessContainer.GetProcess<TProcess, TIngredient>();
-        if(ingredientProcess is null)
+        if (ingredientProcess is null)
         {
             throw new InvalidOperationException($"{typeof(TProcess).Name} not configured with {typeof(TIngredient).Name}");
         }

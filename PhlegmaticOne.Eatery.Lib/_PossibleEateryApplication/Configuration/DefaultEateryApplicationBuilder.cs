@@ -23,7 +23,7 @@ public class DefaultEateryApplicationBuilder : IEateryApplicationBuilder
     public void UseEateryMenu(EateryMenuBase eateryMenu) =>
         _eateryMenu = eateryMenu;
 
-    public void UseEateryWorkersContainer(EateryWorkersContainerBase eateryWorkersContainer) => 
+    public void UseEateryWorkersContainer(EateryWorkersContainerBase eateryWorkersContainer) =>
         _eateryWorkersContainer = eateryWorkersContainer;
 
     public void UseIngredientProcessesContainer(IngredientProcessContainerBase ingredientProcessContainer) =>

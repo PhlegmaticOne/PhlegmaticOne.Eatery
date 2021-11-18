@@ -13,7 +13,7 @@ public abstract class EateryWorkersContainerBase
     internal EateryWorkersContainerBase(Dictionary<string, Worker> workers) => _workers = workers;
     internal Worker GetWorker(string name)
     {
-        if(_workers.TryGetValue(name, out var worker))
+        if (_workers.TryGetValue(name, out var worker))
         {
             return worker;
         }

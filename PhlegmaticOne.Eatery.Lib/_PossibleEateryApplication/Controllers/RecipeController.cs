@@ -51,56 +51,5 @@ public class RecipeController : EateryApplicationControllerBase
         }
         return respond.Update(getRecipeByNameRequest.RequestData1, recipe, ApplicationRespondType.Success, "Recipe returned");
     }
-    [EateryWorker(typeof(Manager))]
-    public IApplicationRespond<DomainProductProcess> GetMostExpensiveProcessOverDish(EmptyApplicationRequest getRecipeByNameRequest)
-    {
-        if (IsInRole(getRecipeByNameRequest.Worker, nameof(GetMostExpensiveProcessOverDish)) == false)
-        {
-            return GetDefaultAccessDeniedRespond<DomainProductProcess>(getRecipeByNameRequest.Worker);
-        }
-        var maxPriceIngredientProcess = _ingredientProcessContainer.MaxPriceProcess();
-        var maxPriceIntemediateProcess = _intermediateProcessContainer.MaxPriceProcess();
-        return new DefaultApplicationRespond<DomainProductProcess>
-            (maxPriceIngredientProcess.Price.Amount > maxPriceIntemediateProcess.Price.Amount ? maxPriceIngredientProcess : maxPriceIntemediateProcess,
-            ApplicationRespondType.Success, "Most expensive process returned");
-    }
-    [EateryWorker(typeof(Manager))]
-    public IApplicationRespond<DomainProductProcess> GetLeastExpensiveProcessOverDish(EmptyApplicationRequest getRecipeByNameRequest)
-    {
-        if (IsInRole(getRecipeByNameRequest.Worker, nameof(GetMostExpensiveProcessOverDish)) == false)
-        {
-            return GetDefaultAccessDeniedRespond<DomainProductProcess>(getRecipeByNameRequest.Worker);
-        }
-        var maxPriceIngredientProcess = _ingredientProcessContainer.MinPriceProcess();
-        var maxPriceIntemediateProcess = _intermediateProcessContainer.MinPriceProcess();
-        return new DefaultApplicationRespond<DomainProductProcess>
-            (maxPriceIngredientProcess.Price.Amount < maxPriceIntemediateProcess.Price.Amount ? maxPriceIngredientProcess : maxPriceIntemediateProcess,
-            ApplicationRespondType.Success, "Least expensive process returned");
-    }
-    [EateryWorker(typeof(Manager))]
-    public IApplicationRespond<DomainProductProcess> GetLongestProcessOverDish(EmptyApplicationRequest getRecipeByNameRequest)
-    {
-        if (IsInRole(getRecipeByNameRequest.Worker, nameof(GetMostExpensiveProcessOverDish)) == false)
-        {
-            return GetDefaultAccessDeniedRespond<DomainProductProcess>(getRecipeByNameRequest.Worker);
-        }
-        var maxPriceIngredientProcess = _ingredientProcessContainer.MaxTimeProcess();
-        var maxPriceIntemediateProcess = _intermediateProcessContainer.MaxTimeProcess();
-        return new DefaultApplicationRespond<DomainProductProcess>
-            (maxPriceIngredientProcess.Price.Amount > maxPriceIntemediateProcess.Price.Amount ? maxPriceIngredientProcess : maxPriceIntemediateProcess,
-            ApplicationRespondType.Success, "Longest process returned");
-    }
-    [EateryWorker(typeof(Manager))]
-    public IApplicationRespond<DomainProductProcess> GetShortestProcessOverDish(EmptyApplicationRequest getRecipeByNameRequest)
-    {
-        if (IsInRole(getRecipeByNameRequest.Worker, nameof(GetMostExpensiveProcessOverDish)) == false)
-        {
-            return GetDefaultAccessDeniedRespond<DomainProductProcess>(getRecipeByNameRequest.Worker);
-        }
-        var maxPriceIngredientProcess = _ingredientProcessContainer.MinTimeProcess();
-        var maxPriceIntemediateProcess = _intermediateProcessContainer.MinTimeProcess();
-        return new DefaultApplicationRespond<DomainProductProcess>
-            (maxPriceIngredientProcess.Price.Amount < maxPriceIntemediateProcess.Price.Amount ? maxPriceIngredientProcess : maxPriceIntemediateProcess,
-            ApplicationRespondType.Success, "Shortest process returned");
-    }
+
 }

@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 
 namespace PhlegmaticOne.Eatery.JSONModelsSaving;
 
-public abstract class CustomJsonWorkerBase<T> where T : class
+public abstract class CustomJsonWorkerBase<T> : IEateryApplicationSerializer<T> where T : class
 {
     protected readonly string FilePath;
+    private string _fileName;
     protected CustomJsonWorkerBase(string filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath))
@@ -14,6 +16,8 @@ public abstract class CustomJsonWorkerBase<T> where T : class
         FilePath = filePath;
     }
     protected abstract JsonConverter[] HelpingConverters { get; }
+    public string SavingPlacePath { get => FilePath; set => _fileName = value; }
+
     public virtual async Task<TConcrete> LoadAsync<TConcrete>() where TConcrete : T, new()
     {
         var json = await File.ReadAllTextAsync(FilePath);

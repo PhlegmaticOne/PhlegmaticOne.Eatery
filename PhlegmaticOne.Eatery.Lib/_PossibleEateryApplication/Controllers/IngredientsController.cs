@@ -16,7 +16,7 @@ public class IngredientsController : EateryApplicationControllerBase
     public IApplicationRespond<IReadOnlyDictionary<Type, double>> GetAllExistingIngredients
                               (EmptyApplicationRequest getAllIngredientsRequest)
     {
-        if(IsInRole(getAllIngredientsRequest.Worker, nameof(GetAllExistingIngredients)) == false)
+        if (IsInRole(getAllIngredientsRequest.Worker, nameof(GetAllExistingIngredients)) == false)
         {
             return GetDefaultAccessDeniedRespond<IReadOnlyDictionary<Type, double>>(getAllIngredientsRequest.Worker);
         }

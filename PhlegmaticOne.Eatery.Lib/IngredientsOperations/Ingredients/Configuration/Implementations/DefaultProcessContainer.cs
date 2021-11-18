@@ -1,8 +1,4 @@
-﻿using PhlegmaticOne.Eatery.Lib.Extensions;
-using PhlegmaticOne.Eatery.Lib.Ingredients;
-using System.Collections;
-
-namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
+﻿namespace PhlegmaticOne.Eatery.Lib.IngredientsOperations;
 /// <summary>
 /// Represents prepared default process container for ingredient processes
 /// </summary>
@@ -14,7 +10,8 @@ public class DefaultProcessContainer : IngredientProcessContainerBase
     }
     [Newtonsoft.Json.JsonConstructor]
     internal DefaultProcessContainer(Dictionary<Type, List<IngredientProcess>> possibleTypesToProcess) :
-        base(possibleTypesToProcess) { }
+        base(possibleTypesToProcess)
+    { }
     /// <summary>
     /// Returns default builder for default container of specifiedingredient process type
     /// </summary>
