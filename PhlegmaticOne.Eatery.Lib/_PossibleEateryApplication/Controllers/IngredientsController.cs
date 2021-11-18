@@ -12,6 +12,11 @@ public class IngredientsController : EateryApplicationControllerBase
     {
         _storageContainer = storageContainer;
     }
+
+    public IngredientsController()
+    {
+    }
+
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<IReadOnlyDictionary<Type, double>> GetAllExistingIngredients
                               (EmptyApplicationRequest getAllIngredientsRequest)

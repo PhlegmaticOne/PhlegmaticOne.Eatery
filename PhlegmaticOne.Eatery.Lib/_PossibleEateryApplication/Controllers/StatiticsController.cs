@@ -24,6 +24,11 @@ public class StatiticsController : EateryApplicationControllerBase
         _ingredientProcessContainer = ingredientProcessContainer;
         _intermediateProcessContainer = intermediateProcessContainer;
     }
+
+    public StatiticsController()
+    {
+    }
+
     [EateryWorker(typeof(Manager))]
     public IApplicationRespond<IReadOnlyCollection<Order>> GetOrdersInDataRange(IApplicationRequest<DateTime, DateTime> getOrdersInDataRangeRequest)
     {

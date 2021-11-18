@@ -7,6 +7,11 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 public class ProductionCapacitiesController : EateryApplicationControllerBase
 {
     private readonly ProductionCapacitiesContainerBase _productionCapacityContainer;
+
+    public ProductionCapacitiesController()
+    {
+    }
+
     internal ProductionCapacitiesController(ProductionCapacitiesContainerBase productionCapacityContainer)
     {
         _productionCapacityContainer = productionCapacityContainer;

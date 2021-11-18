@@ -13,7 +13,7 @@ public abstract class OrdersContainerBase
     internal void Add(Order order) => _orders.Add(order.Id, order);
     internal void UpdateLastWith(DishBase dish)
     {
-        _orders[Count - 1].Dish = dish;
+        _orders[Count].Dish = dish;
     }
     public int Count => _orders.Count;
     public IReadOnlyDictionary<int, Order> GetAllOrders() => new ReadOnlyDictionary<int, Order>(_orders);

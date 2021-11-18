@@ -13,6 +13,10 @@ public class RecipeController : EateryApplicationControllerBase
     private readonly IntermediateProcessContainerBase _intermediateProcessContainer;
     private readonly EateryMenuBase _eateryMenuBase;
 
+    public RecipeController()
+    {
+    }
+
     internal RecipeController(IngredientProcessContainerBase ingredientProcessContainer,
                               IntermediateProcessContainerBase intermediateProcessContainer,
                               EateryMenuBase eateryMenuBase)

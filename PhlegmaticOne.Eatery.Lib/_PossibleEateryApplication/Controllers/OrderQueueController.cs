@@ -14,6 +14,11 @@ public class OrderQueueController : EateryApplicationControllerBase
         _eateryMenu = eateryMenu;
         _orders = new();
     }
+
+    public OrderQueueController()
+    {
+    }
+
     [EateryWorker(typeof(Manager))]
     public IApplicationRespond<bool> EnqueueNewOrder(IApplicationRequest<Order> getRecipeByNameRequest)
     {

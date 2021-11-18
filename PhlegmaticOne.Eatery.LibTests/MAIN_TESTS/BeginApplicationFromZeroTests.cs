@@ -6,8 +6,11 @@ using PhlegmaticOne.Eatery.Lib.EateryWorkers;
 using PhlegmaticOne.Eatery.Lib.Helpers;
 using PhlegmaticOne.Eatery.Lib.Ingredients;
 using PhlegmaticOne.Eatery.Lib.IngredientsOperations;
+using PhlegmaticOne.Eatery.Lib.Orders;
+using PhlegmaticOne.Eatery.Lib.Recipies;
 using PhlegmaticOne.Eatery.Lib.Storages;
 using System;
+using System.Collections.Generic;
 
 namespace PhlegmaticOne.Eatery.LibTests.MAIN_TESTS;
 
@@ -87,14 +90,95 @@ public class BeginApplicationFromZeroTests
             builder.UseStorageContainer(strorageContainer);
             builder.UseEateryMenu(new EateryMenu());
             builder.UseEateryWorkersContainer(eateryWorkersContainer);
+            builder.UseOrdersContainer(new DefaultOrderContainer());
         }).Run();
     }
 
-    //[TestMethod]
-    //public void IsNotNullTest()
-    //{
-    //    Assert.IsNotNull(_eateryApplicationController);
-    //}
+    [TestMethod]
+    public void IsNotNullTest()
+    {
+        Assert.IsNotNull(_controllersContainer);
+    }
+    [TestMethod]
+    public void ApplicationWorkTest()
+    {
+        var ingredientsController = _controllersContainer.GetApplicationController<IngredientsController>();
+        var workerController = _controllersContainer.GetApplicationController<WorkersController>();
+        var cook = workerController.LogIn(LogInApplicationRequest.Default("Vasya")).RespondResult1;
+
+        var addIngredientsRequest = new DefaultApplicationRequest<Func<Storage, bool>, IEnumerable<Ingredient>>(
+            cook, storage => storage.Lightning == StorageLightning.Darkness,
+            new List<Ingredient>()
+            {
+                new Cucumber(500, 500),
+                new Tomato(500, 500),
+                new Olive(500, 500),
+                new OliveOil(500, 500),
+            }
+        );
+        var addIngredientsRespond = ingredientsController.AddIngredientsInStorage(addIngredientsRequest);
+
+        var recipeController = _controllersContainer.GetApplicationController<RecipeController>();
+        var chief = workerController.LogIn(LogInApplicationRequest.Default("Vladilen")).RespondResult1;
+        var createNewRecipeRequest = new DefaultApplicationRequest<string>(chief, "VegetableSalad");
+        var createNewRecipeRespond = recipeController.GetRecipeBuilder(createNewRecipeRequest);
+        var recipe = GetRecipe(createNewRecipeRespond.RespondResult1);
+
+        var eateryMenuController = _controllersContainer.GetApplicationController<EateryMenuController>();
+        var addRecipeInMenuRequest = new DefaultApplicationRequest<Recipe>(chief, recipe);
+        var addRecipeInMenuRespond = eateryMenuController.AddRecipeInMenu(addRecipeInMenuRequest);
+
+        var ordersController = _controllersContainer.GetApplicationController<OrderController>();
+        var manager = workerController.LogIn(LogInApplicationRequest.Default("Vladimir")).RespondResult1;
+        var createNewOrderRequest = new DefaultApplicationRequest<string>(manager, "VegetableSalad");
+        var createNewOrderRespond = ordersController.CreateNewOrder(createNewOrderRequest);
+
+        var ordersQueueController = _controllersContainer.GetApplicationController<OrderQueueController>();
+        var enqueueOrderRequest = new DefaultApplicationRequest<Order>(manager, createNewOrderRespond.RespondResult1);
+        var enqueueOrderRespond = ordersQueueController.EnqueueNewOrder(enqueueOrderRequest);
+
+        var dequeueOrderRespond = ordersQueueController.DequeueLatestOrder(EmptyApplicationRequest.Empty(cook));
+
+        var getRecipeForDishOnOrderRequest = new DefaultApplicationRequest<Order>(cook, dequeueOrderRespond.RespondResult1);
+        var getRecipeForDishOrderRespond = recipeController.GetRecipeForDishInOrder(getRecipeForDishOnOrderRequest);
+
+        var preparingController = _controllersContainer.GetApplicationController<PreparingDishController>();
+        var beginPreparingRequest = new DefaultApplicationRequest<Order, Recipe>(cook, getRecipeForDishOrderRespond.RespondResult1, getRecipeForDishOrderRespond.RespondResult2);
+        var beginPrepareRespond = preparingController.BeginPreparing(beginPreparingRequest);
+        var endPreparingRequest = new DefaultApplicationRequest<string, Type>(cook, beginPrepareRespond.RespondResult2, typeof(Dish));
+        var endPreparingRespond = preparingController.EndPreparing(endPreparingRequest);
+
+        var preparedDish = endPreparingRespond.RespondResult1;
+        Assert.IsNotNull(preparedDish);
+        Assert.IsInstanceOfType(preparedDish, typeof(Dish));
+        Assert.IsTrue(preparedDish.Price.Amount > 0);
+        Assert.AreEqual("VegetableSalad", preparedDish.Name);
+    }
+    private Recipe GetRecipe(IRecipeBuilder recipeBuilder)
+    {
+        var recipe = recipeBuilder.Configure<DefaultRecipeIngredientTypesConfiguration, DefaultProcessSequenceBuilder>(
+                        recipeBuilder =>
+                        {
+                            recipeBuilder.NeedIngredient<Cucumber>().InWeightOf(100);
+                            recipeBuilder.NeedIngredient<Tomato>().InWeightOf(100);
+                            recipeBuilder.NeedIngredient<Olive>().InWeightOf(30);
+                            recipeBuilder.NeedIngredient<OliveOil>().InWeightOf(50);
+                        },
+                        sequenceBuilder =>
+                        {
+                            sequenceBuilder.InsertInSequence<AddingProcess, Cucumber>();
+                            sequenceBuilder.InsertInSequence<CuttingProcess, Cucumber>();
+                            sequenceBuilder.InsertInSequence<AddingProcess, Tomato>();
+                            sequenceBuilder.InsertInSequence<CuttingProcess, Tomato>();
+                            sequenceBuilder.InsertInSequence<AddingProcess, Olive>();
+                            sequenceBuilder.InsertInSequence<CuttingProcess, Olive>();
+                            sequenceBuilder.InsertInSequence<AddingProcess, OliveOil>();
+                            sequenceBuilder.InsertInSequence<MixingProcess>();
+                        }
+                    )
+                    .Create();
+        return recipe;
+    }
     ///// <summary>
     ///// Может проваливаться при запуске сразу всех тестов, так как они выполняются не по порядку (выполняется AddNewStorageTest до этого теста)
     ///// </summary>

@@ -12,6 +12,10 @@ public class OrderController : EateryApplicationControllerBase
     private readonly EateryMenuBase _eateryMenu;
     private readonly OrdersContainerBase _ordersContainerBase;
 
+    public OrderController()
+    {
+    }
+
     internal OrderController(EateryMenuBase eateryMenu, OrdersContainerBase ordersContainerBase)
     {
         _eateryMenu = eateryMenu;

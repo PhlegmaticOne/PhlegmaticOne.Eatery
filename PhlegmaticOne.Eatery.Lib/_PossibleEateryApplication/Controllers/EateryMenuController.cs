@@ -8,7 +8,13 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 public class EateryMenuController : EateryApplicationControllerBase
 {
     private readonly EateryMenuBase _eateryMenu;
+
     internal EateryMenuController(EateryMenuBase eateryMenu) => _eateryMenu = eateryMenu;
+
+    public EateryMenuController()
+    {
+    }
+
     [EateryWorker(typeof(Chief))]
     public IApplicationRespond<bool> AddRecipeInMenu(IApplicationRequest<Recipe> addRecipeRequest)
     {

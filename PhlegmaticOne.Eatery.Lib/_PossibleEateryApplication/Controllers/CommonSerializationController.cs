@@ -3,6 +3,11 @@
 public class CommonSerializationController : EateryApplicationControllerBase
 {
     private readonly EateryApplication _eateryApplication;
+
+    public CommonSerializationController()
+    {
+    }
+
     public CommonSerializationController(EateryApplication eateryApplication) => _eateryApplication = eateryApplication;
     public void SerializeContainer<TContainer, TSerializer>(IApplicationRequest<string> serializeContainerRequest)
         where TContainer : class

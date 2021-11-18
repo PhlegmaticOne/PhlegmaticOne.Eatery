@@ -5,6 +5,11 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 public class WorkersController : EateryApplicationControllerBase
 {
     private readonly EateryWorkersContainerBase _eateryWorkersContainer;
+
+    public WorkersController()
+    {
+    }
+
     internal WorkersController(EateryWorkersContainerBase eateryWorkersContainer)
     {
         _eateryWorkersContainer = eateryWorkersContainer;

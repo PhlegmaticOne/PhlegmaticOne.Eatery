@@ -58,20 +58,22 @@ public class EateryApplication
         var instance = new EateryApplication();
         return instance.InitAsync(eateryAsyncInitializer);
     }
-    public IEateryApplicationControllersContainer Run()
-    {
-        return new DefaultEateryApplicationControllersContainer(new List<EateryApplicationControllerBase>()
+    public IEateryApplicationControllersContainer Run() => new DefaultEateryApplicationControllersContainer(
+        new List<EateryApplicationControllerBase>()
         {
-            new WorkersController(EateryWorkersContainer),
-            new ProductionCapacitiesController(ProductionCapacityContainer),
-            new StoragesController(StorageContainer),
-            new IngredientsController(StorageContainer),
+            new CommonSerializationController(this),
+            new DetailedSerializationController(this),
             new EateryMenuController(EateryMenu),
+            new IngredientsController(StorageContainer),
             new OrderController(EateryMenu, OrdersContainer),
             new OrderQueueController(EateryMenu),
-            new PreparingDishController(StorageContainer, ProductionCapacityContainer, OrdersContainer)
+            new PreparingDishController(StorageContainer, ProductionCapacityContainer, OrdersContainer),
+            new ProductionCapacitiesController(ProductionCapacityContainer),
+            new RecipeController(IngredientProcessContainer, IntermediateProcessContainer, EateryMenu),
+            new StatiticsController(EateryMenu, OrdersContainer, IngredientProcessContainer, IntermediateProcessContainer),
+            new StoragesController(StorageContainer),
+            new WorkersController(EateryWorkersContainer),
         });
-    }
     internal object? GetContainer<TContainer>() => typeof(TContainer).Name switch
     {
         "StoragesContainerBase" => StorageContainer,

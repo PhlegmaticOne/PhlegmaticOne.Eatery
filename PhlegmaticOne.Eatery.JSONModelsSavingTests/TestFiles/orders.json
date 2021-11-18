@@ -15,7 +15,7 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-18T13:26:40.8775187+03:00",
+      "OrderDate": "2021-11-18T14:16:34.0815157+03:00",
       "DishName": "VegetableSalad"
     },
     "2": {
@@ -31,7 +31,7 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-18T13:27:40.8775936+03:00",
+      "OrderDate": "2021-11-18T14:17:34.0815861+03:00",
       "DishName": "VegetableSalad"
     },
     "3": {
@@ -47,7 +47,7 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-18T13:28:40.8775945+03:00",
+      "OrderDate": "2021-11-18T14:18:34.0815869+03:00",
       "DishName": "VegetableSalad"
     },
     "4": {
@@ -63,7 +63,7 @@
         "Weight": 100.0,
         "Name": "VegetableSalad"
       },
-      "OrderDate": "2021-11-18T13:30:40.8775947+03:00",
+      "OrderDate": "2021-11-18T14:20:34.081587+03:00",
       "DishName": "VegetableSalad"
     }
   },

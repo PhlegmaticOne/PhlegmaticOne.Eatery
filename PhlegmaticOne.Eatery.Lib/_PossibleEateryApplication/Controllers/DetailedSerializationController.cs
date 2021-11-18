@@ -11,6 +11,9 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 public class DetailedSerializationController : EateryApplicationControllerBase
 {
     private readonly EateryApplication _eateryApplication;
+    public DetailedSerializationController()
+    {
+    }
     public DetailedSerializationController(EateryApplication eateryApplication) => _eateryApplication = eateryApplication;
     [EateryWorker(typeof(Manager))]
     public void SerializeMenuState<TMenuSerializer>(IApplicationRequest<string> serializeMenuRequest)

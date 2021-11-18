@@ -25,6 +25,11 @@ public class PreparingDishController : EateryApplicationControllerBase
         _capacitiesContainer = capacitiesContainer;
         _ordersContainerBase = ordersContainerBase;
     }
+
+    public PreparingDishController()
+    {
+    }
+
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<TryToPrepareDishRespondType, string> BeginPreparing(IApplicationRequest<Order, Recipe> beginPrepareDishRequest)
     {
@@ -41,7 +46,7 @@ public class PreparingDishController : EateryApplicationControllerBase
             return new DefaultApplicationRespond<TryToPrepareDishRespondType, string>
                 (preIngredientCheckingType, "", ApplicationRespondType.InternalError, errorMessage1);
         }
-        (var preCapacitiesCheckingType, var errorMessage2) = CheckForIngredients(neededIngredients);
+        (var preCapacitiesCheckingType, var errorMessage2) = CheckForCapacities(neededCapacities);
         if (preCapacitiesCheckingType != TryToPrepareDishRespondType.PreparingBegan)
         {
             return new DefaultApplicationRespond<TryToPrepareDishRespondType, string>
@@ -92,7 +97,7 @@ public class PreparingDishController : EateryApplicationControllerBase
             {
                 ingredientProcess.Update(dish, recipe.IngredientsTakesPartInPreparing[ingredientProcess.CurrentIngredientType]);
             }
-            if (process is IntermediateProcess intermediateProcess)
+            else if (process is IntermediateProcess intermediateProcess)
             {
                 intermediateProcess.Update(dish);
             }
@@ -167,6 +172,10 @@ public class PreparingDishController : EateryApplicationControllerBase
         var possibleCapacities = _capacitiesContainer.GetPossibleCapacities();
         foreach (var neededCapacity in neededCapacities)
         {
+            if(neededCapacity.Key == typeof(AddingProcess))
+            {
+                continue;
+            }
             if (existingCapacities.TryGetValue(neededCapacity.Key, out int existingCapacity) == false)
             {
                 return (TryToPrepareDishRespondType.NotEnoughCapacitiesAtAll, $"Eatery does not have capacities for {neededCapacity.Key}");

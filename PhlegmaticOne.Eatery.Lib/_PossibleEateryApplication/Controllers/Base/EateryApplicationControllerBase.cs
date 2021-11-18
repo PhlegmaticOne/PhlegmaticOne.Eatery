@@ -4,6 +4,10 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication;
 
 public abstract class EateryApplicationControllerBase
 {
+    protected EateryApplicationControllerBase()
+    {
+
+    }
     protected virtual bool IsInRole(Worker worker, string methodName)
     {
         dynamic methodAttribute = GetType().GetMethod(methodName).GetCustomAttributes(false).First();

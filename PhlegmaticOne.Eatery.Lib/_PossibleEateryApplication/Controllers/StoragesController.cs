@@ -9,6 +9,11 @@ public class StoragesController : EateryApplicationControllerBase
     private readonly StoragesContainerBase _storageContainer;
     internal StoragesController(StoragesContainerBase storageContainer) =>
         _storageContainer = storageContainer ?? throw new ArgumentNullException(nameof(storageContainer));
+
+    public StoragesController()
+    {
+    }
+
     [EateryWorker(typeof(Chief), typeof(Cook))]
     public IApplicationRespond<StoragesContainerBase> GetAllStorages(EmptyApplicationRequest getAllStoragesRequest)
     {
