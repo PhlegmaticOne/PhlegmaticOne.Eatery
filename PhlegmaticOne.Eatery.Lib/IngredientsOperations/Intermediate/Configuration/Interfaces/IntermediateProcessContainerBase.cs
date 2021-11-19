@@ -53,12 +53,12 @@ public abstract class IntermediateProcessContainerBase
         foreach (var process in IntermediateProcesses.Values)
         {
             var temp = process.MaxBy(x => x.Price.Amount);
-            if (result is null || result.Price.Amount < temp.Price.Amount)
+            if (result is null || result.Price.Amount > temp.Price.Amount)
             {
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     public IntermediateProcess MaxPriceProcess()
     {
@@ -66,12 +66,12 @@ public abstract class IntermediateProcessContainerBase
         foreach (var process in IntermediateProcesses.Values)
         {
             var temp = process.MinBy(x => x.Price.Amount);
-            if (result is null || result.Price.Amount > temp.Price.Amount)
+            if (result is null || result.Price.Amount < temp.Price.Amount)
             {
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     public IntermediateProcess MinTimeProcess()
     {
@@ -84,7 +84,7 @@ public abstract class IntermediateProcessContainerBase
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     public IntermediateProcess MaxTimeProcess()
     {
@@ -97,6 +97,6 @@ public abstract class IntermediateProcessContainerBase
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
 }

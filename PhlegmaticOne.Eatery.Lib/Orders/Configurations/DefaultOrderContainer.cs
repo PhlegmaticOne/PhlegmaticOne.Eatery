@@ -13,5 +13,5 @@ public class DefaultOrderContainer : OrdersContainerBase
     /// </summary>
     /// <param name="orders">Sprcified orders collection</param>
     [Newtonsoft.Json.JsonConstructor]
-    internal DefaultOrderContainer(Dictionary<int, Order> orders) : base(orders) { }
+    public DefaultOrderContainer(Dictionary<int, Order> orders) : base(orders) { }
 }

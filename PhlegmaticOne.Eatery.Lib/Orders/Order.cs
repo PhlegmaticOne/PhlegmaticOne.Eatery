@@ -4,7 +4,7 @@ namespace PhlegmaticOne.Eatery.Lib.Orders;
 /// <summary>
 /// Represents instance for order
 /// </summary>
-public class Order : IEquatable<Order>
+public class Order
 {
     /// <summary>
     /// Initializes new order instance
@@ -13,13 +13,21 @@ public class Order : IEquatable<Order>
     /// <param name="dish">Specified dish</param>
     /// <param name="orderDate">Specified order date</param>
     /// <param name="dishName">Specified dish name</param>
-    [Newtonsoft.Json.JsonConstructor]
     public Order(int id, DishBase dish, DateTime orderDate, string dishName)
     {
         Id = id;
         Dish = dish;
         OrderDate = orderDate;
         DishName = dishName;
+    }
+    [Newtonsoft.Json.JsonConstructor]
+    public Order(int id, DishBase dish, DateTime orderDate, string dishName, Type dishType)
+    {
+        Id = id;
+        Dish = dish;
+        OrderDate = orderDate;
+        DishName = dishName;
+        DishType = dishType;
     }
     /// <summary>
     /// Id of order
@@ -44,12 +52,8 @@ public class Order : IEquatable<Order>
     /// <summary>
     /// Dish type of dish preparing
     /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
-    internal Type DishType { get; set; }
-    public override int GetHashCode() => Id;
-    public override bool Equals(object? obj) => Equals(obj as Order);
-    public bool Equals(Order? other) => Id == other.Id;
+    /// [Newtonsoft.Json.JsonProperty]
+    internal Type DishType { get; set; } = typeof(Dish);
     public override string ToString() => string.Format("Order №{0}. Ordered at: {1}. Dish: {2} - {3}",
                                          Id, OrderDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"), DishType.Name, DishName);
-
 }

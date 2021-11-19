@@ -13,13 +13,17 @@ internal class WorkersConverter : JsonConverter
     {
         var jsonReader = JObject.Load(reader);
         var typeName = jsonReader["$type"].Value<string>();
-        if (typeName.Contains("IngredientProcess"))
+        if (typeName.Contains("Cook"))
         {
             return jsonReader.ToObject<Cook>(serializer);
         }
-        else if (typeName.Contains("IntermideateProcess"))
+        else if (typeName.Contains("Chief"))
         {
             return jsonReader.ToObject<Chief>(serializer);
+        }
+        else if (typeName.Contains("Manager"))
+        {
+            return jsonReader.ToObject<Manager>(serializer);
         }
         return null;
     }

@@ -41,8 +41,5 @@ public abstract class OrdersContainerBase
     /// Gets all orders from container
     /// </summary>
     public IReadOnlyDictionary<int, Order> GetAllOrders() => new ReadOnlyDictionary<int, Order>(_orders);
-    public override bool Equals(object? obj) => obj is OrdersContainerBase ordersContainerBase &&
-                                                ordersContainerBase._orders.Except(_orders).Any() == false;
-    public override int GetHashCode() => _orders.GetHashCode();
-    public override string ToString() => string.Format("{0}. Count: {1}", GetType().GetType().Name, Count);
+    public override string ToString() => string.Format("{0}. Count: {1}", GetType().Name, Count);
 }

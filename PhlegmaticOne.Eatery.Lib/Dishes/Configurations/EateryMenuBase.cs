@@ -75,8 +75,5 @@ public abstract class EateryMenuBase
             return false;
         }
     }
-    public override bool Equals(object? obj) => obj is EateryMenuBase eateryMenu &&
-                                                eateryMenu.Recipies.Except(Recipies).Any() == false;
-    public override int GetHashCode() => Recipies.GetHashCode();
     public override string ToString() => string.Format("{0}. Count: {1}", GetType().Name, Count);
 }

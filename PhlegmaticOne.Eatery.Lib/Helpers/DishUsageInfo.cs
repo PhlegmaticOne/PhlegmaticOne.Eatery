@@ -9,7 +9,7 @@ public class DishUsageInfo
     /// </summary>
     /// <param name="allUsedIngredients">All used ingredients for dish</param>
     /// <param name="earnedMoney">Earned money on this dish</param>
-    /// <param name="dishType">Dish tyoe</param>
+    /// <param name="dishType">Dish type</param>
     public DishUsageInfo(IReadOnlyDictionary<Type, double> allUsedIngredients, Money earnedMoney, Type dishType)
     {
         AllUsedIngredients = allUsedIngredients;

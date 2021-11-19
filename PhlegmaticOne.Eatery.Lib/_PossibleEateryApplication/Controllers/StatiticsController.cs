@@ -51,7 +51,7 @@ public class StatiticsController : EateryApplicationControllerBase
         }
         var beginDate = getOrdersInDataRangeRequest.RequestData1;
         var endDate = getOrdersInDataRangeRequest.RequestData2;
-        if(endDate > beginDate)
+        if(endDate < beginDate)
         {
             (beginDate, endDate) = (endDate, beginDate);
         }
@@ -257,10 +257,10 @@ public class StatiticsController : EateryApplicationControllerBase
             _eateryMenu.TryGetRecipe(order.Dish.Name, out Recipe recipe);
             foreach (var ingredient in recipe.IngredientsTakesPartInPreparing)
             {
-                var ingredientType = ingredient.GetType();
+                var ingredientType = ingredient.Key;
                 if (dictionaryWithWeightsOfIngredients.TryGetValue(ingredientType, out double necessaryIngredientWeight))
                 {
-                    dictionaryWithWeightsOfIngredients[ingredientType] += necessaryIngredientWeight;
+                    dictionaryWithWeightsOfIngredients[ingredientType] += ingredient.Value;
                 }
                 else
                 {
@@ -279,14 +279,14 @@ public class StatiticsController : EateryApplicationControllerBase
             _eateryMenu.TryGetRecipe(order.Dish.Name, out Recipe recipe);
             foreach (var ingredient in recipe.IngredientsTakesPartInPreparing)
             {
-                var ingredientType = ingredient.GetType();
+                var ingredientType = ingredient.Key;
                 if (dictionaryWithWeightsOfIngredients.TryGetValue(ingredientType, out int alreadyUsed))
                 {
-                    dictionaryWithWeightsOfIngredients[ingredientType]++;
+                    ++dictionaryWithWeightsOfIngredients[ingredientType];
                 }
                 else
                 {
-                    dictionaryWithWeightsOfIngredients.Add(ingredientType, 0);
+                    dictionaryWithWeightsOfIngredients.Add(ingredientType, 1);
                 }
             }
         }
@@ -306,7 +306,7 @@ public class StatiticsController : EateryApplicationControllerBase
                     var ingredientType = ingredient.GetType();
                     if (dictionaryWithWeightsOfIngredients.TryGetValue(ingredientType, out double necessaryIngredientWeight))
                     {
-                        dictionaryWithWeightsOfIngredients[ingredientType] += necessaryIngredientWeight;
+                        dictionaryWithWeightsOfIngredients[ingredientType] += ingredient.Value;
                     }
                     else
                     {

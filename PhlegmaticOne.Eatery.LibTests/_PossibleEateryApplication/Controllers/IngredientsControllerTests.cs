@@ -42,6 +42,9 @@ namespace PhlegmaticOne.Eatery.Lib._PossibleEateryApplication.Tests
                                  type.FullName, true, BindingFlags.Instance | BindingFlags.NonPublic,
                                  null, new object[] { strorageContainer }, null, null) as IngredientsController;
         }
+        /// <summary>
+        /// Можут проваливаться при запуске всех тестов сразу
+        /// </summary>
         [TestMethod()]
         public void GetAllExistingIngredientsTest()
         {

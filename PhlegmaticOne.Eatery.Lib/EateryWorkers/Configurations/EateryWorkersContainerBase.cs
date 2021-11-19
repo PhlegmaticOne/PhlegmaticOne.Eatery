@@ -20,4 +20,5 @@ public abstract class EateryWorkersContainerBase
         return null;
     }
     public IReadOnlyDictionary<string, Worker> GetWorkers() => new ReadOnlyDictionary<string, Worker>(_workers);
+    public override string ToString() => GetType().Name;
 }

@@ -91,8 +91,5 @@ public abstract class ProductionCapacitiesContainerBase
     /// </summary>
     public virtual IReadOnlyDictionary<Type, int> GetPossibleCapacities() => 
         new ReadOnlyDictionary<Type, int>(MaximalCapacities);
-    public override bool Equals(object? obj) => obj is ProductionCapacitiesContainerBase productionCapacities &&
-                                                productionCapacities.MaximalCapacities.Except(MaximalCapacities).Any() == false;
-    public override int GetHashCode() => MaximalCapacities.GetHashCode();
     public override string ToString() => string.Format("{0}. Count: {1}", GetType().Name, Count);
 }

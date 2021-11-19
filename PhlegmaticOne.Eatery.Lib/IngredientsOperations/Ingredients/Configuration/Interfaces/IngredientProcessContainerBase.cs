@@ -69,13 +69,13 @@ public abstract class IngredientProcessContainerBase
         IngredientProcess result = null;
         foreach (var process in PossibleTypesToProcess.Values)
         {
-            var temp = process.MaxBy(x => x.Price.Amount);
-            if (result is null || result.Price.Amount < temp.Price.Amount)
+            var temp = process.MinBy(x => x.Price.Amount);
+            if (result is null || result.Price.Amount > temp.Price.Amount)
             {
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     /// <summary>
     /// Gets max price ingredient process from all processes in container
@@ -85,13 +85,13 @@ public abstract class IngredientProcessContainerBase
         IngredientProcess result = null;
         foreach (var process in PossibleTypesToProcess.Values)
         {
-            var temp = process.MinBy(x => x.Price.Amount);
-            if (result is null || result.Price.Amount > temp.Price.Amount)
+            var temp = process.MaxBy(x => x.Price.Amount);
+            if (result is null || result.Price.Amount < temp.Price.Amount)
             {
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     /// <summary>
     /// Gets min time ingredient process from all processes in container
@@ -107,7 +107,7 @@ public abstract class IngredientProcessContainerBase
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     /// <summary>
     /// Gets max time ingredient process from all processes in container
@@ -123,7 +123,7 @@ public abstract class IngredientProcessContainerBase
                 result = temp;
             }
         }
-        return null;
+        return result;
     }
     /// <summary>
     /// Gets ingredient processes and their all information for every ingredient

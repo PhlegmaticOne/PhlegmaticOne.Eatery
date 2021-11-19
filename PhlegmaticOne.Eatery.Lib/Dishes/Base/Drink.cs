@@ -4,7 +4,7 @@ namespace PhlegmaticOne.Eatery.Lib.Dishes;
 /// <summary>
 /// Represents drinkable dish
 /// </summary>
-public class Drink : DishBase, IEquatable<Drink>
+public class Drink : DishBase
 {
     /// <summary>
     /// Initializes new Drink instance
@@ -15,9 +15,4 @@ public class Drink : DishBase, IEquatable<Drink>
     [Newtonsoft.Json.JsonConstructor]
     public Drink(Money price, double weight, string name) : base(price, weight, name) { }
 
-    public bool Equals(Drink? other) => base.Equals(other);
-
-    public override bool Equals(object obj) => Equals(obj as Drink);
-
-    public override int GetHashCode() => base.GetHashCode();
 }

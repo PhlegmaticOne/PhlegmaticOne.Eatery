@@ -34,9 +34,5 @@ public abstract class DishBase
     /// </summary>
     [Newtonsoft.Json.JsonProperty]
     public string Name { get; internal set; }
-    public override bool Equals(object? obj) => obj is DishBase other &&
-                                                other.Name == Name && other.Price.Equals(Price) &&
-                                                other.Weight == Weight;
-    override public int GetHashCode() => Name.GetHashCode() ^ Weight.GetHashCode() ^ Price.GetHashCode();
     public override string ToString() => string.Format("{0}. Price: {1}. Weight: {2}", Name, Price, Weight);
 }
