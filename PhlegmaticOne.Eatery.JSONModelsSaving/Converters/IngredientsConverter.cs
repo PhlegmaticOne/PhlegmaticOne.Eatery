@@ -29,6 +29,22 @@ internal class IngredientsConverter : Newtonsoft.Json.JsonConverter
         {
             return jsonReader.ToObject<OliveOil>(serializer);
         }
+        else if (typeName.Contains("Сookie"))
+        {
+            return jsonReader.ToObject<Cookie>(serializer);
+        }
+        else if (typeName.Contains("Egg"))
+        {
+            return jsonReader.ToObject<Egg>(serializer);
+        }
+        else if (typeName.Contains("Mascarpone"))
+        {
+            return jsonReader.ToObject<Mascarpone>(serializer);
+        }
+        else if (typeName.Contains("Sugar"))
+        {
+            return jsonReader.ToObject<Sugar>(serializer);
+        }
         return null;
     }
 
