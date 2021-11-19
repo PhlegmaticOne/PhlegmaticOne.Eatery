@@ -27,6 +27,7 @@ public abstract class IntermediateProcessContainerBase
                 if (curentFittedTypesCount < maxFittedTypes)
                 {
                     fittedProcess = intermediateProcesses.ElementAt(i);
+                    maxFittedTypes = curentFittedTypesCount;
                 }
             }
             return fittedProcess as TProcess;

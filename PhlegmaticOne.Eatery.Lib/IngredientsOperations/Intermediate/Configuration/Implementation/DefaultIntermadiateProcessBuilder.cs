@@ -29,6 +29,7 @@ public class DefaultIntermadiateProcessBuilder<TProcess> : IIntermediateProcessB
             Price = _money,
             TimeToFinish = timeToFinish
         });
+        _ingredientType.Clear();
     }
     public void SetDefaultProcess(Money money, TimeSpan timeSpan)
     {
